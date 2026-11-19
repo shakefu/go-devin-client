@@ -1666,7 +1666,7 @@ type AutomationUpdateRequest struct {
 	// The automation's LLM check configuration. On update the filter prompt is
 	LlmCheck *AutomationLlmCheckRequest `json:"llm_check,omitempty"`
 	// nil omits the property; &map[string]string{} sends {} (clears it).
-	Metadata      *map[string]string       `json:"metadata,omitempty"`
+	Metadata      *map[string]*string      `json:"metadata,omitempty"`
 	Name          *string                  `json:"name,omitempty"`
 	Notifications *AutomationNotifications `json:"notifications,omitempty"`
 	// null resets to organization.
@@ -3231,8 +3231,8 @@ type OncallResponderUpdateRequest struct {
 	Enabled *bool              `json:"enabled,omitempty"`
 	Limits  *OncallLimitsPatch `json:"limits,omitempty"`
 	// nil omits the property; &map[string]string{} sends {} (clears it).
-	Metadata *map[string]string `json:"metadata,omitempty"`
-	Name     *string            `json:"name,omitempty"`
+	Metadata *map[string]*string `json:"metadata,omitempty"`
+	Name     *string             `json:"name,omitempty"`
 	// Omitted -> preserve; required when triggers switch the responder to PagerDuty.
 	PagerdutyConnectionId *string `json:"pagerduty_connection_id,omitempty"`
 	// Omitted -> preserve the responder's existing run_as; null resets to organization.

@@ -120,6 +120,7 @@ const (
 	UnitDevinEnumValueTest Unit = "devin_enum_value_test"
 )
 `), []byte(`openapi: 3.1.0
+paths: {}
 components:
   schemas:
     Unit:
@@ -202,6 +203,42 @@ paths:
 `)
 	if _, err := collectionQueryParameters(spec); err == nil || !strings.Contains(err.Error(), "unsupported collection style") {
 		t.Fatalf("collection query error = %v, want unsupported style error", err)
+	}
+}
+
+func TestAdaptNullableMapValuesFromSpec(t *testing.T) {
+	spec := []byte(`openapi: 3.1.0
+components:
+  schemas:
+    UpdateRequest:
+      type: object
+      properties:
+        metadata:
+          anyOf:
+          - type: object
+            additionalProperties:
+              anyOf:
+              - type: string
+              - type: 'null'
+          - type: 'null'
+    PlainRequest:
+      type: object
+      properties:
+        metadata:
+          type: object
+          additionalProperties: {type: string}
+`)
+	source := []byte("package devin\n" + "type UpdateRequest struct { Metadata *map[string]string `json:\"metadata,omitempty\"` }\n" + "type PlainRequest struct { Metadata *map[string]string `json:\"metadata,omitempty\"` }\n")
+	adapted, err := adaptNullableMapValues(source, spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	text := string(adapted)
+	if !strings.Contains(text, "Metadata *map[string]*string `json:\"metadata,omitempty\"`") {
+		t.Fatalf("nullable map value was not adapted: %s", text)
+	}
+	if !strings.Contains(text, "type PlainRequest struct {\n\tMetadata *map[string]string `json:\"metadata,omitempty\"`") {
+		t.Fatalf("non-nullable map value was changed: %s", text)
 	}
 }
 
