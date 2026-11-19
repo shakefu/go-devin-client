@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+
+go run ./internal/codegen normalize v3-openapi.yaml codegen/v3-openapi.normalized.yaml
+go run github.com/jathanism/okapi/cmd/okapi-gen-typed@v0.4.0 \
+	--source codegen/v3-openapi.normalized.yaml --package devin --out .
+go run ./internal/codegen adapt client.gen.go types.gen.go codegen/v3-openapi.normalized.yaml
+gofmt -w client.gen.go types.gen.go

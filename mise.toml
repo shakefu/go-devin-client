@@ -1,0 +1,6 @@
+[tools]
+go = "1.26.11"
+prek = "0.5.10"
+cocogitto = "7.0.0"
+"github:common-repo/common-repo" = "0.38.4"
+"github:shakefu/yass" = "0.14.0"

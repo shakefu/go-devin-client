@@ -1,0 +1,23 @@
+# Shared repository policy and tooling; release credentials are referenced by name only.
+- repo:
+    url: https://github.com/common-repo/semantic-release
+    ref: v0.12.2
+- repo:
+    url: https://github.com/common-repo/mise
+    ref: v0.1.0
+- template-vars:
+    GH_APP_ID_SECRET: BOT_CLIENT_ID
+    GH_APP_KEY_SECRET: BOT_PRIVATE_KEY
+    GH_APP_OWNER: shakefu
+- yaml:
+    source: .common-repo/mise-action.yaml
+    dest: .github/workflows/ci.yaml
+    path: jobs.test.steps
+    array_mode: merge_by_key
+    position: start
+- yaml:
+    source: .common-repo/large-spec-precommit.yaml
+    dest: .pre-commit-config.yaml
+    path: repos
+    array_mode: merge_by_key
+    key: repo
