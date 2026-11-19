@@ -139,12 +139,79 @@ components:
 	}
 }
 
+func TestAdaptGeneratedQueriesUsesFormExplodeForCollections(t *testing.T) {
+	client, err := adaptGeneratedClient(generatedClientFixture())
+	if err != nil {
+		t.Fatal(err)
+	}
+	client = append(client, []byte(`
+func (c *Client) GetItems(ctx context.Context, tags []string, filter Filter) {
+	query := url.Values{}
+	query.Set("tags", formatPathValue(tags))
+	query.Set("filter", formatPathValue(filter))
+	_, _ = c.do(ctx, "GET", "/items", nil, query, nil, nil, "", "", nil)
+}
+`)...)
+	spec := []byte(`openapi: 3.1.0
+components:
+  schemas:
+    Filter:
+      type: object
+      properties:
+        after: {type: string}
+paths:
+  /items:
+    get:
+      operationId: get_items
+      parameters:
+      - in: query
+        name: tags
+        schema: {type: array, items: {type: string}}
+      - in: query
+        name: filter
+        schema: {$ref: '#/components/schemas/Filter'}
+`)
+	adapted, err := adaptGeneratedQueries(client, spec)
+	if err != nil {
+		t.Fatal(err)
+	}
+	text := string(adapted)
+	for _, expected := range []string{
+		`addFormExplodedQuery(query, "tags", tags)`,
+		`addFormExplodedQuery(query, "filter", filter)`,
+	} {
+		if !strings.Contains(text, expected) {
+			t.Errorf("adapted query method missing %q", expected)
+		}
+	}
+}
+
+func TestAdaptGeneratedQueriesRejectsUnsupportedCollectionStyle(t *testing.T) {
+	spec := []byte(`openapi: 3.1.0
+components: {schemas: {}}
+paths:
+  /items:
+    get:
+      operationId: get_items
+      parameters:
+      - in: query
+        name: tags
+        style: spaceDelimited
+        explode: false
+        schema: {type: array, items: {type: string}}
+`)
+	if _, err := collectionQueryParameters(spec); err == nil || !strings.Contains(err.Error(), "unsupported collection style") {
+		t.Fatalf("collection query error = %v, want unsupported style error", err)
+	}
+}
+
 func generatedClientFixture() []byte {
 	return []byte(`package devin
 
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 	"strings"
 )
 

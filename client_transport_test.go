@@ -56,6 +56,50 @@ func TestGeneratedClientSendsRequestAndPreservesResponseMetadata(t *testing.T) {
 	}
 }
 
+func TestGeneratedArrayQueryParameterUsesExplodeSerialization(t *testing.T) {
+	var gotQuery map[string][]string
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		gotQuery = r.URL.Query()
+		_, _ = io.WriteString(w, `{}`)
+	}))
+	defer server.Close()
+
+	severity := []HandleListCodeScanFindingsV3organizationsOrgIdCodeScansFindingsGetSeverityItem{"critical", "high"}
+	_, _, err := NewClient(server.URL).HandleListCodeScanFindingsV3OrganizationsOrgIdCodeScansFindingsGet(context.Background(), "org-1", nil, nil, nil, nil, nil, nil, nil, nil, &severity, nil, nil, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := gotQuery["severity"]; len(got) != 2 || got[0] != "critical" || got[1] != "high" {
+		t.Fatalf("severity query values = %#v, want repeated critical and high values", got)
+	}
+}
+
+func TestGeneratedObjectQueryParameterUsesFormExplodeSerialization(t *testing.T) {
+	var gotQuery map[string][]string
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		gotQuery = r.URL.Query()
+		_, _ = io.WriteString(w, `{}`)
+	}))
+	defer server.Close()
+
+	after := "cursor-123"
+	first := int64(25)
+	qs := SessionsQueryParams{After: &after, First: &first}
+	_, _, err := NewClient(server.URL).HandleGetSessionsV3OrganizationsOrgIdSessionsGet(context.Background(), "org-1", nil, qs)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := gotQuery["after"]; len(got) != 1 || got[0] != after {
+		t.Errorf("after query values = %#v, want [%q]", got, after)
+	}
+	if got := gotQuery["first"]; len(got) != 1 || got[0] != "25" {
+		t.Errorf("first query values = %#v, want [25]", got)
+	}
+	if _, exists := gotQuery["qs"]; exists {
+		t.Errorf("object parameter was serialized under its container name: %#v", gotQuery["qs"])
+	}
+}
+
 func TestGeneratedUnionRoundTripsArbitraryJSONData(t *testing.T) {
 	const payload = `{"field":"priority","operator":"eq","value":{"nested":[true,2,"kept"],"future":"preserved"},"unknown_top_level":"ignored"}`
 	var condition AutomationComparisonCondition
