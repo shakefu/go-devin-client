@@ -16,7 +16,7 @@ go run ./internal/codegen adapt "$tmpdir/generated/client.gen.go" "$tmpdir/gener
 gofmt -w "$tmpdir/generated/client.gen.go" "$tmpdir/generated/types.gen.go"
 cmp client.gen.go "$tmpdir/generated/client.gen.go"
 cmp types.gen.go "$tmpdir/generated/types.gen.go"
-method_count="$(rg -c '^func \(c \*Client\) [A-Z]' client.gen.go)"
+method_count="$(grep -Ec '^func \(c \*Client\) [A-Z]' client.gen.go)"
 if [[ "$method_count" != 280 ]]; then
 	printf 'generated operation methods: %s; want 280\n' "$method_count" >&2
 	exit 1
