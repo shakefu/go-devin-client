@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -ne 1 || ! -f "$1" ]]; then
+	printf 'usage: %s <published-v3-openapi-source>\n' "$0" >&2
+	exit 2
+fi
+
+source_path="$1"
+if [[ "$source_path" != /* ]]; then
+	source_path="$PWD/$source_path"
+fi
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+
+cp -- "$source_path" v3-openapi.yaml
+cmp -- "$source_path" v3-openapi.yaml

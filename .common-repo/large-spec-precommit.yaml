@@ -1,0 +1,4 @@
+- repo: builtin
+  hooks:
+  - id: check-added-large-files
+    exclude: '^(v3-openapi\.yaml|codegen/v3-openapi\.normalized\.yaml)$'

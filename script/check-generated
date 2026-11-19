@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo_root"
+
+tmpdir="$(mktemp -d)"
+trap 'rm -rf "$tmpdir"' EXIT
+
+go run ./internal/codegen normalize v3-openapi.yaml "$tmpdir/normalized.yaml"
+cmp codegen/v3-openapi.normalized.yaml "$tmpdir/normalized.yaml"
+mkdir "$tmpdir/generated"
+go run github.com/jathanism/okapi/cmd/okapi-gen-typed@v0.4.0 \
+	--source codegen/v3-openapi.normalized.yaml --package devin --out "$tmpdir/generated"
+go run ./internal/codegen adapt "$tmpdir/generated/client.gen.go" "$tmpdir/generated/types.gen.go" codegen/v3-openapi.normalized.yaml
+gofmt -w "$tmpdir/generated/client.gen.go" "$tmpdir/generated/types.gen.go"
+cmp client.gen.go "$tmpdir/generated/client.gen.go"
+cmp types.gen.go "$tmpdir/generated/types.gen.go"
+method_count="$(rg -c '^func \(c \*Client\) [A-Z]' client.gen.go)"
+if [[ "$method_count" != 280 ]]; then
+	printf 'generated operation methods: %s; want 280\n' "$method_count" >&2
+	exit 1
+fi
+printf 'generated files match pinned okapi-gen-typed v0.4.0 output\n'
+printf 'generated operation methods: %s; pending exceptions: 4\n' "$method_count"
