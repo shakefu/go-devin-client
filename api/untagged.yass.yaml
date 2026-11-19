@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "untagged".
+version: v1
+---
+spec: Operation_handle_get_hypervisors_v3_enterprise_hypervisors_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetHypervisorsV3EnterpriseHypervisorsGet` for `GET /v3/enterprise/hypervisors`'
+  - MUST: 'expose the exact CLI command `handle_get_hypervisors_v3_enterprise_hypervisors_get` for `GET /v3/enterprise/hypervisors`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "guardrail_violations".
+version: v1
+---
+spec: Operation_handle_get_enterprise_guardrail_violations_v3beta1_enterprise_guardrail_violations_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetEnterpriseGuardrailViolationsV3beta1EnterpriseGuardrailViolationsGet` for `GET /v3beta1/enterprise/guardrail-violations`'
+  - MUST: 'expose the exact CLI command `handle_get_enterprise_guardrail_violations_v3beta1_enterprise_guardrail_violations_get` for `GET /v3beta1/enterprise/guardrail-violations`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_org_guardrail_violations_v3beta1_enterprise_organizations__org_id__guardrail_violations_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOrgGuardrailViolationsV3beta1EnterpriseOrganizationsOrgIdGuardrailViolationsGet` for `GET /v3beta1/enterprise/organizations/{org_id}/guardrail-violations`'
+  - MUST: 'expose the exact CLI command `handle_get_org_guardrail_violations_v3beta1_enterprise_organizations__org_id__guardrail_violations_get` for `GET /v3beta1/enterprise/organizations/{org_id}/guardrail-violations`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

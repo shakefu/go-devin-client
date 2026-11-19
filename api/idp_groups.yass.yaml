@@ -1,0 +1,121 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "idp_groups".
+version: v1
+---
+spec: Operation_handle_assign_enterprise_idp_group_role_v3_enterprise_members_idp_groups__idp_group_name__post
+INPUT:
+  - MUST: 'expose `Client.HandleAssignEnterpriseIdpGroupRoleV3EnterpriseMembersIdpGroupsIdpGroupNamePost` for `POST /v3/enterprise/members/idp-groups/{idp_group_name}`'
+  - MUST: 'expose the exact CLI command `handle_assign_enterprise_idp_group_role_v3_enterprise_members_idp_groups__idp_group_name__post` for `POST /v3/enterprise/members/idp-groups/{idp_group_name}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_assign_organization_idp_group_role_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__post
+INPUT:
+  - MUST: 'expose `Client.HandleAssignOrganizationIdpGroupRoleV3EnterpriseOrganizationsOrgIdMembersIdpGroupsIdpGroupNamePost` for `POST /v3/enterprise/organizations/{org_id}/members/idp-groups/{idp_group_name}`'
+  - MUST: 'expose the exact CLI command `handle_assign_organization_idp_group_role_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__post` for `POST /v3/enterprise/organizations/{org_id}/members/idp-groups/{idp_group_name}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_bulk_register_account_idp_groups_v3_enterprise_idp_groups_post
+INPUT:
+  - MUST: 'expose `Client.HandleBulkRegisterAccountIdpGroupsV3EnterpriseIdpGroupsPost` for `POST /v3/enterprise/idp-groups`'
+  - MUST: 'expose the exact CLI command `handle_bulk_register_account_idp_groups_v3_enterprise_idp_groups_post` for `POST /v3/enterprise/idp-groups`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_account_idp_group_v3_enterprise_idp_groups__idp_group_name__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteAccountIdpGroupV3EnterpriseIdpGroupsIdpGroupNameDelete` for `DELETE /v3/enterprise/idp-groups/{idp_group_name}`'
+  - MUST: 'expose the exact CLI command `handle_delete_account_idp_group_v3_enterprise_idp_groups__idp_group_name__delete` for `DELETE /v3/enterprise/idp-groups/{idp_group_name}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_enterprise_idp_group_v3_enterprise_members_idp_groups__idp_group_name__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetEnterpriseIdpGroupV3EnterpriseMembersIdpGroupsIdpGroupNameGet` for `GET /v3/enterprise/members/idp-groups/{idp_group_name}`'
+  - MUST: 'expose the exact CLI command `handle_get_enterprise_idp_group_v3_enterprise_members_idp_groups__idp_group_name__get` for `GET /v3/enterprise/members/idp-groups/{idp_group_name}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_organization_idp_group_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOrganizationIdpGroupV3EnterpriseOrganizationsOrgIdMembersIdpGroupsIdpGroupNameGet` for `GET /v3/enterprise/organizations/{org_id}/members/idp-groups/{idp_group_name}`'
+  - MUST: 'expose the exact CLI command `handle_get_organization_idp_group_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__get` for `GET /v3/enterprise/organizations/{org_id}/members/idp-groups/{idp_group_name}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_account_idp_groups_v3_enterprise_idp_groups_get
+INPUT:
+  - MUST: 'expose `Client.HandleListAccountIdpGroupsV3EnterpriseIdpGroupsGet` for `GET /v3/enterprise/idp-groups`'
+  - MUST: 'expose the exact CLI command `handle_list_account_idp_groups_v3_enterprise_idp_groups_get` for `GET /v3/enterprise/idp-groups`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_enterprise_idp_groups_v3_enterprise_members_idp_groups_get
+INPUT:
+  - MUST: 'expose `Client.HandleListEnterpriseIdpGroupsV3EnterpriseMembersIdpGroupsGet` for `GET /v3/enterprise/members/idp-groups`'
+  - MUST: 'expose the exact CLI command `handle_list_enterprise_idp_groups_v3_enterprise_members_idp_groups_get` for `GET /v3/enterprise/members/idp-groups`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_organization_idp_groups_v3_enterprise_organizations__org_id__members_idp_groups_get
+INPUT:
+  - MUST: 'expose `Client.HandleListOrganizationIdpGroupsV3EnterpriseOrganizationsOrgIdMembersIdpGroupsGet` for `GET /v3/enterprise/organizations/{org_id}/members/idp-groups`'
+  - MUST: 'expose the exact CLI command `handle_list_organization_idp_groups_v3_enterprise_organizations__org_id__members_idp_groups_get` for `GET /v3/enterprise/organizations/{org_id}/members/idp-groups`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remove_enterprise_idp_group_v3_enterprise_members_idp_groups__idp_group_name__delete
+INPUT:
+  - MUST: 'expose `Client.HandleRemoveEnterpriseIdpGroupV3EnterpriseMembersIdpGroupsIdpGroupNameDelete` for `DELETE /v3/enterprise/members/idp-groups/{idp_group_name}`'
+  - MUST: 'expose the exact CLI command `handle_remove_enterprise_idp_group_v3_enterprise_members_idp_groups__idp_group_name__delete` for `DELETE /v3/enterprise/members/idp-groups/{idp_group_name}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remove_organization_idp_group_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__delete
+INPUT:
+  - MUST: 'expose `Client.HandleRemoveOrganizationIdpGroupV3EnterpriseOrganizationsOrgIdMembersIdpGroupsIdpGroupNameDelete` for `DELETE /v3/enterprise/organizations/{org_id}/members/idp-groups/{idp_group_name}`'
+  - MUST: 'expose the exact CLI command `handle_remove_organization_idp_group_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__delete` for `DELETE /v3/enterprise/organizations/{org_id}/members/idp-groups/{idp_group_name}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_enterprise_idp_group_role_v3_enterprise_members_idp_groups__idp_group_name__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateEnterpriseIdpGroupRoleV3EnterpriseMembersIdpGroupsIdpGroupNamePatch` for `PATCH /v3/enterprise/members/idp-groups/{idp_group_name}`'
+  - MUST: 'expose the exact CLI command `handle_update_enterprise_idp_group_role_v3_enterprise_members_idp_groups__idp_group_name__patch` for `PATCH /v3/enterprise/members/idp-groups/{idp_group_name}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_organization_idp_group_role_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateOrganizationIdpGroupRoleV3EnterpriseOrganizationsOrgIdMembersIdpGroupsIdpGroupNamePatch` for `PATCH /v3/enterprise/organizations/{org_id}/members/idp-groups/{idp_group_name}`'
+  - MUST: 'expose the exact CLI command `handle_update_organization_idp_group_role_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__patch` for `PATCH /v3/enterprise/organizations/{org_id}/members/idp-groups/{idp_group_name}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

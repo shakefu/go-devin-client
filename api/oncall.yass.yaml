@@ -1,0 +1,58 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "oncall".
+version: v1
+---
+spec: Operation_handle_create_responder_v3_organizations__org_id__oncall_responders_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateResponderV3OrganizationsOrgIdOncallRespondersPost` for `POST /v3/organizations/{org_id}/oncall/responders`'
+  - MUST: 'expose the exact CLI command `handle_create_responder_v3_organizations__org_id__oncall_responders_post` for `POST /v3/organizations/{org_id}/oncall/responders`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_responder_v3_organizations__org_id__oncall_responders__responder_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteResponderV3OrganizationsOrgIdOncallRespondersResponderIdDelete` for `DELETE /v3/organizations/{org_id}/oncall/responders/{responder_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_responder_v3_organizations__org_id__oncall_responders__responder_id__delete` for `DELETE /v3/organizations/{org_id}/oncall/responders/{responder_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_oncall_schemas_v3_organizations__org_id__oncall_schemas_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOncallSchemasV3OrganizationsOrgIdOncallSchemasGet` for `GET /v3/organizations/{org_id}/oncall/schemas`'
+  - MUST: 'expose the exact CLI command `handle_get_oncall_schemas_v3_organizations__org_id__oncall_schemas_get` for `GET /v3/organizations/{org_id}/oncall/schemas`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_responder_v3_organizations__org_id__oncall_responders__responder_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetResponderV3OrganizationsOrgIdOncallRespondersResponderIdGet` for `GET /v3/organizations/{org_id}/oncall/responders/{responder_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_responder_v3_organizations__org_id__oncall_responders__responder_id__get` for `GET /v3/organizations/{org_id}/oncall/responders/{responder_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_responders_v3_organizations__org_id__oncall_responders_get
+INPUT:
+  - MUST: 'expose `Client.HandleListRespondersV3OrganizationsOrgIdOncallRespondersGet` for `GET /v3/organizations/{org_id}/oncall/responders`'
+  - MUST: 'expose the exact CLI command `handle_list_responders_v3_organizations__org_id__oncall_responders_get` for `GET /v3/organizations/{org_id}/oncall/responders`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_responder_v3_organizations__org_id__oncall_responders__responder_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateResponderV3OrganizationsOrgIdOncallRespondersResponderIdPatch` for `PATCH /v3/organizations/{org_id}/oncall/responders/{responder_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_responder_v3_organizations__org_id__oncall_responders__responder_id__patch` for `PATCH /v3/organizations/{org_id}/oncall/responders/{responder_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

@@ -1,0 +1,94 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "playbooks".
+version: v1
+---
+spec: Operation_handle_create_playbook_v3_enterprise_playbooks_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreatePlaybookV3EnterprisePlaybooksPost` for `POST /v3/enterprise/playbooks`'
+  - MUST: 'expose the exact CLI command `handle_create_playbook_v3_enterprise_playbooks_post` for `POST /v3/enterprise/playbooks`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_create_playbook_v3_organizations__org_id__playbooks_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreatePlaybookV3OrganizationsOrgIdPlaybooksPost` for `POST /v3/organizations/{org_id}/playbooks`'
+  - MUST: 'expose the exact CLI command `handle_create_playbook_v3_organizations__org_id__playbooks_post` for `POST /v3/organizations/{org_id}/playbooks`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_playbook_v3_enterprise_playbooks__playbook_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeletePlaybookV3EnterprisePlaybooksPlaybookIdDelete` for `DELETE /v3/enterprise/playbooks/{playbook_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_playbook_v3_enterprise_playbooks__playbook_id__delete` for `DELETE /v3/enterprise/playbooks/{playbook_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_playbook_v3_organizations__org_id__playbooks__playbook_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeletePlaybookV3OrganizationsOrgIdPlaybooksPlaybookIdDelete` for `DELETE /v3/organizations/{org_id}/playbooks/{playbook_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_playbook_v3_organizations__org_id__playbooks__playbook_id__delete` for `DELETE /v3/organizations/{org_id}/playbooks/{playbook_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_playbook_v3_enterprise_playbooks__playbook_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetPlaybookV3EnterprisePlaybooksPlaybookIdGet` for `GET /v3/enterprise/playbooks/{playbook_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_playbook_v3_enterprise_playbooks__playbook_id__get` for `GET /v3/enterprise/playbooks/{playbook_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_playbook_v3_organizations__org_id__playbooks__playbook_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetPlaybookV3OrganizationsOrgIdPlaybooksPlaybookIdGet` for `GET /v3/organizations/{org_id}/playbooks/{playbook_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_playbook_v3_organizations__org_id__playbooks__playbook_id__get` for `GET /v3/organizations/{org_id}/playbooks/{playbook_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_playbooks_v3_enterprise_playbooks_get
+INPUT:
+  - MUST: 'expose `Client.HandleListPlaybooksV3EnterprisePlaybooksGet` for `GET /v3/enterprise/playbooks`'
+  - MUST: 'expose the exact CLI command `handle_list_playbooks_v3_enterprise_playbooks_get` for `GET /v3/enterprise/playbooks`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_playbooks_v3_organizations__org_id__playbooks_get
+INPUT:
+  - MUST: 'expose `Client.HandleListPlaybooksV3OrganizationsOrgIdPlaybooksGet` for `GET /v3/organizations/{org_id}/playbooks`'
+  - MUST: 'expose the exact CLI command `handle_list_playbooks_v3_organizations__org_id__playbooks_get` for `GET /v3/organizations/{org_id}/playbooks`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_playbook_v3_enterprise_playbooks__playbook_id__put
+INPUT:
+  - MUST: 'expose `Client.HandleUpdatePlaybookV3EnterprisePlaybooksPlaybookIdPut` for `PUT /v3/enterprise/playbooks/{playbook_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_playbook_v3_enterprise_playbooks__playbook_id__put` for `PUT /v3/enterprise/playbooks/{playbook_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_playbook_v3_organizations__org_id__playbooks__playbook_id__put
+INPUT:
+  - MUST: 'expose `Client.HandleUpdatePlaybookV3OrganizationsOrgIdPlaybooksPlaybookIdPut` for `PUT /v3/organizations/{org_id}/playbooks/{playbook_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_playbook_v3_organizations__org_id__playbooks__playbook_id__put` for `PUT /v3/organizations/{org_id}/playbooks/{playbook_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

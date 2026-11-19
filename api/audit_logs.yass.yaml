@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "audit_logs".
+version: v1
+---
+spec: Operation_handle_get_enterprise_audit_logs_v3_enterprise_audit_logs_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetEnterpriseAuditLogsV3EnterpriseAuditLogsGet` for `GET /v3/enterprise/audit-logs`'
+  - MUST: 'expose the exact CLI command `handle_get_enterprise_audit_logs_v3_enterprise_audit_logs_get` for `GET /v3/enterprise/audit-logs`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_org_audit_logs_v3_enterprise_organizations__org_id__audit_logs_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOrgAuditLogsV3EnterpriseOrganizationsOrgIdAuditLogsGet` for `GET /v3/enterprise/organizations/{org_id}/audit-logs`'
+  - MUST: 'expose the exact CLI command `handle_get_org_audit_logs_v3_enterprise_organizations__org_id__audit_logs_get` for `GET /v3/enterprise/organizations/{org_id}/audit-logs`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

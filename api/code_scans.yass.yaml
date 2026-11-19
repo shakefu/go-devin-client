@@ -1,0 +1,418 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "code-scans".
+version: v1
+---
+spec: Operation_handle_cancel_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__cancel_post
+INPUT:
+  - MUST: 'expose `Client.HandleCancelCodeScanV3EnterpriseOrganizationsOrgIdCodeScansScanIdCancelPost` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/cancel`'
+  - MUST: 'expose the exact CLI command `handle_cancel_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__cancel_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/cancel`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_cancel_code_scan_v3_organizations__org_id__code_scans__scan_id__cancel_post
+INPUT:
+  - MUST: 'expose `Client.HandleCancelCodeScanV3OrganizationsOrgIdCodeScansScanIdCancelPost` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/cancel`'
+  - MUST: 'expose the exact CLI command `handle_cancel_code_scan_v3_organizations__org_id__code_scans__scan_id__cancel_post` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/cancel`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_create_auto_scan_schedule_v3_enterprise_organizations__org_id__code_scans__scan_id__auto_scan_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateAutoScanScheduleV3EnterpriseOrganizationsOrgIdCodeScansScanIdAutoScanPost` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/auto-scan`'
+  - MUST: 'expose the exact CLI command `handle_create_auto_scan_schedule_v3_enterprise_organizations__org_id__code_scans__scan_id__auto_scan_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/auto-scan`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_create_auto_scan_schedule_v3_organizations__org_id__code_scans__scan_id__auto_scan_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateAutoScanScheduleV3OrganizationsOrgIdCodeScansScanIdAutoScanPost` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/auto-scan`'
+  - MUST: 'expose the exact CLI command `handle_create_auto_scan_schedule_v3_organizations__org_id__code_scans__scan_id__auto_scan_post` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/auto-scan`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_auto_scan_schedule_v3_enterprise_organizations__org_id__code_scans__scan_id__auto_scan_delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteAutoScanScheduleV3EnterpriseOrganizationsOrgIdCodeScansScanIdAutoScanDelete` for `DELETE /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/auto-scan`'
+  - MUST: 'expose the exact CLI command `handle_delete_auto_scan_schedule_v3_enterprise_organizations__org_id__code_scans__scan_id__auto_scan_delete` for `DELETE /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/auto-scan`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_auto_scan_schedule_v3_organizations__org_id__code_scans__scan_id__auto_scan_delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteAutoScanScheduleV3OrganizationsOrgIdCodeScansScanIdAutoScanDelete` for `DELETE /v3/organizations/{org_id}/code-scans/{scan_id}/auto-scan`'
+  - MUST: 'expose the exact CLI command `handle_delete_auto_scan_schedule_v3_organizations__org_id__code_scans__scan_id__auto_scan_delete` for `DELETE /v3/organizations/{org_id}/code-scans/{scan_id}/auto-scan`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_code_scan_metrics_v3_enterprise_code_scans_metrics_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetCodeScanMetricsV3EnterpriseCodeScansMetricsGet` for `GET /v3/enterprise/code-scans/metrics`'
+  - MUST: 'expose the exact CLI command `handle_get_code_scan_metrics_v3_enterprise_code_scans_metrics_get` for `GET /v3/enterprise/code-scans/metrics`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_code_scan_metrics_v3_organizations__org_id__code_scans_metrics_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetCodeScanMetricsV3OrganizationsOrgIdCodeScansMetricsGet` for `GET /v3/organizations/{org_id}/code-scans/metrics`'
+  - MUST: 'expose the exact CLI command `handle_get_code_scan_metrics_v3_organizations__org_id__code_scans_metrics_get` for `GET /v3/organizations/{org_id}/code-scans/metrics`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_code_scan_profile_v3_enterprise_code_scans_profiles__profile_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetCodeScanProfileV3EnterpriseCodeScansProfilesProfileIdGet` for `GET /v3/enterprise/code-scans/profiles/{profile_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_code_scan_profile_v3_enterprise_code_scans_profiles__profile_id__get` for `GET /v3/enterprise/code-scans/profiles/{profile_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_code_scan_profile_v3_organizations__org_id__code_scans_profiles__profile_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetCodeScanProfileV3OrganizationsOrgIdCodeScansProfilesProfileIdGet` for `GET /v3/organizations/{org_id}/code-scans/profiles/{profile_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_code_scan_profile_v3_organizations__org_id__code_scans_profiles__profile_id__get` for `GET /v3/organizations/{org_id}/code-scans/profiles/{profile_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetCodeScanV3EnterpriseOrganizationsOrgIdCodeScansScanIdGet` for `GET /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__get` for `GET /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_code_scan_v3_organizations__org_id__code_scans__scan_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetCodeScanV3OrganizationsOrgIdCodeScansScanIdGet` for `GET /v3/organizations/{org_id}/code-scans/{scan_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_code_scan_v3_organizations__org_id__code_scans__scan_id__get` for `GET /v3/organizations/{org_id}/code-scans/{scan_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_link_code_scan_finding_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__link_session_post
+INPUT:
+  - MUST: 'expose `Client.HandleLinkCodeScanFindingSessionV3EnterpriseOrganizationsOrgIdCodeScansScanIdFindingsFindingIdLinkSessionPost` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/link-session`'
+  - MUST: 'expose the exact CLI command `handle_link_code_scan_finding_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__link_session_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/link-session`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_link_code_scan_finding_session_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__link_session_post
+INPUT:
+  - MUST: 'expose `Client.HandleLinkCodeScanFindingSessionV3OrganizationsOrgIdCodeScansScanIdFindingsFindingIdLinkSessionPost` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/link-session`'
+  - MUST: 'expose the exact CLI command `handle_link_code_scan_finding_session_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__link_session_post` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/link-session`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_link_code_scan_findings_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_link_session_post
+INPUT:
+  - MUST: 'expose `Client.HandleLinkCodeScanFindingsSessionV3EnterpriseOrganizationsOrgIdCodeScansScanIdFindingsLinkSessionPost` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/link-session`'
+  - MUST: 'expose the exact CLI command `handle_link_code_scan_findings_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_link_session_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/link-session`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_link_code_scan_findings_session_v3_organizations__org_id__code_scans__scan_id__findings_link_session_post
+INPUT:
+  - MUST: 'expose `Client.HandleLinkCodeScanFindingsSessionV3OrganizationsOrgIdCodeScansScanIdFindingsLinkSessionPost` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/link-session`'
+  - MUST: 'expose the exact CLI command `handle_link_code_scan_findings_session_v3_organizations__org_id__code_scans__scan_id__findings_link_session_post` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/link-session`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_code_scan_findings_v3_enterprise_code_scans_findings_get
+INPUT:
+  - MUST: 'expose `Client.HandleListCodeScanFindingsV3EnterpriseCodeScansFindingsGet` for `GET /v3/enterprise/code-scans/findings`'
+  - MUST: 'expose the exact CLI command `handle_list_code_scan_findings_v3_enterprise_code_scans_findings_get` for `GET /v3/enterprise/code-scans/findings`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_code_scan_findings_v3_organizations__org_id__code_scans_findings_get
+INPUT:
+  - MUST: 'expose `Client.HandleListCodeScanFindingsV3OrganizationsOrgIdCodeScansFindingsGet` for `GET /v3/organizations/{org_id}/code-scans/findings`'
+  - MUST: 'expose the exact CLI command `handle_list_code_scan_findings_v3_organizations__org_id__code_scans_findings_get` for `GET /v3/organizations/{org_id}/code-scans/findings`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_code_scan_profiles_v3_enterprise_code_scans_profiles_get
+INPUT:
+  - MUST: 'expose `Client.HandleListCodeScanProfilesV3EnterpriseCodeScansProfilesGet` for `GET /v3/enterprise/code-scans/profiles`'
+  - MUST: 'expose the exact CLI command `handle_list_code_scan_profiles_v3_enterprise_code_scans_profiles_get` for `GET /v3/enterprise/code-scans/profiles`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_code_scan_profiles_v3_organizations__org_id__code_scans_profiles_get
+INPUT:
+  - MUST: 'expose `Client.HandleListCodeScanProfilesV3OrganizationsOrgIdCodeScansProfilesGet` for `GET /v3/organizations/{org_id}/code-scans/profiles`'
+  - MUST: 'expose the exact CLI command `handle_list_code_scan_profiles_v3_organizations__org_id__code_scans_profiles_get` for `GET /v3/organizations/{org_id}/code-scans/profiles`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_code_scans_v3_enterprise_code_scans_scans_get
+INPUT:
+  - MUST: 'expose `Client.HandleListCodeScansV3EnterpriseCodeScansScansGet` for `GET /v3/enterprise/code-scans/scans`'
+  - MUST: 'expose the exact CLI command `handle_list_code_scans_v3_enterprise_code_scans_scans_get` for `GET /v3/enterprise/code-scans/scans`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_code_scans_v3_organizations__org_id__code_scans_scans_get
+INPUT:
+  - MUST: 'expose `Client.HandleListCodeScansV3OrganizationsOrgIdCodeScansScansGet` for `GET /v3/organizations/{org_id}/code-scans/scans`'
+  - MUST: 'expose the exact CLI command `handle_list_code_scans_v3_organizations__org_id__code_scans_scans_get` for `GET /v3/organizations/{org_id}/code-scans/scans`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_recover_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__recover_post
+INPUT:
+  - MUST: 'expose `Client.HandleRecoverCodeScanV3EnterpriseOrganizationsOrgIdCodeScansScanIdRecoverPost` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/recover`'
+  - MUST: 'expose the exact CLI command `handle_recover_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__recover_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/recover`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_recover_code_scan_v3_organizations__org_id__code_scans__scan_id__recover_post
+INPUT:
+  - MUST: 'expose `Client.HandleRecoverCodeScanV3OrganizationsOrgIdCodeScansScanIdRecoverPost` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/recover`'
+  - MUST: 'expose the exact CLI command `handle_recover_code_scan_v3_organizations__org_id__code_scans__scan_id__recover_post` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/recover`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remediate_code_scan_finding_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__remediate_post
+INPUT:
+  - MUST: 'expose `Client.HandleRemediateCodeScanFindingV3EnterpriseOrganizationsOrgIdCodeScansScanIdFindingsFindingIdRemediatePost` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/remediate`'
+  - MUST: 'expose the exact CLI command `handle_remediate_code_scan_finding_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__remediate_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/remediate`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remediate_code_scan_finding_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__remediate_post
+INPUT:
+  - MUST: 'expose `Client.HandleRemediateCodeScanFindingV3OrganizationsOrgIdCodeScansScanIdFindingsFindingIdRemediatePost` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/remediate`'
+  - MUST: 'expose the exact CLI command `handle_remediate_code_scan_finding_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__remediate_post` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/remediate`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remediate_code_scan_findings_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_remediate_post
+INPUT:
+  - MUST: 'expose `Client.HandleRemediateCodeScanFindingsV3EnterpriseOrganizationsOrgIdCodeScansScanIdFindingsRemediatePost` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/remediate`'
+  - MUST: 'expose the exact CLI command `handle_remediate_code_scan_findings_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_remediate_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/remediate`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remediate_code_scan_findings_v3_organizations__org_id__code_scans__scan_id__findings_remediate_post
+INPUT:
+  - MUST: 'expose `Client.HandleRemediateCodeScanFindingsV3OrganizationsOrgIdCodeScansScanIdFindingsRemediatePost` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/remediate`'
+  - MUST: 'expose the exact CLI command `handle_remediate_code_scan_findings_v3_organizations__org_id__code_scans__scan_id__findings_remediate_post` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/remediate`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_scan_new_commits_v3_enterprise_organizations__org_id__code_scans__scan_id__scan_new_commits_post
+INPUT:
+  - MUST: 'expose `Client.HandleScanNewCommitsV3EnterpriseOrganizationsOrgIdCodeScansScanIdScanNewCommitsPost` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/scan-new-commits`'
+  - MUST: 'expose the exact CLI command `handle_scan_new_commits_v3_enterprise_organizations__org_id__code_scans__scan_id__scan_new_commits_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/scan-new-commits`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_scan_new_commits_v3_organizations__org_id__code_scans__scan_id__scan_new_commits_post
+INPUT:
+  - MUST: 'expose `Client.HandleScanNewCommitsV3OrganizationsOrgIdCodeScansScanIdScanNewCommitsPost` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/scan-new-commits`'
+  - MUST: 'expose the exact CLI command `handle_scan_new_commits_v3_organizations__org_id__code_scans__scan_id__scan_new_commits_post` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/scan-new-commits`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_start_code_scan_v3_enterprise_organizations__org_id__code_scans_post
+INPUT:
+  - MUST: 'expose `Client.HandleStartCodeScanV3EnterpriseOrganizationsOrgIdCodeScansPost` for `POST /v3/enterprise/organizations/{org_id}/code-scans`'
+  - MUST: 'expose the exact CLI command `handle_start_code_scan_v3_enterprise_organizations__org_id__code_scans_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_start_code_scan_v3_organizations__org_id__code_scans_post
+INPUT:
+  - MUST: 'expose `Client.HandleStartCodeScanV3OrganizationsOrgIdCodeScansPost` for `POST /v3/organizations/{org_id}/code-scans`'
+  - MUST: 'expose the exact CLI command `handle_start_code_scan_v3_organizations__org_id__code_scans_post` for `POST /v3/organizations/{org_id}/code-scans`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_start_ingestion_scan_v3_enterprise_organizations__org_id__code_scans_ingestion_post
+INPUT:
+  - MUST: 'expose `Client.HandleStartIngestionScanV3EnterpriseOrganizationsOrgIdCodeScansIngestionPost` for `POST /v3/enterprise/organizations/{org_id}/code-scans/ingestion`'
+  - MUST: 'expose the exact CLI command `handle_start_ingestion_scan_v3_enterprise_organizations__org_id__code_scans_ingestion_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans/ingestion`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_start_ingestion_scan_v3_organizations__org_id__code_scans_ingestion_post
+INPUT:
+  - MUST: 'expose `Client.HandleStartIngestionScanV3OrganizationsOrgIdCodeScansIngestionPost` for `POST /v3/organizations/{org_id}/code-scans/ingestion`'
+  - MUST: 'expose the exact CLI command `handle_start_ingestion_scan_v3_organizations__org_id__code_scans_ingestion_post` for `POST /v3/organizations/{org_id}/code-scans/ingestion`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_switch_code_scan_profile_v3_enterprise_organizations__org_id__code_scans__scan_id__profile_put
+INPUT:
+  - MUST: 'expose `Client.HandleSwitchCodeScanProfileV3EnterpriseOrganizationsOrgIdCodeScansScanIdProfilePut` for `PUT /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/profile`'
+  - MUST: 'expose the exact CLI command `handle_switch_code_scan_profile_v3_enterprise_organizations__org_id__code_scans__scan_id__profile_put` for `PUT /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/profile`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_switch_code_scan_profile_v3_organizations__org_id__code_scans__scan_id__profile_put
+INPUT:
+  - MUST: 'expose `Client.HandleSwitchCodeScanProfileV3OrganizationsOrgIdCodeScansScanIdProfilePut` for `PUT /v3/organizations/{org_id}/code-scans/{scan_id}/profile`'
+  - MUST: 'expose the exact CLI command `handle_switch_code_scan_profile_v3_organizations__org_id__code_scans__scan_id__profile_put` for `PUT /v3/organizations/{org_id}/code-scans/{scan_id}/profile`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_unlink_code_scan_finding_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__unlink_session_post
+INPUT:
+  - MUST: 'expose `Client.HandleUnlinkCodeScanFindingSessionV3EnterpriseOrganizationsOrgIdCodeScansScanIdFindingsFindingIdUnlinkSessionPost` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/unlink-session`'
+  - MUST: 'expose the exact CLI command `handle_unlink_code_scan_finding_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__unlink_session_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/unlink-session`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_unlink_code_scan_finding_session_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__unlink_session_post
+INPUT:
+  - MUST: 'expose `Client.HandleUnlinkCodeScanFindingSessionV3OrganizationsOrgIdCodeScansScanIdFindingsFindingIdUnlinkSessionPost` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/unlink-session`'
+  - MUST: 'expose the exact CLI command `handle_unlink_code_scan_finding_session_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__unlink_session_post` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}/unlink-session`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_unlink_code_scan_findings_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_unlink_session_post
+INPUT:
+  - MUST: 'expose `Client.HandleUnlinkCodeScanFindingsSessionV3EnterpriseOrganizationsOrgIdCodeScansScanIdFindingsUnlinkSessionPost` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/unlink-session`'
+  - MUST: 'expose the exact CLI command `handle_unlink_code_scan_findings_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_unlink_session_post` for `POST /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/unlink-session`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_unlink_code_scan_findings_session_v3_organizations__org_id__code_scans__scan_id__findings_unlink_session_post
+INPUT:
+  - MUST: 'expose `Client.HandleUnlinkCodeScanFindingsSessionV3OrganizationsOrgIdCodeScansScanIdFindingsUnlinkSessionPost` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/unlink-session`'
+  - MUST: 'expose the exact CLI command `handle_unlink_code_scan_findings_session_v3_organizations__org_id__code_scans__scan_id__findings_unlink_session_post` for `POST /v3/organizations/{org_id}/code-scans/{scan_id}/findings/unlink-session`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_code_scan_effort_v3_enterprise_organizations__org_id__code_scans__scan_id__effort_put
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateCodeScanEffortV3EnterpriseOrganizationsOrgIdCodeScansScanIdEffortPut` for `PUT /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/effort`'
+  - MUST: 'expose the exact CLI command `handle_update_code_scan_effort_v3_enterprise_organizations__org_id__code_scans__scan_id__effort_put` for `PUT /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/effort`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_code_scan_effort_v3_organizations__org_id__code_scans__scan_id__effort_put
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateCodeScanEffortV3OrganizationsOrgIdCodeScansScanIdEffortPut` for `PUT /v3/organizations/{org_id}/code-scans/{scan_id}/effort`'
+  - MUST: 'expose the exact CLI command `handle_update_code_scan_effort_v3_organizations__org_id__code_scans__scan_id__effort_put` for `PUT /v3/organizations/{org_id}/code-scans/{scan_id}/effort`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_code_scan_finding_status_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateCodeScanFindingStatusV3EnterpriseOrganizationsOrgIdCodeScansScanIdFindingsFindingIdPatch` for `PATCH /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_code_scan_finding_status_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__patch` for `PATCH /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_code_scan_finding_status_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateCodeScanFindingStatusV3OrganizationsOrgIdCodeScansScanIdFindingsFindingIdPatch` for `PATCH /v3/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_code_scan_finding_status_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__patch` for `PATCH /v3/organizations/{org_id}/code-scans/{scan_id}/findings/{finding_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_code_scan_findings_status_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateCodeScanFindingsStatusV3EnterpriseOrganizationsOrgIdCodeScansScanIdFindingsPatch` for `PATCH /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings`'
+  - MUST: 'expose the exact CLI command `handle_update_code_scan_findings_status_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_patch` for `PATCH /v3/enterprise/organizations/{org_id}/code-scans/{scan_id}/findings`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_code_scan_findings_status_v3_organizations__org_id__code_scans__scan_id__findings_patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateCodeScanFindingsStatusV3OrganizationsOrgIdCodeScansScanIdFindingsPatch` for `PATCH /v3/organizations/{org_id}/code-scans/{scan_id}/findings`'
+  - MUST: 'expose the exact CLI command `handle_update_code_scan_findings_status_v3_organizations__org_id__code_scans__scan_id__findings_patch` for `PATCH /v3/organizations/{org_id}/code-scans/{scan_id}/findings`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "ip-access-list".
+version: v1
+---
+spec: Operation_handle_add_ip_access_list_v3_enterprise_ip_access_list_post
+INPUT:
+  - MUST: 'expose `Client.HandleAddIpAccessListV3EnterpriseIpAccessListPost` for `POST /v3/enterprise/ip-access-list`'
+  - MUST: 'expose the exact CLI command `handle_add_ip_access_list_v3_enterprise_ip_access_list_post` for `POST /v3/enterprise/ip-access-list`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_clear_ip_access_list_v3_enterprise_ip_access_list_delete
+INPUT:
+  - MUST: 'expose `Client.HandleClearIpAccessListV3EnterpriseIpAccessListDelete` for `DELETE /v3/enterprise/ip-access-list`'
+  - MUST: 'expose the exact CLI command `handle_clear_ip_access_list_v3_enterprise_ip_access_list_delete` for `DELETE /v3/enterprise/ip-access-list`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_ip_access_list_v3_enterprise_ip_access_list_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetIpAccessListV3EnterpriseIpAccessListGet` for `GET /v3/enterprise/ip-access-list`'
+  - MUST: 'expose the exact CLI command `handle_get_ip_access_list_v3_enterprise_ip_access_list_get` for `GET /v3/enterprise/ip-access-list`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_replace_ip_access_list_v3_enterprise_ip_access_list_put
+INPUT:
+  - MUST: 'expose `Client.HandleReplaceIpAccessListV3EnterpriseIpAccessListPut` for `PUT /v3/enterprise/ip-access-list`'
+  - MUST: 'expose the exact CLI command `handle_replace_ip_access_list_v3_enterprise_ip_access_list_put` for `PUT /v3/enterprise/ip-access-list`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

@@ -1,0 +1,179 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Runtime CLI command, request, output, safety, and exit-code contracts.
+version: v1
+---
+spec: CLI
+INPUT:
+  - MUST: 'provide executable `devin-client`.'
+RETURN:
+  - MUST: 'provide the `ops` command.'
+  - MUST: 'provide the `--help` flag.'
+  - MUST: 'provide the `--version` flag.'
+  - WHEN: 'no command is supplied'
+    MUST: 'print help to stdout and exit with code 0.'
+ERROR:
+  - WHEN: 'an unknown command or invalid command syntax is supplied'
+    MUST: 'reject the invocation with a usage diagnostic.'
+    CONFORMS: CLIExitCodes::ERROR
+  - CONFORMS: CLIOutput::ERROR
+SIDE-EFFECT:
+  - MUST-NOT: 'make a network request for help, version, or operation listing.'
+INVARIANT:
+  - USES: root@CLICommandGeneration
+  - CONFORMS: CLISettings
+  - CONFORMS: OperationsList
+  - CONFORMS: CLIHelp
+  - CONFORMS: CLIVersion
+  - CONFORMS: OperationCommand
+  - CONFORMS: CLIOutput
+  - CONFORMS: CLIExitCodes
+  - CONFORMS: CLIReadOnly
+  - CONFORMS: CLIDryRun
+---
+spec: CLISettings
+INPUT:
+  - MUST: 'provide the global `--api-key` flag.'
+  - MUST: 'provide the global `--base-url` flag.'
+  - MUST: 'provide the global `--timeout` flag.'
+  - MUST: 'provide the global `--allow-insecure-http` flag.'
+  - MUST: 'resolve each API key, base URL, and timeout from its flag before its environment variable and default.'
+  - MUST: 'read `DEVIN_API_KEY`, `DEVIN_BASE_URL`, and `DEVIN_TIMEOUT` as the corresponding environment variables.'
+  - MUST: 'parse `--timeout` and `DEVIN_TIMEOUT` as Go duration strings.'
+  - WHEN: 'no command is supplied or the command is help, version, or `ops`'
+    MUST-NOT: 'parse or validate `--timeout` or `DEVIN_TIMEOUT`.'
+RETURN:
+  - CONFORMS: sdk@New::RETURN
+ERROR:
+  - WHEN: 'an API operation command is invoked and `--timeout` or `DEVIN_TIMEOUT` is not a valid Go duration string'
+    MUST: 'report a configuration error before network access.'
+  - WHEN: 'an operation requires a client and the resolved configuration is invalid'
+    MUST: 'report the configuration error before network access.'
+    CONFORMS: sdk@New::ERROR
+  - CONFORMS: CLIExitCodes::ERROR
+  - CONFORMS: CLIOutput::ERROR
+SIDE-EFFECT:
+  - MUST-NOT: 'read `.env` files or prompt interactively.'
+  - MUST-NOT: 'read an environment variable for `--allow-insecure-http`.'
+---
+spec: OperationCommand
+INPUT:
+  - MUST: 'expose a flag named exactly for each OpenAPI operation parameter.'
+  - MUST: 'require each required operation parameter flag.'
+  - MUST: 'omit unset optional parameter values.'
+  - MUST: 'preserve explicitly supplied boolean `false` values.'
+  - MUST: 'preserve explicitly supplied numeric zero values.'
+  - MUST: 'percent-encode path parameter values before URL construction.'
+  - MUST: 'accept `--data` as inline JSON, `@file`, or `-` for stdin.'
+  - MUST: 'treat a bare `--data` value as inline JSON rather than a filename.'
+  - MUST: 'accept exactly one valid JSON document as a JSON request body.'
+  - MUST: 'require `--data` when a JSON source operation request body is required.'
+  - MUST: 'omit an optional JSON request body when `--data` is unset.'
+  - MUST: 'accept `--file PATH` for the three multipart operations.'
+  - MUST: 'stream the upload as multipart field `file`.'
+  - MUST: 'require `--file` for every multipart operation.'
+  - WHEN: 'a multipart operation receives `--file PATH`'
+    MUST: 'use the basename of `PATH` as the multipart filename.'
+  - CONFORMS: CLISettings::INPUT
+RETURN:
+  - MUST: 'dispatch the selected OpenAPI operation through the SDK-configured shared transport.'
+  - MUST: 'dispatch the three multipart operations through their handwritten SDK helpers.'
+  - CONFORMS: CLIOutput::RETURN
+ERROR:
+  - WHEN: 'an operation parameter, required body, or JSON document is invalid'
+    MUST: 'reject the command before network access.'
+  - WHEN: 'a multipart operation receives `--data` or a JSON operation receives `--file`'
+    MUST: 'reject the command before network access.'
+  - CONFORMS: CLIExitCodes::ERROR
+  - CONFORMS: CLIOutput::ERROR
+SIDE-EFFECT:
+  - MUST: 'make at most one logical API request per command.'
+  - MUST-NOT: 'paginate automatically.'
+  - MUST-NOT: 'retry automatically.'
+INVARIANT:
+  - MUST: 'send API-key authorization only to the configured origin.'
+  - MUST-NOT: 'follow HTTP redirects.'
+  - MUST-NOT: 'print credentials or log secrets.'
+---
+spec: OperationsList
+INPUT:
+  - MUST: 'accept the command `ops` without API credentials.'
+RETURN:
+  - MUST: 'print one line per operationId containing its exact operationId, HTTP method, and path, sorted by operationId.'
+  - MUST: 'include every source operation exactly once.'
+  - CONFORMS: sdk@OpenAPIAuthority
+SIDE-EFFECT:
+  - MUST-NOT: 'perform network I/O.'
+INVARIANT:
+  - MUST: 'derive the list from the vendored API source.'
+---
+spec: CLIHelp
+INPUT:
+  - MUST: 'accept `--help` and `-h` at the root and operation-command levels.'
+RETURN:
+  - MUST: 'print help to stdout and exit with code 0.'
+SIDE-EFFECT:
+  - MUST-NOT: 'require credentials.'
+  - MUST-NOT: 'make network requests.'
+---
+spec: CLIVersion
+INPUT:
+  - MUST: 'accept `--version` without an operation command.'
+RETURN:
+  - WHEN: 'the local build is unreleased'
+    MUST: 'print `dev` to stdout.'
+  - WHEN: 'the build is a release'
+    MUST: 'print the release version supplied by Go build information or a linker-injected value to stdout.'
+  - MUST: 'exit with code 0.'
+SIDE-EFFECT:
+  - MUST-NOT: 'require credentials.'
+  - MUST-NOT: 'make network requests.'
+---
+spec: CLIOutput
+RETURN:
+  - WHEN: 'an operation succeeds with a response body'
+    MUST: 'write the response bytes unchanged to stdout.'
+  - WHEN: 'an operation succeeds with no response content'
+    MUST: 'write no bytes to stdout.'
+  - WHEN: '`--dry-run` is set'
+    MUST: 'print the method, URL, request headers with `Authorization` redacted, and request body.'
+  - WHEN: '`--dry-run` is set for a multipart operation'
+    MUST: 'print the file path and byte size without reading uploaded file contents.'
+ERROR:
+  - MUST: 'write diagnostics to stderr.'
+  - MUST: 'redact the exact supplied API key from every diagnostic.'
+INVARIANT:
+  - MUST: 'keep dry-run output deterministic for the same command, settings, and file metadata.'
+---
+spec: CLIExitCodes
+RETURN:
+  - WHEN: 'a command succeeds, or the user invokes help, version, or `ops`'
+    MUST: 'exit with code 0.'
+ERROR:
+  - WHEN: 'usage, unknown-command, required-input, JSON-body, or read-only rejection occurs'
+    MUST: 'exit with code 2.'
+  - WHEN: 'configuration, file, network, API, or output handling fails'
+    MUST: 'exit with code 1.'
+---
+spec: CLIReadOnly
+INPUT:
+  - MUST: 'enable read-only policy only through `--read-only`.'
+SIDE-EFFECT:
+  - WHEN: '`--read-only` is set and the selected method is not GET or HEAD'
+    MUST-NOT: 'send a network request.'
+  - WHEN: '`--read-only` rejects a write operation'
+    MUST-NOT: 'read credentials, JSON body input, or upload contents.'
+ERROR:
+  - WHEN: '`--read-only` is set and the selected method is not GET or HEAD'
+    MUST: 'reject the command instead of producing dry-run output, even when `--dry-run` is also set.'
+    CONFORMS: CLIExitCodes::ERROR
+  - CONFORMS: CLIOutput::ERROR
+---
+spec: CLIDryRun
+INPUT:
+  - MUST: 'enable dry-run through `--dry-run` without requiring an API key.'
+RETURN:
+  - CONFORMS: CLIOutput::RETURN
+SIDE-EFFECT:
+  - MUST-NOT: 'perform network I/O.'
+  - MUST-NOT: 'use API credentials.'

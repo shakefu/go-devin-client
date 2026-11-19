@@ -1,0 +1,112 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "notes".
+version: v1
+---
+spec: Operation_handle_create_note_v3_enterprise_knowledge_notes_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateNoteV3EnterpriseKnowledgeNotesPost` for `POST /v3/enterprise/knowledge/notes`'
+  - MUST: 'expose the exact CLI command `handle_create_note_v3_enterprise_knowledge_notes_post` for `POST /v3/enterprise/knowledge/notes`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_create_note_v3_organizations__org_id__knowledge_notes_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateNoteV3OrganizationsOrgIdKnowledgeNotesPost` for `POST /v3/organizations/{org_id}/knowledge/notes`'
+  - MUST: 'expose the exact CLI command `handle_create_note_v3_organizations__org_id__knowledge_notes_post` for `POST /v3/organizations/{org_id}/knowledge/notes`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_note_v3_enterprise_knowledge_notes__note_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteNoteV3EnterpriseKnowledgeNotesNoteIdDelete` for `DELETE /v3/enterprise/knowledge/notes/{note_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_note_v3_enterprise_knowledge_notes__note_id__delete` for `DELETE /v3/enterprise/knowledge/notes/{note_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_note_v3_organizations__org_id__knowledge_notes__note_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteNoteV3OrganizationsOrgIdKnowledgeNotesNoteIdDelete` for `DELETE /v3/organizations/{org_id}/knowledge/notes/{note_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_note_v3_organizations__org_id__knowledge_notes__note_id__delete` for `DELETE /v3/organizations/{org_id}/knowledge/notes/{note_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_note_v3_enterprise_knowledge_notes__note_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetNoteV3EnterpriseKnowledgeNotesNoteIdGet` for `GET /v3/enterprise/knowledge/notes/{note_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_note_v3_enterprise_knowledge_notes__note_id__get` for `GET /v3/enterprise/knowledge/notes/{note_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_note_v3_organizations__org_id__knowledge_notes__note_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetNoteV3OrganizationsOrgIdKnowledgeNotesNoteIdGet` for `GET /v3/organizations/{org_id}/knowledge/notes/{note_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_note_v3_organizations__org_id__knowledge_notes__note_id__get` for `GET /v3/organizations/{org_id}/knowledge/notes/{note_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_folders_v3_enterprise_knowledge_folders_get
+INPUT:
+  - MUST: 'expose `Client.HandleListFoldersV3EnterpriseKnowledgeFoldersGet` for `GET /v3/enterprise/knowledge/folders`'
+  - MUST: 'expose the exact CLI command `handle_list_folders_v3_enterprise_knowledge_folders_get` for `GET /v3/enterprise/knowledge/folders`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_folders_v3_organizations__org_id__knowledge_folders_get
+INPUT:
+  - MUST: 'expose `Client.HandleListFoldersV3OrganizationsOrgIdKnowledgeFoldersGet` for `GET /v3/organizations/{org_id}/knowledge/folders`'
+  - MUST: 'expose the exact CLI command `handle_list_folders_v3_organizations__org_id__knowledge_folders_get` for `GET /v3/organizations/{org_id}/knowledge/folders`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_notes_v3_enterprise_knowledge_notes_get
+INPUT:
+  - MUST: 'expose `Client.HandleListNotesV3EnterpriseKnowledgeNotesGet` for `GET /v3/enterprise/knowledge/notes`'
+  - MUST: 'expose the exact CLI command `handle_list_notes_v3_enterprise_knowledge_notes_get` for `GET /v3/enterprise/knowledge/notes`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_notes_v3_organizations__org_id__knowledge_notes_get
+INPUT:
+  - MUST: 'expose `Client.HandleListNotesV3OrganizationsOrgIdKnowledgeNotesGet` for `GET /v3/organizations/{org_id}/knowledge/notes`'
+  - MUST: 'expose the exact CLI command `handle_list_notes_v3_organizations__org_id__knowledge_notes_get` for `GET /v3/organizations/{org_id}/knowledge/notes`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_note_v3_enterprise_knowledge_notes__note_id__put
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateNoteV3EnterpriseKnowledgeNotesNoteIdPut` for `PUT /v3/enterprise/knowledge/notes/{note_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_note_v3_enterprise_knowledge_notes__note_id__put` for `PUT /v3/enterprise/knowledge/notes/{note_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_note_v3_organizations__org_id__knowledge_notes__note_id__put
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateNoteV3OrganizationsOrgIdKnowledgeNotesNoteIdPut` for `PUT /v3/organizations/{org_id}/knowledge/notes/{note_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_note_v3_organizations__org_id__knowledge_notes__note_id__put` for `PUT /v3/organizations/{org_id}/knowledge/notes/{note_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

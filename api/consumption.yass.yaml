@@ -1,0 +1,103 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "consumption".
+version: v1
+---
+spec: Operation_handle_get_consumption_cycles_v3_enterprise_consumption_cycles_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetConsumptionCyclesV3EnterpriseConsumptionCyclesGet` for `GET /v3/enterprise/consumption/cycles`'
+  - MUST: 'expose the exact CLI command `handle_get_consumption_cycles_v3_enterprise_consumption_cycles_get` for `GET /v3/enterprise/consumption/cycles`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_consumption_daily_v3_enterprise_consumption_daily_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetConsumptionDailyV3EnterpriseConsumptionDailyGet` for `GET /v3/enterprise/consumption/daily`'
+  - MUST: 'expose the exact CLI command `handle_get_consumption_daily_v3_enterprise_consumption_daily_get` for `GET /v3/enterprise/consumption/daily`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_consumption_daily_v3_organizations__org_id__consumption_daily_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetConsumptionDailyV3OrganizationsOrgIdConsumptionDailyGet` for `GET /v3/organizations/{org_id}/consumption/daily`'
+  - MUST: 'expose the exact CLI command `handle_get_consumption_daily_v3_organizations__org_id__consumption_daily_get` for `GET /v3/organizations/{org_id}/consumption/daily`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_org_consumption_daily_v3_enterprise_consumption_daily_organizations__org_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOrgConsumptionDailyV3EnterpriseConsumptionDailyOrganizationsOrgIdGet` for `GET /v3/enterprise/consumption/daily/organizations/{org_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_org_consumption_daily_v3_enterprise_consumption_daily_organizations__org_id__get` for `GET /v3/enterprise/consumption/daily/organizations/{org_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_service_user_consumption_daily_v3_enterprise_consumption_daily_service_users__service_user_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetServiceUserConsumptionDailyV3EnterpriseConsumptionDailyServiceUsersServiceUserIdGet` for `GET /v3/enterprise/consumption/daily/service-users/{service_user_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_service_user_consumption_daily_v3_enterprise_consumption_daily_service_users__service_user_id__get` for `GET /v3/enterprise/consumption/daily/service-users/{service_user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_service_user_consumption_daily_v3_organizations__org_id__consumption_daily_service_users__service_user_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetServiceUserConsumptionDailyV3OrganizationsOrgIdConsumptionDailyServiceUsersServiceUserIdGet` for `GET /v3/organizations/{org_id}/consumption/daily/service-users/{service_user_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_service_user_consumption_daily_v3_organizations__org_id__consumption_daily_service_users__service_user_id__get` for `GET /v3/organizations/{org_id}/consumption/daily/service-users/{service_user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_session_consumption_daily_v3_enterprise_consumption_daily_sessions__session_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionConsumptionDailyV3EnterpriseConsumptionDailySessionsSessionIdGet` for `GET /v3/enterprise/consumption/daily/sessions/{session_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_session_consumption_daily_v3_enterprise_consumption_daily_sessions__session_id__get` for `GET /v3/enterprise/consumption/daily/sessions/{session_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_session_consumption_daily_v3_organizations__org_id__consumption_daily_sessions__session_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionConsumptionDailyV3OrganizationsOrgIdConsumptionDailySessionsSessionIdGet` for `GET /v3/organizations/{org_id}/consumption/daily/sessions/{session_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_session_consumption_daily_v3_organizations__org_id__consumption_daily_sessions__session_id__get` for `GET /v3/organizations/{org_id}/consumption/daily/sessions/{session_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_user_consumption_daily_v3_enterprise_consumption_daily_users__user_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetUserConsumptionDailyV3EnterpriseConsumptionDailyUsersUserIdGet` for `GET /v3/enterprise/consumption/daily/users/{user_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_user_consumption_daily_v3_enterprise_consumption_daily_users__user_id__get` for `GET /v3/enterprise/consumption/daily/users/{user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_user_consumption_daily_v3_organizations__org_id__consumption_daily_users__user_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetUserConsumptionDailyV3OrganizationsOrgIdConsumptionDailyUsersUserIdGet` for `GET /v3/organizations/{org_id}/consumption/daily/users/{user_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_user_consumption_daily_v3_organizations__org_id__consumption_daily_users__user_id__get` for `GET /v3/organizations/{org_id}/consumption/daily/users/{user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_session_consumption_daily_v3_enterprise_consumption_daily_sessions_get
+INPUT:
+  - MUST: 'expose `Client.HandleListSessionConsumptionDailyV3EnterpriseConsumptionDailySessionsGet` for `GET /v3/enterprise/consumption/daily/sessions`'
+  - MUST: 'expose the exact CLI command `handle_list_session_consumption_daily_v3_enterprise_consumption_daily_sessions_get` for `GET /v3/enterprise/consumption/daily/sessions`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

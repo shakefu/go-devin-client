@@ -1,0 +1,76 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "repositories".
+version: v1
+---
+spec: Operation_handle_bulk_index_repositories_v3_organizations__org_id__repositories_indexing_put
+INPUT:
+  - MUST: 'expose `Client.HandleBulkIndexRepositoriesV3OrganizationsOrgIdRepositoriesIndexingPut` for `PUT /v3/organizations/{org_id}/repositories/indexing`'
+  - MUST: 'expose the exact CLI command `handle_bulk_index_repositories_v3_organizations__org_id__repositories_indexing_put` for `PUT /v3/organizations/{org_id}/repositories/indexing`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_bulk_remove_repositories_from_indexing_v3_organizations__org_id__repositories_indexing_delete
+INPUT:
+  - MUST: 'expose `Client.HandleBulkRemoveRepositoriesFromIndexingV3OrganizationsOrgIdRepositoriesIndexingDelete` for `DELETE /v3/organizations/{org_id}/repositories/indexing`'
+  - MUST: 'expose the exact CLI command `handle_bulk_remove_repositories_from_indexing_v3_organizations__org_id__repositories_indexing_delete` for `DELETE /v3/organizations/{org_id}/repositories/indexing`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_repository_indexing_status_v3_organizations__org_id__repositories__repository_path__indexing_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetRepositoryIndexingStatusV3OrganizationsOrgIdRepositoriesRepositoryPathIndexingGet` for `GET /v3/organizations/{org_id}/repositories/{repository_path}/indexing`'
+  - MUST: 'expose the exact CLI command `handle_get_repository_indexing_status_v3_organizations__org_id__repositories__repository_path__indexing_get` for `GET /v3/organizations/{org_id}/repositories/{repository_path}/indexing`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_index_single_repository_v3_organizations__org_id__repositories__repository_path__indexing_put
+INPUT:
+  - MUST: 'expose `Client.HandleIndexSingleRepositoryV3OrganizationsOrgIdRepositoriesRepositoryPathIndexingPut` for `PUT /v3/organizations/{org_id}/repositories/{repository_path}/indexing`'
+  - MUST: 'expose the exact CLI command `handle_index_single_repository_v3_organizations__org_id__repositories__repository_path__indexing_put` for `PUT /v3/organizations/{org_id}/repositories/{repository_path}/indexing`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_indexed_repositories_v3_organizations__org_id__repositories_indexing_get
+INPUT:
+  - MUST: 'expose `Client.HandleListIndexedRepositoriesV3OrganizationsOrgIdRepositoriesIndexingGet` for `GET /v3/organizations/{org_id}/repositories/indexing`'
+  - MUST: 'expose the exact CLI command `handle_list_indexed_repositories_v3_organizations__org_id__repositories_indexing_get` for `GET /v3/organizations/{org_id}/repositories/indexing`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_repositories_v3_organizations__org_id__repositories_get
+INPUT:
+  - MUST: 'expose `Client.HandleListRepositoriesV3OrganizationsOrgIdRepositoriesGet` for `GET /v3/organizations/{org_id}/repositories`'
+  - MUST: 'expose the exact CLI command `handle_list_repositories_v3_organizations__org_id__repositories_get` for `GET /v3/organizations/{org_id}/repositories`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remove_branch_v3_organizations__org_id__repositories__repository_path__indexing_branches__branch_name__delete
+INPUT:
+  - MUST: 'expose `Client.HandleRemoveBranchV3OrganizationsOrgIdRepositoriesRepositoryPathIndexingBranchesBranchNameDelete` for `DELETE /v3/organizations/{org_id}/repositories/{repository_path}/indexing/branches/{branch_name}`'
+  - MUST: 'expose the exact CLI command `handle_remove_branch_v3_organizations__org_id__repositories__repository_path__indexing_branches__branch_name__delete` for `DELETE /v3/organizations/{org_id}/repositories/{repository_path}/indexing/branches/{branch_name}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remove_single_repository_from_indexing_v3_organizations__org_id__repositories__repository_path__indexing_delete
+INPUT:
+  - MUST: 'expose `Client.HandleRemoveSingleRepositoryFromIndexingV3OrganizationsOrgIdRepositoriesRepositoryPathIndexingDelete` for `DELETE /v3/organizations/{org_id}/repositories/{repository_path}/indexing`'
+  - MUST: 'expose the exact CLI command `handle_remove_single_repository_from_indexing_v3_organizations__org_id__repositories__repository_path__indexing_delete` for `DELETE /v3/organizations/{org_id}/repositories/{repository_path}/indexing`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

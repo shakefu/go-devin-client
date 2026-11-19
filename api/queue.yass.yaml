@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "queue".
+version: v1
+---
+spec: Operation_get_queue_v3_enterprise_queue_get
+INPUT:
+  - MUST: 'expose `Client.GetQueueV3EnterpriseQueueGet` for `GET /v3/enterprise/queue`'
+  - MUST: 'expose the exact CLI command `get_queue_v3_enterprise_queue_get` for `GET /v3/enterprise/queue`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

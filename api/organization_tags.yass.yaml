@@ -1,0 +1,76 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "organization-tags".
+version: v1
+---
+spec: Operation_clear_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_delete
+INPUT:
+  - MUST: 'expose `Client.ClearOrganizationAllowedTagsV3EnterpriseOrganizationsOrgIdTagsDelete` for `DELETE /v3/enterprise/organizations/{org_id}/tags`'
+  - MUST: 'expose the exact CLI command `clear_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_delete` for `DELETE /v3/enterprise/organizations/{org_id}/tags`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_clear_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_delete
+INPUT:
+  - MUST: 'expose `Client.ClearOrganizationDefaultTagV3EnterpriseOrganizationsOrgIdTagsDefaultDelete` for `DELETE /v3/enterprise/organizations/{org_id}/tags/default`'
+  - MUST: 'expose the exact CLI command `clear_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_delete` for `DELETE /v3/enterprise/organizations/{org_id}/tags/default`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_get_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_get
+INPUT:
+  - MUST: 'expose `Client.GetOrganizationDefaultTagV3EnterpriseOrganizationsOrgIdTagsDefaultGet` for `GET /v3/enterprise/organizations/{org_id}/tags/default`'
+  - MUST: 'expose the exact CLI command `get_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_get` for `GET /v3/enterprise/organizations/{org_id}/tags/default`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_append_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_post
+INPUT:
+  - MUST: 'expose `Client.HandleAppendOrganizationAllowedTagsV3EnterpriseOrganizationsOrgIdTagsPost` for `POST /v3/enterprise/organizations/{org_id}/tags`'
+  - MUST: 'expose the exact CLI command `handle_append_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_post` for `POST /v3/enterprise/organizations/{org_id}/tags`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOrganizationAllowedTagsV3EnterpriseOrganizationsOrgIdTagsGet` for `GET /v3/enterprise/organizations/{org_id}/tags`'
+  - MUST: 'expose the exact CLI command `handle_get_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_get` for `GET /v3/enterprise/organizations/{org_id}/tags`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_replace_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_put
+INPUT:
+  - MUST: 'expose `Client.HandleReplaceOrganizationAllowedTagsV3EnterpriseOrganizationsOrgIdTagsPut` for `PUT /v3/enterprise/organizations/{org_id}/tags`'
+  - MUST: 'expose the exact CLI command `handle_replace_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_put` for `PUT /v3/enterprise/organizations/{org_id}/tags`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_remove_organization_allowed_tag_v3_enterprise_organizations__org_id__tags__tag__delete
+INPUT:
+  - MUST: 'expose `Client.RemoveOrganizationAllowedTagV3EnterpriseOrganizationsOrgIdTagsTagDelete` for `DELETE /v3/enterprise/organizations/{org_id}/tags/{tag}`'
+  - MUST: 'expose the exact CLI command `remove_organization_allowed_tag_v3_enterprise_organizations__org_id__tags__tag__delete` for `DELETE /v3/enterprise/organizations/{org_id}/tags/{tag}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_set_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_put
+INPUT:
+  - MUST: 'expose `Client.SetOrganizationDefaultTagV3EnterpriseOrganizationsOrgIdTagsDefaultPut` for `PUT /v3/enterprise/organizations/{org_id}/tags/default`'
+  - MUST: 'expose the exact CLI command `set_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_put` for `PUT /v3/enterprise/organizations/{org_id}/tags/default`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

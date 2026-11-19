@@ -1,0 +1,130 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "users".
+version: v1
+---
+spec: Operation_handle_assign_organization_user_role_v3_enterprise_organizations__org_id__members_users__user_id__post
+INPUT:
+  - MUST: 'expose `Client.HandleAssignOrganizationUserRoleV3EnterpriseOrganizationsOrgIdMembersUsersUserIdPost` for `POST /v3/enterprise/organizations/{org_id}/members/users/{user_id}`'
+  - MUST: 'expose the exact CLI command `handle_assign_organization_user_role_v3_enterprise_organizations__org_id__members_users__user_id__post` for `POST /v3/enterprise/organizations/{org_id}/members/users/{user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_bulk_invite_enterprise_users_v3_enterprise_members_users_post
+INPUT:
+  - MUST: 'expose `Client.HandleBulkInviteEnterpriseUsersV3EnterpriseMembersUsersPost` for `POST /v3/enterprise/members/users`'
+  - MUST: 'expose the exact CLI command `handle_bulk_invite_enterprise_users_v3_enterprise_members_users_post` for `POST /v3/enterprise/members/users`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_enterprise_user_v3_enterprise_members_users__user_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetEnterpriseUserV3EnterpriseMembersUsersUserIdGet` for `GET /v3/enterprise/members/users/{user_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_enterprise_user_v3_enterprise_members_users__user_id__get` for `GET /v3/enterprise/members/users/{user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_organization_user_v3beta1_organizations__org_id__members_users__user_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOrganizationUserV3beta1OrganizationsOrgIdMembersUsersUserIdGet` for `GET /v3beta1/organizations/{org_id}/members/users/{user_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_organization_user_v3beta1_organizations__org_id__members_users__user_id__get` for `GET /v3beta1/organizations/{org_id}/members/users/{user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_enterprise_idp_users_v3_enterprise_members_idp_users_get
+INPUT:
+  - MUST: 'expose `Client.HandleListEnterpriseIdpUsersV3EnterpriseMembersIdpUsersGet` for `GET /v3/enterprise/members/idp-users`'
+  - MUST: 'expose the exact CLI command `handle_list_enterprise_idp_users_v3_enterprise_members_idp_users_get` for `GET /v3/enterprise/members/idp-users`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_enterprise_users_v3_enterprise_members_users_get
+INPUT:
+  - MUST: 'expose `Client.HandleListEnterpriseUsersV3EnterpriseMembersUsersGet` for `GET /v3/enterprise/members/users`'
+  - MUST: 'expose the exact CLI command `handle_list_enterprise_users_v3_enterprise_members_users_get` for `GET /v3/enterprise/members/users`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_organization_idp_users_v3_enterprise_organizations__org_id__members_idp_users_get
+INPUT:
+  - MUST: 'expose `Client.HandleListOrganizationIdpUsersV3EnterpriseOrganizationsOrgIdMembersIdpUsersGet` for `GET /v3/enterprise/organizations/{org_id}/members/idp-users`'
+  - MUST: 'expose the exact CLI command `handle_list_organization_idp_users_v3_enterprise_organizations__org_id__members_idp_users_get` for `GET /v3/enterprise/organizations/{org_id}/members/idp-users`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_organization_idp_users_v3beta1_organizations__org_id__members_idp_users_get
+INPUT:
+  - MUST: 'expose `Client.HandleListOrganizationIdpUsersV3beta1OrganizationsOrgIdMembersIdpUsersGet` for `GET /v3beta1/organizations/{org_id}/members/idp-users`'
+  - MUST: 'expose the exact CLI command `handle_list_organization_idp_users_v3beta1_organizations__org_id__members_idp_users_get` for `GET /v3beta1/organizations/{org_id}/members/idp-users`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_organization_users_v3_enterprise_organizations__org_id__members_users_get
+INPUT:
+  - MUST: 'expose `Client.HandleListOrganizationUsersV3EnterpriseOrganizationsOrgIdMembersUsersGet` for `GET /v3/enterprise/organizations/{org_id}/members/users`'
+  - MUST: 'expose the exact CLI command `handle_list_organization_users_v3_enterprise_organizations__org_id__members_users_get` for `GET /v3/enterprise/organizations/{org_id}/members/users`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_organization_users_v3beta1_organizations__org_id__members_users_get
+INPUT:
+  - MUST: 'expose `Client.HandleListOrganizationUsersV3beta1OrganizationsOrgIdMembersUsersGet` for `GET /v3beta1/organizations/{org_id}/members/users`'
+  - MUST: 'expose the exact CLI command `handle_list_organization_users_v3beta1_organizations__org_id__members_users_get` for `GET /v3beta1/organizations/{org_id}/members/users`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remove_enterprise_user_v3_enterprise_members_users__user_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleRemoveEnterpriseUserV3EnterpriseMembersUsersUserIdDelete` for `DELETE /v3/enterprise/members/users/{user_id}`'
+  - MUST: 'expose the exact CLI command `handle_remove_enterprise_user_v3_enterprise_members_users__user_id__delete` for `DELETE /v3/enterprise/members/users/{user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remove_organization_user_v3_enterprise_organizations__org_id__members_users__user_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleRemoveOrganizationUserV3EnterpriseOrganizationsOrgIdMembersUsersUserIdDelete` for `DELETE /v3/enterprise/organizations/{org_id}/members/users/{user_id}`'
+  - MUST: 'expose the exact CLI command `handle_remove_organization_user_v3_enterprise_organizations__org_id__members_users__user_id__delete` for `DELETE /v3/enterprise/organizations/{org_id}/members/users/{user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_enterprise_user_role_v3_enterprise_members_users__user_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateEnterpriseUserRoleV3EnterpriseMembersUsersUserIdPatch` for `PATCH /v3/enterprise/members/users/{user_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_enterprise_user_role_v3_enterprise_members_users__user_id__patch` for `PATCH /v3/enterprise/members/users/{user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_organization_user_role_v3_enterprise_organizations__org_id__members_users__user_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateOrganizationUserRoleV3EnterpriseOrganizationsOrgIdMembersUsersUserIdPatch` for `PATCH /v3/enterprise/organizations/{org_id}/members/users/{user_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_organization_user_role_v3_enterprise_organizations__org_id__members_users__user_id__patch` for `PATCH /v3/enterprise/organizations/{org_id}/members/users/{user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

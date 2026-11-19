@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "roles".
+version: v1
+---
+spec: Operation_handle_get_role_v3_enterprise_roles__role_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetRoleV3EnterpriseRolesRoleIdGet` for `GET /v3/enterprise/roles/{role_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_role_v3_enterprise_roles__role_id__get` for `GET /v3/enterprise/roles/{role_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_roles_v3_enterprise_roles_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetRolesV3EnterpriseRolesGet` for `GET /v3/enterprise/roles`'
+  - MUST: 'expose the exact CLI command `handle_get_roles_v3_enterprise_roles_get` for `GET /v3/enterprise/roles`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "git_connections".
+version: v1
+---
+spec: Operation_handle_get_git_connections_v3_enterprise_git_providers_connections_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetGitConnectionsV3EnterpriseGitProvidersConnectionsGet` for `GET /v3/enterprise/git-providers/connections`'
+  - MUST: 'expose the exact CLI command `handle_get_git_connections_v3_enterprise_git_providers_connections_get` for `GET /v3/enterprise/git-providers/connections`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_git_connection_repositories_v3_enterprise_git_providers_connections__connection_id__repositories_get
+INPUT:
+  - MUST: 'expose `Client.HandleListGitConnectionRepositoriesV3EnterpriseGitProvidersConnectionsConnectionIdRepositoriesGet` for `GET /v3/enterprise/git-providers/connections/{connection_id}/repositories`'
+  - MUST: 'expose the exact CLI command `handle_list_git_connection_repositories_v3_enterprise_git_providers_connections__connection_id__repositories_get` for `GET /v3/enterprise/git-providers/connections/{connection_id}/repositories`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

@@ -1,0 +1,67 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "automations".
+version: v1
+---
+spec: Operation_handle_create_automation_v3_organizations__org_id__automations_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateAutomationV3OrganizationsOrgIdAutomationsPost` for `POST /v3/organizations/{org_id}/automations`'
+  - MUST: 'expose the exact CLI command `handle_create_automation_v3_organizations__org_id__automations_post` for `POST /v3/organizations/{org_id}/automations`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_automation_v3_organizations__org_id__automations__automation_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteAutomationV3OrganizationsOrgIdAutomationsAutomationIdDelete` for `DELETE /v3/organizations/{org_id}/automations/{automation_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_automation_v3_organizations__org_id__automations__automation_id__delete` for `DELETE /v3/organizations/{org_id}/automations/{automation_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_automation_schemas_v3_organizations__org_id__automations_schemas_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetAutomationSchemasV3OrganizationsOrgIdAutomationsSchemasGet` for `GET /v3/organizations/{org_id}/automations/schemas`'
+  - MUST: 'expose the exact CLI command `handle_get_automation_schemas_v3_organizations__org_id__automations_schemas_get` for `GET /v3/organizations/{org_id}/automations/schemas`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_automation_v3_organizations__org_id__automations__automation_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetAutomationV3OrganizationsOrgIdAutomationsAutomationIdGet` for `GET /v3/organizations/{org_id}/automations/{automation_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_automation_v3_organizations__org_id__automations__automation_id__get` for `GET /v3/organizations/{org_id}/automations/{automation_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_automation_templates_v3_organizations__org_id__automations_templates_get
+INPUT:
+  - MUST: 'expose `Client.HandleListAutomationTemplatesV3OrganizationsOrgIdAutomationsTemplatesGet` for `GET /v3/organizations/{org_id}/automations/templates`'
+  - MUST: 'expose the exact CLI command `handle_list_automation_templates_v3_organizations__org_id__automations_templates_get` for `GET /v3/organizations/{org_id}/automations/templates`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_automations_v3_organizations__org_id__automations_get
+INPUT:
+  - MUST: 'expose `Client.HandleListAutomationsV3OrganizationsOrgIdAutomationsGet` for `GET /v3/organizations/{org_id}/automations`'
+  - MUST: 'expose the exact CLI command `handle_list_automations_v3_organizations__org_id__automations_get` for `GET /v3/organizations/{org_id}/automations`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_automation_v3_organizations__org_id__automations__automation_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateAutomationV3OrganizationsOrgIdAutomationsAutomationIdPatch` for `PATCH /v3/organizations/{org_id}/automations/{automation_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_automation_v3_organizations__org_id__automations__automation_id__patch` for `PATCH /v3/organizations/{org_id}/automations/{automation_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

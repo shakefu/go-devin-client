@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "acu-limits".
+version: v1
+---
+spec: Operation_handle_delete_org_devin_acu_limit_v3_enterprise_consumption_acu_limits_devin_organizations__org_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteOrgDevinAcuLimitV3EnterpriseConsumptionAcuLimitsDevinOrganizationsOrgIdDelete` for `DELETE /v3/enterprise/consumption/acu-limits/devin/organizations/{org_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_org_devin_acu_limit_v3_enterprise_consumption_acu_limits_devin_organizations__org_id__delete` for `DELETE /v3/enterprise/consumption/acu-limits/devin/organizations/{org_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_devin_acu_limits_v3_enterprise_consumption_acu_limits_devin_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetDevinAcuLimitsV3EnterpriseConsumptionAcuLimitsDevinGet` for `GET /v3/enterprise/consumption/acu-limits/devin`'
+  - MUST: 'expose the exact CLI command `handle_get_devin_acu_limits_v3_enterprise_consumption_acu_limits_devin_get` for `GET /v3/enterprise/consumption/acu-limits/devin`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_set_org_devin_acu_limit_v3_enterprise_consumption_acu_limits_devin_organizations__org_id__put
+INPUT:
+  - MUST: 'expose `Client.HandleSetOrgDevinAcuLimitV3EnterpriseConsumptionAcuLimitsDevinOrganizationsOrgIdPut` for `PUT /v3/enterprise/consumption/acu-limits/devin/organizations/{org_id}`'
+  - MUST: 'expose the exact CLI command `handle_set_org_devin_acu_limit_v3_enterprise_consumption_acu_limits_devin_organizations__org_id__put` for `PUT /v3/enterprise/consumption/acu-limits/devin/organizations/{org_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
