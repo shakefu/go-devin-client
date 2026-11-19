@@ -13,6 +13,7 @@ import (
 	"mime"
 	"net/http"
 	"net/url"
+	"reflect"
 	"strconv"
 	"strings"
 	"time"
@@ -1949,7 +1950,7 @@ func (c *Client) HandleGetAccountSessionMessagesV3EnterpriseSessionsDevinIdMessa
 	if orgId != nil {
 		query.Set("org_id", formatPathValue(*orgId))
 	}
-	query.Set("qs", formatPathValue(qs))
+	addFormExplodedQuery(query, "qs", qs)
 	var out PaginatedResponse_SessionMessage_
 	apiResp, err := c.do(ctx, "GET", "/v3/enterprise/sessions/{devin_id}/messages", pathParams, query, headers, nil, "", "application/json", &out)
 	if err != nil {
@@ -2017,7 +2018,7 @@ func (c *Client) HandleGetAccountSessionsInsightsV3EnterpriseSessionsInsightsGet
 		query.Set("after", formatPathValue(*after))
 	}
 	if automationIds != nil {
-		query.Set("automation_ids", formatPathValue(*automationIds))
+		addFormExplodedQuery(query, "automation_ids", *automationIds)
 	}
 	if category != nil {
 		query.Set("category", formatPathValue(*category))
@@ -2038,10 +2039,10 @@ func (c *Client) HandleGetAccountSessionsInsightsV3EnterpriseSessionsInsightsGet
 		query.Set("is_archived", formatPathValue(*isArchived))
 	}
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	if origins != nil {
-		query.Set("origins", formatPathValue(*origins))
+		addFormExplodedQuery(query, "origins", *origins)
 	}
 	if parentSessionId != nil {
 		query.Set("parent_session_id", formatPathValue(*parentSessionId))
@@ -2050,19 +2051,19 @@ func (c *Client) HandleGetAccountSessionsInsightsV3EnterpriseSessionsInsightsGet
 		query.Set("playbook_id", formatPathValue(*playbookId))
 	}
 	if repoNames != nil {
-		query.Set("repo_names", formatPathValue(*repoNames))
+		addFormExplodedQuery(query, "repo_names", *repoNames)
 	}
 	if scheduleId != nil {
 		query.Set("schedule_id", formatPathValue(*scheduleId))
 	}
 	if serviceUserIds != nil {
-		query.Set("service_user_ids", formatPathValue(*serviceUserIds))
+		addFormExplodedQuery(query, "service_user_ids", *serviceUserIds)
 	}
 	if sessionIds != nil {
-		query.Set("session_ids", formatPathValue(*sessionIds))
+		addFormExplodedQuery(query, "session_ids", *sessionIds)
 	}
 	if tags != nil {
-		query.Set("tags", formatPathValue(*tags))
+		addFormExplodedQuery(query, "tags", *tags)
 	}
 	if updatedAfter != nil {
 		query.Set("updated_after", formatPathValue(*updatedAfter))
@@ -2071,7 +2072,7 @@ func (c *Client) HandleGetAccountSessionsInsightsV3EnterpriseSessionsInsightsGet
 		query.Set("updated_before", formatPathValue(*updatedBefore))
 	}
 	if userIds != nil {
-		query.Set("user_ids", formatPathValue(*userIds))
+		addFormExplodedQuery(query, "user_ids", *userIds)
 	}
 	var out PaginatedResponse_SessionInsightsResponse_
 	apiResp, err := c.do(ctx, "GET", "/v3/enterprise/sessions/insights", pathParams, query, headers, nil, "", "application/json", &out)
@@ -2095,7 +2096,7 @@ func (c *Client) HandleGetAccountSessionsV3EnterpriseSessionsGet(ctx context.Con
 		query.Set("after", formatPathValue(*after))
 	}
 	if automationIds != nil {
-		query.Set("automation_ids", formatPathValue(*automationIds))
+		addFormExplodedQuery(query, "automation_ids", *automationIds)
 	}
 	if category != nil {
 		query.Set("category", formatPathValue(*category))
@@ -2116,10 +2117,10 @@ func (c *Client) HandleGetAccountSessionsV3EnterpriseSessionsGet(ctx context.Con
 		query.Set("is_archived", formatPathValue(*isArchived))
 	}
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	if origins != nil {
-		query.Set("origins", formatPathValue(*origins))
+		addFormExplodedQuery(query, "origins", *origins)
 	}
 	if parentSessionId != nil {
 		query.Set("parent_session_id", formatPathValue(*parentSessionId))
@@ -2128,19 +2129,19 @@ func (c *Client) HandleGetAccountSessionsV3EnterpriseSessionsGet(ctx context.Con
 		query.Set("playbook_id", formatPathValue(*playbookId))
 	}
 	if repoNames != nil {
-		query.Set("repo_names", formatPathValue(*repoNames))
+		addFormExplodedQuery(query, "repo_names", *repoNames)
 	}
 	if scheduleId != nil {
 		query.Set("schedule_id", formatPathValue(*scheduleId))
 	}
 	if serviceUserIds != nil {
-		query.Set("service_user_ids", formatPathValue(*serviceUserIds))
+		addFormExplodedQuery(query, "service_user_ids", *serviceUserIds)
 	}
 	if sessionIds != nil {
-		query.Set("session_ids", formatPathValue(*sessionIds))
+		addFormExplodedQuery(query, "session_ids", *sessionIds)
 	}
 	if tags != nil {
-		query.Set("tags", formatPathValue(*tags))
+		addFormExplodedQuery(query, "tags", *tags)
 	}
 	if updatedAfter != nil {
 		query.Set("updated_after", formatPathValue(*updatedAfter))
@@ -2149,7 +2150,7 @@ func (c *Client) HandleGetAccountSessionsV3EnterpriseSessionsGet(ctx context.Con
 		query.Set("updated_before", formatPathValue(*updatedBefore))
 	}
 	if userIds != nil {
-		query.Set("user_ids", formatPathValue(*userIds))
+		addFormExplodedQuery(query, "user_ids", *userIds)
 	}
 	var out PaginatedResponse_SessionResponse_
 	apiResp, err := c.do(ctx, "GET", "/v3/enterprise/sessions", pathParams, query, headers, nil, "", "application/json", &out)
@@ -2181,7 +2182,7 @@ func (c *Client) HandleGetActiveUsersMetricsV3EnterpriseMetricsActiveUsersGet(ct
 		query.Set("min_sessions", formatPathValue(*minSessions))
 	}
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	query.Set("time_after", formatPathValue(timeAfter))
 	query.Set("time_before", formatPathValue(timeBefore))
@@ -2337,7 +2338,7 @@ func (c *Client) HandleGetCodeScanMetricsV3EnterpriseCodeScansMetricsGet(ctx con
 	_ = query
 	_ = headers
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	query.Set("time_after", formatPathValue(timeAfter))
 	query.Set("time_before", formatPathValue(timeBefore))
@@ -2569,7 +2570,7 @@ func (c *Client) HandleGetDauMetricsV3EnterpriseMetricsDauGet(ctx context.Contex
 		query.Set("min_sessions", formatPathValue(*minSessions))
 	}
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	query.Set("time_after", formatPathValue(timeAfter))
 	query.Set("time_before", formatPathValue(timeBefore))
@@ -2849,7 +2850,7 @@ func (c *Client) HandleGetMauMetricsV3EnterpriseMetricsMauGet(ctx context.Contex
 		query.Set("min_sessions", formatPathValue(*minSessions))
 	}
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	query.Set("time_after", formatPathValue(timeAfter))
 	query.Set("time_before", formatPathValue(timeBefore))
@@ -3286,18 +3287,18 @@ func (c *Client) HandleGetPrMetricsV3EnterpriseMetricsPrsGet(ctx context.Context
 	_ = query
 	_ = headers
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	if playbookId != nil {
 		query.Set("playbook_id", formatPathValue(*playbookId))
 	}
 	if serviceUserIds != nil {
-		query.Set("service_user_ids", formatPathValue(*serviceUserIds))
+		addFormExplodedQuery(query, "service_user_ids", *serviceUserIds)
 	}
 	query.Set("time_after", formatPathValue(timeAfter))
 	query.Set("time_before", formatPathValue(timeBefore))
 	if userIds != nil {
-		query.Set("user_ids", formatPathValue(*userIds))
+		addFormExplodedQuery(query, "user_ids", *userIds)
 	}
 	var out PrMetricsResponse
 	apiResp, err := c.do(ctx, "GET", "/v3/enterprise/metrics/prs", pathParams, query, headers, nil, "", "application/json", &out)
@@ -3322,12 +3323,12 @@ func (c *Client) HandleGetPrMetricsV3OrganizationsOrgIdMetricsPrsGet(ctx context
 		query.Set("playbook_id", formatPathValue(*playbookId))
 	}
 	if serviceUserIds != nil {
-		query.Set("service_user_ids", formatPathValue(*serviceUserIds))
+		addFormExplodedQuery(query, "service_user_ids", *serviceUserIds)
 	}
 	query.Set("time_after", formatPathValue(timeAfter))
 	query.Set("time_before", formatPathValue(timeBefore))
 	if userIds != nil {
-		query.Set("user_ids", formatPathValue(*userIds))
+		addFormExplodedQuery(query, "user_ids", *userIds)
 	}
 	var out PrMetricsResponse
 	apiResp, err := c.do(ctx, "GET", "/v3/organizations/{org_id}/metrics/prs", pathParams, query, headers, nil, "", "application/json", &out)
@@ -3506,7 +3507,7 @@ func (c *Client) HandleGetSearchMetricsV3EnterpriseMetricsSearchesGet(ctx contex
 	_ = query
 	_ = headers
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	query.Set("time_after", formatPathValue(timeAfter))
 	query.Set("time_before", formatPathValue(timeBefore))
@@ -3822,18 +3823,18 @@ func (c *Client) HandleGetSessionMetricsV3EnterpriseMetricsSessionsGet(ctx conte
 	_ = query
 	_ = headers
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	if playbookId != nil {
 		query.Set("playbook_id", formatPathValue(*playbookId))
 	}
 	if serviceUserIds != nil {
-		query.Set("service_user_ids", formatPathValue(*serviceUserIds))
+		addFormExplodedQuery(query, "service_user_ids", *serviceUserIds)
 	}
 	query.Set("time_after", formatPathValue(timeAfter))
 	query.Set("time_before", formatPathValue(timeBefore))
 	if userIds != nil {
-		query.Set("user_ids", formatPathValue(*userIds))
+		addFormExplodedQuery(query, "user_ids", *userIds)
 	}
 	var out SessionMetricsResponse
 	apiResp, err := c.do(ctx, "GET", "/v3/enterprise/metrics/sessions", pathParams, query, headers, nil, "", "application/json", &out)
@@ -3858,12 +3859,12 @@ func (c *Client) HandleGetSessionMetricsV3OrganizationsOrgIdMetricsSessionsGet(c
 		query.Set("playbook_id", formatPathValue(*playbookId))
 	}
 	if serviceUserIds != nil {
-		query.Set("service_user_ids", formatPathValue(*serviceUserIds))
+		addFormExplodedQuery(query, "service_user_ids", *serviceUserIds)
 	}
 	query.Set("time_after", formatPathValue(timeAfter))
 	query.Set("time_before", formatPathValue(timeBefore))
 	if userIds != nil {
-		query.Set("user_ids", formatPathValue(*userIds))
+		addFormExplodedQuery(query, "user_ids", *userIds)
 	}
 	var out SessionMetricsResponse
 	apiResp, err := c.do(ctx, "GET", "/v3/organizations/{org_id}/metrics/sessions", pathParams, query, headers, nil, "", "application/json", &out)
@@ -3924,7 +3925,7 @@ func (c *Client) HandleGetSessionsByCategoryV3EnterpriseMetricsSessionsByCategor
 	_ = query
 	_ = headers
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	query.Set("time_after", formatPathValue(timeAfter))
 	query.Set("time_before", formatPathValue(timeBefore))
@@ -3951,7 +3952,7 @@ func (c *Client) HandleGetSessionsInsightsV3OrganizationsOrgIdSessionsInsightsGe
 	if devinId != nil {
 		query.Set("devin_id", formatPathValue(*devinId))
 	}
-	query.Set("qs", formatPathValue(qs))
+	addFormExplodedQuery(query, "qs", qs)
 	var out PaginatedResponse_SessionInsightsResponse_
 	apiResp, err := c.do(ctx, "GET", "/v3/organizations/{org_id}/sessions/insights", pathParams, query, headers, nil, "", "application/json", &out)
 	if err != nil {
@@ -3974,7 +3975,7 @@ func (c *Client) HandleGetSessionsV3OrganizationsOrgIdSessionsGet(ctx context.Co
 	if devinId != nil {
 		query.Set("devin_id", formatPathValue(*devinId))
 	}
-	query.Set("qs", formatPathValue(qs))
+	addFormExplodedQuery(query, "qs", qs)
 	var out PaginatedResponse_SessionResponse_
 	apiResp, err := c.do(ctx, "GET", "/v3/organizations/{org_id}/sessions", pathParams, query, headers, nil, "", "application/json", &out)
 	if err != nil {
@@ -4122,7 +4123,7 @@ func (c *Client) HandleGetWauMetricsV3EnterpriseMetricsWauGet(ctx context.Contex
 		query.Set("min_sessions", formatPathValue(*minSessions))
 	}
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	query.Set("time_after", formatPathValue(timeAfter))
 	query.Set("time_before", formatPathValue(timeBefore))
@@ -4357,7 +4358,7 @@ func (c *Client) HandleListAutomationsV3OrganizationsOrgIdAutomationsGet(ctx con
 		query.Set("after", formatPathValue(*after))
 	}
 	if agentTypes != nil {
-		query.Set("agent_types", formatPathValue(*agentTypes))
+		addFormExplodedQuery(query, "agent_types", *agentTypes)
 	}
 	if creatorId != nil {
 		query.Set("creator_id", formatPathValue(*creatorId))
@@ -4411,10 +4412,10 @@ func (c *Client) HandleListCodeScanFindingsV3EnterpriseCodeScansFindingsGet(ctx 
 		query.Set("first", formatPathValue(*first))
 	}
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	if payoff != nil {
-		query.Set("payoff", formatPathValue(*payoff))
+		addFormExplodedQuery(query, "payoff", *payoff)
 	}
 	if q != nil {
 		query.Set("q", formatPathValue(*q))
@@ -4426,10 +4427,10 @@ func (c *Client) HandleListCodeScanFindingsV3EnterpriseCodeScansFindingsGet(ctx 
 		query.Set("scan_id", formatPathValue(*scanId))
 	}
 	if severity != nil {
-		query.Set("severity", formatPathValue(*severity))
+		addFormExplodedQuery(query, "severity", *severity)
 	}
 	if status != nil {
-		query.Set("status", formatPathValue(*status))
+		addFormExplodedQuery(query, "status", *status)
 	}
 	if updatedAfter != nil {
 		query.Set("updated_after", formatPathValue(*updatedAfter))
@@ -4475,7 +4476,7 @@ func (c *Client) HandleListCodeScanFindingsV3OrganizationsOrgIdCodeScansFindings
 		query.Set("first", formatPathValue(*first))
 	}
 	if payoff != nil {
-		query.Set("payoff", formatPathValue(*payoff))
+		addFormExplodedQuery(query, "payoff", *payoff)
 	}
 	if q != nil {
 		query.Set("q", formatPathValue(*q))
@@ -4487,10 +4488,10 @@ func (c *Client) HandleListCodeScanFindingsV3OrganizationsOrgIdCodeScansFindings
 		query.Set("scan_id", formatPathValue(*scanId))
 	}
 	if severity != nil {
-		query.Set("severity", formatPathValue(*severity))
+		addFormExplodedQuery(query, "severity", *severity)
 	}
 	if status != nil {
-		query.Set("status", formatPathValue(*status))
+		addFormExplodedQuery(query, "status", *status)
 	}
 	if updatedAfter != nil {
 		query.Set("updated_after", formatPathValue(*updatedAfter))
@@ -4527,7 +4528,7 @@ func (c *Client) HandleListCodeScanProfilesV3EnterpriseCodeScansProfilesGet(ctx 
 		query.Set("first", formatPathValue(*first))
 	}
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	var out PaginatedResponse_CodeScanProfileSummaryResponse_
 	apiResp, err := c.do(ctx, "GET", "/v3/enterprise/code-scans/profiles", pathParams, query, headers, nil, "", "application/json", &out)
@@ -4587,7 +4588,7 @@ func (c *Client) HandleListCodeScansV3EnterpriseCodeScansScansGet(ctx context.Co
 		query.Set("first", formatPathValue(*first))
 	}
 	if orgIds != nil {
-		query.Set("org_ids", formatPathValue(*orgIds))
+		addFormExplodedQuery(query, "org_ids", *orgIds)
 	}
 	if repoName != nil {
 		query.Set("repo_name", formatPathValue(*repoName))
@@ -5132,7 +5133,7 @@ func (c *Client) HandleListRepositoriesV3OrganizationsOrgIdRepositoriesGet(ctx c
 		query.Set("after", formatPathValue(*after))
 	}
 	if excludeRepoPaths != nil {
-		query.Set("exclude_repo_paths", formatPathValue(*excludeRepoPaths))
+		addFormExplodedQuery(query, "exclude_repo_paths", *excludeRepoPaths)
 	}
 	if filterName != nil {
 		query.Set("filter_name", formatPathValue(*filterName))
@@ -5144,10 +5145,10 @@ func (c *Client) HandleListRepositoriesV3OrganizationsOrgIdRepositoriesGet(ctx c
 		query.Set("load_indexing_status", formatPathValue(*loadIndexingStatus))
 	}
 	if onlyRepoPaths != nil {
-		query.Set("only_repo_paths", formatPathValue(*onlyRepoPaths))
+		addFormExplodedQuery(query, "only_repo_paths", *onlyRepoPaths)
 	}
 	if providerRepositoryId != nil {
-		query.Set("provider_repository_id", formatPathValue(*providerRepositoryId))
+		addFormExplodedQuery(query, "provider_repository_id", *providerRepositoryId)
 	}
 	var out PaginatedResponse_RepositoryResponse_
 	apiResp, err := c.do(ctx, "GET", "/v3/organizations/{org_id}/repositories", pathParams, query, headers, nil, "", "application/json", &out)
@@ -7249,4 +7250,59 @@ func (c *Client) UpdateOrgGroupsConfigV3EnterpriseOrgGroupLimitsPut(ctx context.
 		return nil, apiResp, err
 	}
 	return &out, apiResp, nil
+}
+
+func addFormExplodedQuery(query url.Values, name string, value any) {
+	v := reflect.ValueOf(value)
+	for v.IsValid() && (v.Kind() == reflect.Pointer || v.Kind() == reflect.Interface) {
+		if v.IsNil() {
+			return
+		}
+		v = v.Elem()
+	}
+	if !v.IsValid() {
+		return
+	}
+	switch v.Kind() {
+	case reflect.Array, reflect.Slice:
+		for i := 0; i < v.Len(); i++ {
+			addFormExplodedQuery(query, name, v.Index(i).Interface())
+		}
+	case reflect.Struct:
+		typeOf := v.Type()
+		for i := 0; i < v.NumField(); i++ {
+			fieldType := typeOf.Field(i)
+			if fieldType.PkgPath != "" {
+				continue
+			}
+			tag := strings.Split(fieldType.Tag.Get("json"), ",")
+			fieldName := tag[0]
+			if fieldName == "-" {
+				continue
+			}
+			if fieldName == "" {
+				fieldName = fieldType.Name
+			}
+			fieldValue := v.Field(i)
+			for _, option := range tag[1:] {
+				if option == "omitempty" && fieldValue.IsZero() {
+					fieldName = ""
+					break
+				}
+			}
+			if fieldName != "" {
+				addFormExplodedQuery(query, fieldName, fieldValue.Interface())
+			}
+		}
+	case reflect.Map:
+		if v.Type().Key().Kind() != reflect.String {
+			return
+		}
+		iterator := v.MapRange()
+		for iterator.Next() {
+			addFormExplodedQuery(query, iterator.Key().String(), iterator.Value().Interface())
+		}
+	default:
+		query.Add(name, formatPathValue(v.Interface()))
+	}
 }
