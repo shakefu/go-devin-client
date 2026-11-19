@@ -1,0 +1,247 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "snapshot_setup".
+version: v1
+---
+spec: Operation_cancel_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__cancel_post
+INPUT:
+  - MUST: 'expose `Client.CancelOrgBuildV3OrganizationsOrgIdSnapshotSetupBuildsBuildIdCancelPost` for `POST /v3/organizations/{org_id}/snapshot-setup/builds/{build_id}/cancel`'
+  - MUST: 'expose the exact CLI command `cancel_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__cancel_post` for `POST /v3/organizations/{org_id}/snapshot-setup/builds/{build_id}/cancel`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_create_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints_post
+INPUT:
+  - MUST: 'expose `Client.CreateEnterpriseBlueprintEndpointV3EnterpriseSnapshotSetupBlueprintsPost` for `POST /v3/enterprise/snapshot-setup/blueprints`'
+  - MUST: 'expose the exact CLI command `create_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints_post` for `POST /v3/enterprise/snapshot-setup/blueprints`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_create_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints_post
+INPUT:
+  - MUST: 'expose `Client.CreateOrgBlueprintV3OrganizationsOrgIdSnapshotSetupBlueprintsPost` for `POST /v3/organizations/{org_id}/snapshot-setup/blueprints`'
+  - MUST: 'expose the exact CLI command `create_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints_post` for `POST /v3/organizations/{org_id}/snapshot-setup/blueprints`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_delete_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__delete
+INPUT:
+  - MUST: 'expose `Client.DeleteEnterpriseBlueprintEndpointV3EnterpriseSnapshotSetupBlueprintsBlueprintIdDelete` for `DELETE /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}`'
+  - MUST: 'expose the exact CLI command `delete_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__delete` for `DELETE /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_delete_enterprise_blueprint_file_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files__file_id__delete
+INPUT:
+  - MUST: 'expose `Client.DeleteEnterpriseBlueprintFileV3EnterpriseSnapshotSetupBlueprintsBlueprintIdFilesFileIdDelete` for `DELETE /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}/files/{file_id}`'
+  - MUST: 'expose the exact CLI command `delete_enterprise_blueprint_file_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files__file_id__delete` for `DELETE /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}/files/{file_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_delete_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files__file_id__delete
+INPUT:
+  - MUST: 'expose `Client.DeleteOrgBlueprintFileV3OrganizationsOrgIdSnapshotSetupBlueprintsBlueprintIdFilesFileIdDelete` for `DELETE /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}/files/{file_id}`'
+  - MUST: 'expose the exact CLI command `delete_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files__file_id__delete` for `DELETE /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}/files/{file_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_delete_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__delete
+INPUT:
+  - MUST: 'expose `Client.DeleteOrgBlueprintV3OrganizationsOrgIdSnapshotSetupBlueprintsBlueprintIdDelete` for `DELETE /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}`'
+  - MUST: 'expose the exact CLI command `delete_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__delete` for `DELETE /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_get_enterprise_blueprint_contents_v3_enterprise_snapshot_setup_blueprints__blueprint_id__contents_get
+INPUT:
+  - MUST: 'expose `Client.GetEnterpriseBlueprintContentsV3EnterpriseSnapshotSetupBlueprintsBlueprintIdContentsGet` for `GET /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}/contents`'
+  - MUST: 'expose the exact CLI command `get_enterprise_blueprint_contents_v3_enterprise_snapshot_setup_blueprints__blueprint_id__contents_get` for `GET /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}/contents`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_get_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__get
+INPUT:
+  - MUST: 'expose `Client.GetEnterpriseBlueprintEndpointV3EnterpriseSnapshotSetupBlueprintsBlueprintIdGet` for `GET /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}`'
+  - MUST: 'expose the exact CLI command `get_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__get` for `GET /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_get_enterprise_blueprint_file_contents_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files__file_id__contents_get
+INPUT:
+  - MUST: 'expose `Client.GetEnterpriseBlueprintFileContentsV3EnterpriseSnapshotSetupBlueprintsBlueprintIdFilesFileIdContentsGet` for `GET /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}/files/{file_id}/contents`'
+  - MUST: 'expose the exact CLI command `get_enterprise_blueprint_file_contents_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files__file_id__contents_get` for `GET /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}/files/{file_id}/contents`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_get_org_blueprint_contents_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__contents_get
+INPUT:
+  - MUST: 'expose `Client.GetOrgBlueprintContentsV3OrganizationsOrgIdSnapshotSetupBlueprintsBlueprintIdContentsGet` for `GET /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}/contents`'
+  - MUST: 'expose the exact CLI command `get_org_blueprint_contents_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__contents_get` for `GET /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}/contents`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_get_org_blueprint_file_contents_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files__file_id__contents_get
+INPUT:
+  - MUST: 'expose `Client.GetOrgBlueprintFileContentsV3OrganizationsOrgIdSnapshotSetupBlueprintsBlueprintIdFilesFileIdContentsGet` for `GET /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}/files/{file_id}/contents`'
+  - MUST: 'expose the exact CLI command `get_org_blueprint_file_contents_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files__file_id__contents_get` for `GET /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}/files/{file_id}/contents`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_get_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__get
+INPUT:
+  - MUST: 'expose `Client.GetOrgBlueprintV3OrganizationsOrgIdSnapshotSetupBlueprintsBlueprintIdGet` for `GET /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}`'
+  - MUST: 'expose the exact CLI command `get_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__get` for `GET /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_get_org_build_logs_v3_organizations__org_id__snapshot_setup_builds__build_id__logs_get
+INPUT:
+  - MUST: 'expose `Client.GetOrgBuildLogsV3OrganizationsOrgIdSnapshotSetupBuildsBuildIdLogsGet` for `GET /v3/organizations/{org_id}/snapshot-setup/builds/{build_id}/logs`'
+  - MUST: 'expose the exact CLI command `get_org_build_logs_v3_organizations__org_id__snapshot_setup_builds__build_id__logs_get` for `GET /v3/organizations/{org_id}/snapshot-setup/builds/{build_id}/logs`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_get_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__get
+INPUT:
+  - MUST: 'expose `Client.GetOrgBuildV3OrganizationsOrgIdSnapshotSetupBuildsBuildIdGet` for `GET /v3/organizations/{org_id}/snapshot-setup/builds/{build_id}`'
+  - MUST: 'expose the exact CLI command `get_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__get` for `GET /v3/organizations/{org_id}/snapshot-setup/builds/{build_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_list_enterprise_blueprint_files_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_get
+INPUT:
+  - MUST: 'expose `Client.ListEnterpriseBlueprintFilesV3EnterpriseSnapshotSetupBlueprintsBlueprintIdFilesGet` for `GET /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}/files`'
+  - MUST: 'expose the exact CLI command `list_enterprise_blueprint_files_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_get` for `GET /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}/files`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_list_enterprise_blueprints_v3_enterprise_snapshot_setup_blueprints_get
+INPUT:
+  - MUST: 'expose `Client.ListEnterpriseBlueprintsV3EnterpriseSnapshotSetupBlueprintsGet` for `GET /v3/enterprise/snapshot-setup/blueprints`'
+  - MUST: 'expose the exact CLI command `list_enterprise_blueprints_v3_enterprise_snapshot_setup_blueprints_get` for `GET /v3/enterprise/snapshot-setup/blueprints`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_list_org_blueprint_files_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_get
+INPUT:
+  - MUST: 'expose `Client.ListOrgBlueprintFilesV3OrganizationsOrgIdSnapshotSetupBlueprintsBlueprintIdFilesGet` for `GET /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}/files`'
+  - MUST: 'expose the exact CLI command `list_org_blueprint_files_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_get` for `GET /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}/files`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_list_org_blueprints_v3_organizations__org_id__snapshot_setup_blueprints_get
+INPUT:
+  - MUST: 'expose `Client.ListOrgBlueprintsV3OrganizationsOrgIdSnapshotSetupBlueprintsGet` for `GET /v3/organizations/{org_id}/snapshot-setup/blueprints`'
+  - MUST: 'expose the exact CLI command `list_org_blueprints_v3_organizations__org_id__snapshot_setup_blueprints_get` for `GET /v3/organizations/{org_id}/snapshot-setup/blueprints`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_list_org_builds_v3_organizations__org_id__snapshot_setup_builds_get
+INPUT:
+  - MUST: 'expose `Client.ListOrgBuildsV3OrganizationsOrgIdSnapshotSetupBuildsGet` for `GET /v3/organizations/{org_id}/snapshot-setup/builds`'
+  - MUST: 'expose the exact CLI command `list_org_builds_v3_organizations__org_id__snapshot_setup_builds_get` for `GET /v3/organizations/{org_id}/snapshot-setup/builds`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_pin_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__pin_post
+INPUT:
+  - MUST: 'expose `Client.PinOrgBuildV3OrganizationsOrgIdSnapshotSetupBuildsBuildIdPinPost` for `POST /v3/organizations/{org_id}/snapshot-setup/builds/{build_id}/pin`'
+  - MUST: 'expose the exact CLI command `pin_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__pin_post` for `POST /v3/organizations/{org_id}/snapshot-setup/builds/{build_id}/pin`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_trigger_org_build_v3_organizations__org_id__snapshot_setup_builds_post
+INPUT:
+  - MUST: 'expose `Client.TriggerOrgBuildV3OrganizationsOrgIdSnapshotSetupBuildsPost` for `POST /v3/organizations/{org_id}/snapshot-setup/builds`'
+  - MUST: 'expose the exact CLI command `trigger_org_build_v3_organizations__org_id__snapshot_setup_builds_post` for `POST /v3/organizations/{org_id}/snapshot-setup/builds`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_unpin_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__pin_delete
+INPUT:
+  - MUST: 'expose `Client.UnpinOrgBuildV3OrganizationsOrgIdSnapshotSetupBuildsBuildIdPinDelete` for `DELETE /v3/organizations/{org_id}/snapshot-setup/builds/{build_id}/pin`'
+  - MUST: 'expose the exact CLI command `unpin_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__pin_delete` for `DELETE /v3/organizations/{org_id}/snapshot-setup/builds/{build_id}/pin`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_update_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__put
+INPUT:
+  - MUST: 'expose `Client.UpdateEnterpriseBlueprintEndpointV3EnterpriseSnapshotSetupBlueprintsBlueprintIdPut` for `PUT /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}`'
+  - MUST: 'expose the exact CLI command `update_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__put` for `PUT /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_update_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__patch
+INPUT:
+  - MUST: 'expose `Client.UpdateOrgBlueprintV3OrganizationsOrgIdSnapshotSetupBlueprintsBlueprintIdPatch` for `PATCH /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}`'
+  - MUST: 'expose the exact CLI command `update_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__patch` for `PATCH /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_upload_enterprise_blueprint_file_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_post
+INPUT:
+  - MUST: 'expose `Client.UploadEnterpriseBlueprintFile` for `POST /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}/files`'
+  - MUST: 'expose the exact CLI command `upload_enterprise_blueprint_file_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_post` for `POST /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}/files`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_upload_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_post
+INPUT:
+  - MUST: 'expose `Client.UploadOrgBlueprintFile` for `POST /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}/files`'
+  - MUST: 'expose the exact CLI command `upload_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_post` for `POST /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}/files`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

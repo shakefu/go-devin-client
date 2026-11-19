@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "org-groups".
+version: v1
+---
+spec: Operation_get_org_groups_config_v3_enterprise_org_group_limits_get
+INPUT:
+  - MUST: 'expose `Client.GetOrgGroupsConfigV3EnterpriseOrgGroupLimitsGet` for `GET /v3/enterprise/org-group-limits`'
+  - MUST: 'expose the exact CLI command `get_org_groups_config_v3_enterprise_org_group_limits_get` for `GET /v3/enterprise/org-group-limits`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_update_org_groups_config_v3_enterprise_org_group_limits_put
+INPUT:
+  - MUST: 'expose `Client.UpdateOrgGroupsConfigV3EnterpriseOrgGroupLimitsPut` for `PUT /v3/enterprise/org-group-limits`'
+  - MUST: 'expose the exact CLI command `update_org_groups_config_v3_enterprise_org_group_limits_put` for `PUT /v3/enterprise/org-group-limits`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

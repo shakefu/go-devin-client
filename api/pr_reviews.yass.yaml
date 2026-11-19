@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "pr-reviews".
+version: v1
+---
+spec: Operation_handle_create_pr_review_v3_enterprise_pr_reviews_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreatePrReviewV3EnterprisePrReviewsPost` for `POST /v3/enterprise/pr-reviews`'
+  - MUST: 'expose the exact CLI command `handle_create_pr_review_v3_enterprise_pr_reviews_post` for `POST /v3/enterprise/pr-reviews`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_create_pr_review_v3_organizations__org_id__pr_reviews_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreatePrReviewV3OrganizationsOrgIdPrReviewsPost` for `POST /v3/organizations/{org_id}/pr-reviews`'
+  - MUST: 'expose the exact CLI command `handle_create_pr_review_v3_organizations__org_id__pr_reviews_post` for `POST /v3/organizations/{org_id}/pr-reviews`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_pr_review_status_v3_enterprise_pr_reviews_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetPrReviewStatusV3EnterprisePrReviewsGet` for `GET /v3/enterprise/pr-reviews`'
+  - MUST: 'expose the exact CLI command `handle_get_pr_review_status_v3_enterprise_pr_reviews_get` for `GET /v3/enterprise/pr-reviews`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_pr_review_status_v3_organizations__org_id__pr_reviews_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetPrReviewStatusV3OrganizationsOrgIdPrReviewsGet` for `GET /v3/organizations/{org_id}/pr-reviews`'
+  - MUST: 'expose the exact CLI command `handle_get_pr_review_status_v3_organizations__org_id__pr_reviews_get` for `GET /v3/organizations/{org_id}/pr-reviews`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

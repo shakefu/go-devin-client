@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "organizations".
+version: v1
+---
+spec: Operation_handle_create_organization_v3_enterprise_organizations_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateOrganizationV3EnterpriseOrganizationsPost` for `POST /v3/enterprise/organizations`'
+  - MUST: 'expose the exact CLI command `handle_create_organization_v3_enterprise_organizations_post` for `POST /v3/enterprise/organizations`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_organization_v3_enterprise_organizations__org_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteOrganizationV3EnterpriseOrganizationsOrgIdDelete` for `DELETE /v3/enterprise/organizations/{org_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_organization_v3_enterprise_organizations__org_id__delete` for `DELETE /v3/enterprise/organizations/{org_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_organization_v3_enterprise_organizations__org_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOrganizationV3EnterpriseOrganizationsOrgIdGet` for `GET /v3/enterprise/organizations/{org_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_organization_v3_enterprise_organizations__org_id__get` for `GET /v3/enterprise/organizations/{org_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_organizations_v3_enterprise_organizations_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOrganizationsV3EnterpriseOrganizationsGet` for `GET /v3/enterprise/organizations`'
+  - MUST: 'expose the exact CLI command `handle_get_organizations_v3_enterprise_organizations_get` for `GET /v3/enterprise/organizations`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_organization_v3_enterprise_organizations__org_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateOrganizationV3EnterpriseOrganizationsOrgIdPatch` for `PATCH /v3/enterprise/organizations/{org_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_organization_v3_enterprise_organizations__org_id__patch` for `PATCH /v3/enterprise/organizations/{org_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

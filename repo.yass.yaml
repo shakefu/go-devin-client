@@ -1,0 +1,38 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Repository, build, release, and maintainer bootstrap contract.
+version: v1
+---
+spec: Repository
+INPUT:
+  - MUST: 'keep a single Go module at repository root with `cmd/devin-client` in the same module.'
+RETURN:
+  - MUST: 'support `go install github.com/shakefu/go-devin-client/cmd/devin-client@latest`.'
+  - MUST: 'publish source releases with semantic version tags through pinned common-repo semantic-release.'
+  - MUST: 'run yass validation and lint, reproducible-generation checks, `go vet ./...`, and `go test ./...` in the repository test command and CI.'
+ERROR:
+  - WHEN: 'generation output differs from committed generated files'
+    MUST: 'fail `script/check-generated` and `script/test`.'
+  - WHEN: 'tests use an external or paid Devin API'
+    MUST: 'fail the test policy.'
+SIDE-EFFECT:
+  - MUST-NOT: 'require private Go module dependencies.'
+  - MUST-NOT: 'require a live API credential to build or test.'
+  - MUST-NOT: 'require binary release archives for the initial source release.'
+  - MUST-NOT: 'run an automatic API-spec watcher or mutate release secrets.'
+INVARIANT:
+  - MUST: 'follow the pinned Go, mise, common-repo, conventional-commit, and semantic-release setup in root design `RepositoryToolchain`.'
+  - USES: root@RepositoryToolchain
+  - USES: root@TestWorkflow
+  - CONFORMS: README
+---
+spec: README
+RETURN:
+  - MUST: 'describe the full Devin v3 API scope and absence of v1 and v2 compatibility.'
+  - MUST: 'present `New(Config)` as the recommended authenticated constructor.'
+  - MUST: 'describe `NewClient(baseURL)` as a lower-level constructor without authentication.'
+  - MUST: 'document `go install github.com/shakefu/go-devin-client/cmd/devin-client@latest`.'
+  - MUST: 'name `BOT_CLIENT_ID` and `BOT_PRIVATE_KEY` as maintainer bootstrap prerequisites.'
+  - MUST: 'document the CLI''s API-key, base-URL, and timeout precedence.'
+INVARIANT:
+  - MUST-NOT: 'include values for maintainer secrets.'

@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "schedules".
+version: v1
+---
+spec: Operation_handle_create_schedule_v3_organizations__org_id__schedules_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateScheduleV3OrganizationsOrgIdSchedulesPost` for `POST /v3/organizations/{org_id}/schedules`'
+  - MUST: 'expose the exact CLI command `handle_create_schedule_v3_organizations__org_id__schedules_post` for `POST /v3/organizations/{org_id}/schedules`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_schedule_v3_organizations__org_id__schedules__schedule_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteScheduleV3OrganizationsOrgIdSchedulesScheduleIdDelete` for `DELETE /v3/organizations/{org_id}/schedules/{schedule_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_schedule_v3_organizations__org_id__schedules__schedule_id__delete` for `DELETE /v3/organizations/{org_id}/schedules/{schedule_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_schedule_v3_organizations__org_id__schedules__schedule_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetScheduleV3OrganizationsOrgIdSchedulesScheduleIdGet` for `GET /v3/organizations/{org_id}/schedules/{schedule_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_schedule_v3_organizations__org_id__schedules__schedule_id__get` for `GET /v3/organizations/{org_id}/schedules/{schedule_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_schedules_v3_organizations__org_id__schedules_get
+INPUT:
+  - MUST: 'expose `Client.HandleListSchedulesV3OrganizationsOrgIdSchedulesGet` for `GET /v3/organizations/{org_id}/schedules`'
+  - MUST: 'expose the exact CLI command `handle_list_schedules_v3_organizations__org_id__schedules_get` for `GET /v3/organizations/{org_id}/schedules`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_schedule_v3_organizations__org_id__schedules__schedule_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateScheduleV3OrganizationsOrgIdSchedulesScheduleIdPatch` for `PATCH /v3/organizations/{org_id}/schedules/{schedule_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_schedule_v3_organizations__org_id__schedules__schedule_id__patch` for `PATCH /v3/organizations/{org_id}/schedules/{schedule_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

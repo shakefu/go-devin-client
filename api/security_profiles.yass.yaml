@@ -1,0 +1,130 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "security-profiles".
+version: v1
+---
+spec: Operation_handle_create_security_profile_v3beta1_enterprise_security_profiles_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateSecurityProfileV3beta1EnterpriseSecurityProfilesPost` for `POST /v3beta1/enterprise/security-profiles`'
+  - MUST: 'expose the exact CLI command `handle_create_security_profile_v3beta1_enterprise_security_profiles_post` for `POST /v3beta1/enterprise/security-profiles`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_create_security_profile_v3beta1_organizations__org_id__security_profiles_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateSecurityProfileV3beta1OrganizationsOrgIdSecurityProfilesPost` for `POST /v3beta1/organizations/{org_id}/security-profiles`'
+  - MUST: 'expose the exact CLI command `handle_create_security_profile_v3beta1_organizations__org_id__security_profiles_post` for `POST /v3beta1/organizations/{org_id}/security-profiles`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_security_profile_v3beta1_enterprise_security_profiles__profile_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteSecurityProfileV3beta1EnterpriseSecurityProfilesProfileIdDelete` for `DELETE /v3beta1/enterprise/security-profiles/{profile_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_security_profile_v3beta1_enterprise_security_profiles__profile_id__delete` for `DELETE /v3beta1/enterprise/security-profiles/{profile_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteSecurityProfileV3beta1OrganizationsOrgIdSecurityProfilesProfileIdDelete` for `DELETE /v3beta1/organizations/{org_id}/security-profiles/{profile_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__delete` for `DELETE /v3beta1/organizations/{org_id}/security-profiles/{profile_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_security_profile_settings_v3beta1_enterprise_security_profile_settings_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSecurityProfileSettingsV3beta1EnterpriseSecurityProfileSettingsGet` for `GET /v3beta1/enterprise/security-profile-settings`'
+  - MUST: 'expose the exact CLI command `handle_get_security_profile_settings_v3beta1_enterprise_security_profile_settings_get` for `GET /v3beta1/enterprise/security-profile-settings`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_security_profile_settings_v3beta1_organizations__org_id__security_profile_settings_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSecurityProfileSettingsV3beta1OrganizationsOrgIdSecurityProfileSettingsGet` for `GET /v3beta1/organizations/{org_id}/security-profile-settings`'
+  - MUST: 'expose the exact CLI command `handle_get_security_profile_settings_v3beta1_organizations__org_id__security_profile_settings_get` for `GET /v3beta1/organizations/{org_id}/security-profile-settings`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_security_profile_v3beta1_enterprise_security_profiles__profile_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSecurityProfileV3beta1EnterpriseSecurityProfilesProfileIdGet` for `GET /v3beta1/enterprise/security-profiles/{profile_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_security_profile_v3beta1_enterprise_security_profiles__profile_id__get` for `GET /v3beta1/enterprise/security-profiles/{profile_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSecurityProfileV3beta1OrganizationsOrgIdSecurityProfilesProfileIdGet` for `GET /v3beta1/organizations/{org_id}/security-profiles/{profile_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__get` for `GET /v3beta1/organizations/{org_id}/security-profiles/{profile_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_security_profiles_v3beta1_enterprise_security_profiles_get
+INPUT:
+  - MUST: 'expose `Client.HandleListSecurityProfilesV3beta1EnterpriseSecurityProfilesGet` for `GET /v3beta1/enterprise/security-profiles`'
+  - MUST: 'expose the exact CLI command `handle_list_security_profiles_v3beta1_enterprise_security_profiles_get` for `GET /v3beta1/enterprise/security-profiles`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_security_profiles_v3beta1_organizations__org_id__security_profiles_get
+INPUT:
+  - MUST: 'expose `Client.HandleListSecurityProfilesV3beta1OrganizationsOrgIdSecurityProfilesGet` for `GET /v3beta1/organizations/{org_id}/security-profiles`'
+  - MUST: 'expose the exact CLI command `handle_list_security_profiles_v3beta1_organizations__org_id__security_profiles_get` for `GET /v3beta1/organizations/{org_id}/security-profiles`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_security_profile_settings_v3beta1_enterprise_security_profile_settings_patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateSecurityProfileSettingsV3beta1EnterpriseSecurityProfileSettingsPatch` for `PATCH /v3beta1/enterprise/security-profile-settings`'
+  - MUST: 'expose the exact CLI command `handle_update_security_profile_settings_v3beta1_enterprise_security_profile_settings_patch` for `PATCH /v3beta1/enterprise/security-profile-settings`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_security_profile_settings_v3beta1_organizations__org_id__security_profile_settings_patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateSecurityProfileSettingsV3beta1OrganizationsOrgIdSecurityProfileSettingsPatch` for `PATCH /v3beta1/organizations/{org_id}/security-profile-settings`'
+  - MUST: 'expose the exact CLI command `handle_update_security_profile_settings_v3beta1_organizations__org_id__security_profile_settings_patch` for `PATCH /v3beta1/organizations/{org_id}/security-profile-settings`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_security_profile_v3beta1_enterprise_security_profiles__profile_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateSecurityProfileV3beta1EnterpriseSecurityProfilesProfileIdPatch` for `PATCH /v3beta1/enterprise/security-profiles/{profile_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_security_profile_v3beta1_enterprise_security_profiles__profile_id__patch` for `PATCH /v3beta1/enterprise/security-profiles/{profile_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateSecurityProfileV3beta1OrganizationsOrgIdSecurityProfilesProfileIdPatch` for `PATCH /v3beta1/organizations/{org_id}/security-profiles/{profile_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__patch` for `PATCH /v3beta1/organizations/{org_id}/security-profiles/{profile_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

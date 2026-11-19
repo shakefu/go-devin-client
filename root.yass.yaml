@@ -1,0 +1,932 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Approved full-v3 scope and project-wide contract for github.com/shakefu/go-devin-client.
+version: v1
+---
+spec: Project
+INPUT:
+  - WHEN: 'the command is `ops`'
+    MUST: 'dispatch to the operation listing command'
+    SEE: cli@OperationsList
+  - WHEN: 'the user supplies `--help`'
+    MUST: 'dispatch to help output'
+    SEE: cli@CLIHelp
+  - WHEN: 'the user supplies `--version`'
+    MUST: 'dispatch to version output'
+    SEE: cli@CLIVersion
+  - WHEN: 'the command is exactly `cancel_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__cancel_post`'
+    MUST: 'dispatch to the `cancel_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__cancel_post` operation'
+    SEE: api/snapshot_setup@Operation_cancel_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__cancel_post
+  - WHEN: 'the command is exactly `clear_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_delete`'
+    MUST: 'dispatch to the `clear_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_delete` operation'
+    SEE: api/organization_tags@Operation_clear_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_delete
+  - WHEN: 'the command is exactly `clear_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_delete`'
+    MUST: 'dispatch to the `clear_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_delete` operation'
+    SEE: api/organization_tags@Operation_clear_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_delete
+  - WHEN: 'the command is exactly `create_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints_post`'
+    MUST: 'dispatch to the `create_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints_post` operation'
+    SEE: api/snapshot_setup@Operation_create_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints_post
+  - WHEN: 'the command is exactly `create_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints_post`'
+    MUST: 'dispatch to the `create_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints_post` operation'
+    SEE: api/snapshot_setup@Operation_create_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints_post
+  - WHEN: 'the command is exactly `delete_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__delete`'
+    MUST: 'dispatch to the `delete_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__delete` operation'
+    SEE: api/snapshot_setup@Operation_delete_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__delete
+  - WHEN: 'the command is exactly `delete_enterprise_blueprint_file_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files__file_id__delete`'
+    MUST: 'dispatch to the `delete_enterprise_blueprint_file_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files__file_id__delete` operation'
+    SEE: api/snapshot_setup@Operation_delete_enterprise_blueprint_file_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files__file_id__delete
+  - WHEN: 'the command is exactly `delete_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files__file_id__delete`'
+    MUST: 'dispatch to the `delete_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files__file_id__delete` operation'
+    SEE: api/snapshot_setup@Operation_delete_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files__file_id__delete
+  - WHEN: 'the command is exactly `delete_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__delete`'
+    MUST: 'dispatch to the `delete_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__delete` operation'
+    SEE: api/snapshot_setup@Operation_delete_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__delete
+  - WHEN: 'the command is exactly `get_enterprise_blueprint_contents_v3_enterprise_snapshot_setup_blueprints__blueprint_id__contents_get`'
+    MUST: 'dispatch to the `get_enterprise_blueprint_contents_v3_enterprise_snapshot_setup_blueprints__blueprint_id__contents_get` operation'
+    SEE: api/snapshot_setup@Operation_get_enterprise_blueprint_contents_v3_enterprise_snapshot_setup_blueprints__blueprint_id__contents_get
+  - WHEN: 'the command is exactly `get_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__get`'
+    MUST: 'dispatch to the `get_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__get` operation'
+    SEE: api/snapshot_setup@Operation_get_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__get
+  - WHEN: 'the command is exactly `get_enterprise_blueprint_file_contents_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files__file_id__contents_get`'
+    MUST: 'dispatch to the `get_enterprise_blueprint_file_contents_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files__file_id__contents_get` operation'
+    SEE: api/snapshot_setup@Operation_get_enterprise_blueprint_file_contents_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files__file_id__contents_get
+  - WHEN: 'the command is exactly `get_org_blueprint_contents_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__contents_get`'
+    MUST: 'dispatch to the `get_org_blueprint_contents_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__contents_get` operation'
+    SEE: api/snapshot_setup@Operation_get_org_blueprint_contents_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__contents_get
+  - WHEN: 'the command is exactly `get_org_blueprint_file_contents_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files__file_id__contents_get`'
+    MUST: 'dispatch to the `get_org_blueprint_file_contents_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files__file_id__contents_get` operation'
+    SEE: api/snapshot_setup@Operation_get_org_blueprint_file_contents_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files__file_id__contents_get
+  - WHEN: 'the command is exactly `get_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__get`'
+    MUST: 'dispatch to the `get_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__get` operation'
+    SEE: api/snapshot_setup@Operation_get_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__get
+  - WHEN: 'the command is exactly `get_org_build_logs_v3_organizations__org_id__snapshot_setup_builds__build_id__logs_get`'
+    MUST: 'dispatch to the `get_org_build_logs_v3_organizations__org_id__snapshot_setup_builds__build_id__logs_get` operation'
+    SEE: api/snapshot_setup@Operation_get_org_build_logs_v3_organizations__org_id__snapshot_setup_builds__build_id__logs_get
+  - WHEN: 'the command is exactly `get_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__get`'
+    MUST: 'dispatch to the `get_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__get` operation'
+    SEE: api/snapshot_setup@Operation_get_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__get
+  - WHEN: 'the command is exactly `get_org_groups_config_v3_enterprise_org_group_limits_get`'
+    MUST: 'dispatch to the `get_org_groups_config_v3_enterprise_org_group_limits_get` operation'
+    SEE: api/org_groups@Operation_get_org_groups_config_v3_enterprise_org_group_limits_get
+  - WHEN: 'the command is exactly `get_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_get`'
+    MUST: 'dispatch to the `get_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_get` operation'
+    SEE: api/organization_tags@Operation_get_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_get
+  - WHEN: 'the command is exactly `get_queue_v3_enterprise_queue_get`'
+    MUST: 'dispatch to the `get_queue_v3_enterprise_queue_get` operation'
+    SEE: api/queue@Operation_get_queue_v3_enterprise_queue_get
+  - WHEN: 'the command is exactly `handle_add_ip_access_list_v3_enterprise_ip_access_list_post`'
+    MUST: 'dispatch to the `handle_add_ip_access_list_v3_enterprise_ip_access_list_post` operation'
+    SEE: api/ip_access_list@Operation_handle_add_ip_access_list_v3_enterprise_ip_access_list_post
+  - WHEN: 'the command is exactly `handle_append_account_session_tags_v3_enterprise_sessions__devin_id__tags_post`'
+    MUST: 'dispatch to the `handle_append_account_session_tags_v3_enterprise_sessions__devin_id__tags_post` operation'
+    SEE: api/sessions@Operation_handle_append_account_session_tags_v3_enterprise_sessions__devin_id__tags_post
+  - WHEN: 'the command is exactly `handle_append_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_post`'
+    MUST: 'dispatch to the `handle_append_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_post` operation'
+    SEE: api/organization_tags@Operation_handle_append_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_post
+  - WHEN: 'the command is exactly `handle_append_session_tags_v3_organizations__org_id__sessions__devin_id__tags_post`'
+    MUST: 'dispatch to the `handle_append_session_tags_v3_organizations__org_id__sessions__devin_id__tags_post` operation'
+    SEE: api/sessions@Operation_handle_append_session_tags_v3_organizations__org_id__sessions__devin_id__tags_post
+  - WHEN: 'the command is exactly `handle_archive_session_v3_organizations__org_id__sessions__devin_id__archive_post`'
+    MUST: 'dispatch to the `handle_archive_session_v3_organizations__org_id__sessions__devin_id__archive_post` operation'
+    SEE: api/sessions@Operation_handle_archive_session_v3_organizations__org_id__sessions__devin_id__archive_post
+  - WHEN: 'the command is exactly `handle_assign_enterprise_idp_group_role_v3_enterprise_members_idp_groups__idp_group_name__post`'
+    MUST: 'dispatch to the `handle_assign_enterprise_idp_group_role_v3_enterprise_members_idp_groups__idp_group_name__post` operation'
+    SEE: api/idp_groups@Operation_handle_assign_enterprise_idp_group_role_v3_enterprise_members_idp_groups__idp_group_name__post
+  - WHEN: 'the command is exactly `handle_assign_enterprise_service_user_role_v3_enterprise_members_service_users__service_user_id__post`'
+    MUST: 'dispatch to the `handle_assign_enterprise_service_user_role_v3_enterprise_members_service_users__service_user_id__post` operation'
+    SEE: api/service_users@Operation_handle_assign_enterprise_service_user_role_v3_enterprise_members_service_users__service_user_id__post
+  - WHEN: 'the command is exactly `handle_assign_organization_idp_group_role_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__post`'
+    MUST: 'dispatch to the `handle_assign_organization_idp_group_role_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__post` operation'
+    SEE: api/idp_groups@Operation_handle_assign_organization_idp_group_role_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__post
+  - WHEN: 'the command is exactly `handle_assign_organization_service_user_role_v3_enterprise_organizations__org_id__members_service_users__service_user_id__post`'
+    MUST: 'dispatch to the `handle_assign_organization_service_user_role_v3_enterprise_organizations__org_id__members_service_users__service_user_id__post` operation'
+    SEE: api/service_users@Operation_handle_assign_organization_service_user_role_v3_enterprise_organizations__org_id__members_service_users__service_user_id__post
+  - WHEN: 'the command is exactly `handle_assign_organization_user_role_v3_enterprise_organizations__org_id__members_users__user_id__post`'
+    MUST: 'dispatch to the `handle_assign_organization_user_role_v3_enterprise_organizations__org_id__members_users__user_id__post` operation'
+    SEE: api/users@Operation_handle_assign_organization_user_role_v3_enterprise_organizations__org_id__members_users__user_id__post
+  - WHEN: 'the command is exactly `handle_bulk_create_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_post`'
+    MUST: 'dispatch to the `handle_bulk_create_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_post` operation'
+    SEE: api/git_permissions@Operation_handle_bulk_create_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_post
+  - WHEN: 'the command is exactly `handle_bulk_index_repositories_v3_organizations__org_id__repositories_indexing_put`'
+    MUST: 'dispatch to the `handle_bulk_index_repositories_v3_organizations__org_id__repositories_indexing_put` operation'
+    SEE: api/repositories@Operation_handle_bulk_index_repositories_v3_organizations__org_id__repositories_indexing_put
+  - WHEN: 'the command is exactly `handle_bulk_invite_enterprise_users_v3_enterprise_members_users_post`'
+    MUST: 'dispatch to the `handle_bulk_invite_enterprise_users_v3_enterprise_members_users_post` operation'
+    SEE: api/users@Operation_handle_bulk_invite_enterprise_users_v3_enterprise_members_users_post
+  - WHEN: 'the command is exactly `handle_bulk_register_account_idp_groups_v3_enterprise_idp_groups_post`'
+    MUST: 'dispatch to the `handle_bulk_register_account_idp_groups_v3_enterprise_idp_groups_post` operation'
+    SEE: api/idp_groups@Operation_handle_bulk_register_account_idp_groups_v3_enterprise_idp_groups_post
+  - WHEN: 'the command is exactly `handle_bulk_remove_repositories_from_indexing_v3_organizations__org_id__repositories_indexing_delete`'
+    MUST: 'dispatch to the `handle_bulk_remove_repositories_from_indexing_v3_organizations__org_id__repositories_indexing_delete` operation'
+    SEE: api/repositories@Operation_handle_bulk_remove_repositories_from_indexing_v3_organizations__org_id__repositories_indexing_delete
+  - WHEN: 'the command is exactly `handle_cancel_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__cancel_post`'
+    MUST: 'dispatch to the `handle_cancel_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__cancel_post` operation'
+    SEE: api/code_scans@Operation_handle_cancel_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__cancel_post
+  - WHEN: 'the command is exactly `handle_cancel_code_scan_v3_organizations__org_id__code_scans__scan_id__cancel_post`'
+    MUST: 'dispatch to the `handle_cancel_code_scan_v3_organizations__org_id__code_scans__scan_id__cancel_post` operation'
+    SEE: api/code_scans@Operation_handle_cancel_code_scan_v3_organizations__org_id__code_scans__scan_id__cancel_post
+  - WHEN: 'the command is exactly `handle_clear_ip_access_list_v3_enterprise_ip_access_list_delete`'
+    MUST: 'dispatch to the `handle_clear_ip_access_list_v3_enterprise_ip_access_list_delete` operation'
+    SEE: api/ip_access_list@Operation_handle_clear_ip_access_list_v3_enterprise_ip_access_list_delete
+  - WHEN: 'the command is exactly `handle_clear_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_delete`'
+    MUST: 'dispatch to the `handle_clear_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_delete` operation'
+    SEE: api/git_permissions@Operation_handle_clear_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_delete
+  - WHEN: 'the command is exactly `handle_create_auto_scan_schedule_v3_enterprise_organizations__org_id__code_scans__scan_id__auto_scan_post`'
+    MUST: 'dispatch to the `handle_create_auto_scan_schedule_v3_enterprise_organizations__org_id__code_scans__scan_id__auto_scan_post` operation'
+    SEE: api/code_scans@Operation_handle_create_auto_scan_schedule_v3_enterprise_organizations__org_id__code_scans__scan_id__auto_scan_post
+  - WHEN: 'the command is exactly `handle_create_auto_scan_schedule_v3_organizations__org_id__code_scans__scan_id__auto_scan_post`'
+    MUST: 'dispatch to the `handle_create_auto_scan_schedule_v3_organizations__org_id__code_scans__scan_id__auto_scan_post` operation'
+    SEE: api/code_scans@Operation_handle_create_auto_scan_schedule_v3_organizations__org_id__code_scans__scan_id__auto_scan_post
+  - WHEN: 'the command is exactly `handle_create_automation_v3_organizations__org_id__automations_post`'
+    MUST: 'dispatch to the `handle_create_automation_v3_organizations__org_id__automations_post` operation'
+    SEE: api/automations@Operation_handle_create_automation_v3_organizations__org_id__automations_post
+  - WHEN: 'the command is exactly `handle_create_note_v3_enterprise_knowledge_notes_post`'
+    MUST: 'dispatch to the `handle_create_note_v3_enterprise_knowledge_notes_post` operation'
+    SEE: api/notes@Operation_handle_create_note_v3_enterprise_knowledge_notes_post
+  - WHEN: 'the command is exactly `handle_create_note_v3_organizations__org_id__knowledge_notes_post`'
+    MUST: 'dispatch to the `handle_create_note_v3_organizations__org_id__knowledge_notes_post` operation'
+    SEE: api/notes@Operation_handle_create_note_v3_organizations__org_id__knowledge_notes_post
+  - WHEN: 'the command is exactly `handle_create_organization_v3_enterprise_organizations_post`'
+    MUST: 'dispatch to the `handle_create_organization_v3_enterprise_organizations_post` operation'
+    SEE: api/organizations@Operation_handle_create_organization_v3_enterprise_organizations_post
+  - WHEN: 'the command is exactly `handle_create_playbook_v3_enterprise_playbooks_post`'
+    MUST: 'dispatch to the `handle_create_playbook_v3_enterprise_playbooks_post` operation'
+    SEE: api/playbooks@Operation_handle_create_playbook_v3_enterprise_playbooks_post
+  - WHEN: 'the command is exactly `handle_create_playbook_v3_organizations__org_id__playbooks_post`'
+    MUST: 'dispatch to the `handle_create_playbook_v3_organizations__org_id__playbooks_post` operation'
+    SEE: api/playbooks@Operation_handle_create_playbook_v3_organizations__org_id__playbooks_post
+  - WHEN: 'the command is exactly `handle_create_pr_review_v3_enterprise_pr_reviews_post`'
+    MUST: 'dispatch to the `handle_create_pr_review_v3_enterprise_pr_reviews_post` operation'
+    SEE: api/pr_reviews@Operation_handle_create_pr_review_v3_enterprise_pr_reviews_post
+  - WHEN: 'the command is exactly `handle_create_pr_review_v3_organizations__org_id__pr_reviews_post`'
+    MUST: 'dispatch to the `handle_create_pr_review_v3_organizations__org_id__pr_reviews_post` operation'
+    SEE: api/pr_reviews@Operation_handle_create_pr_review_v3_organizations__org_id__pr_reviews_post
+  - WHEN: 'the command is exactly `handle_create_responder_v3_organizations__org_id__oncall_responders_post`'
+    MUST: 'dispatch to the `handle_create_responder_v3_organizations__org_id__oncall_responders_post` operation'
+    SEE: api/oncall@Operation_handle_create_responder_v3_organizations__org_id__oncall_responders_post
+  - WHEN: 'the command is exactly `handle_create_schedule_v3_organizations__org_id__schedules_post`'
+    MUST: 'dispatch to the `handle_create_schedule_v3_organizations__org_id__schedules_post` operation'
+    SEE: api/schedules@Operation_handle_create_schedule_v3_organizations__org_id__schedules_post
+  - WHEN: 'the command is exactly `handle_create_secret_v3_organizations__org_id__secrets_post`'
+    MUST: 'dispatch to the `handle_create_secret_v3_organizations__org_id__secrets_post` operation'
+    SEE: api/secrets@Operation_handle_create_secret_v3_organizations__org_id__secrets_post
+  - WHEN: 'the command is exactly `handle_create_security_profile_v3beta1_enterprise_security_profiles_post`'
+    MUST: 'dispatch to the `handle_create_security_profile_v3beta1_enterprise_security_profiles_post` operation'
+    SEE: api/security_profiles@Operation_handle_create_security_profile_v3beta1_enterprise_security_profiles_post
+  - WHEN: 'the command is exactly `handle_create_security_profile_v3beta1_organizations__org_id__security_profiles_post`'
+    MUST: 'dispatch to the `handle_create_security_profile_v3beta1_organizations__org_id__security_profiles_post` operation'
+    SEE: api/security_profiles@Operation_handle_create_security_profile_v3beta1_organizations__org_id__security_profiles_post
+  - WHEN: 'the command is exactly `handle_create_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys_post`'
+    MUST: 'dispatch to the `handle_create_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys_post` operation'
+    SEE: api/service_user_api_keys@Operation_handle_create_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys_post
+  - WHEN: 'the command is exactly `handle_create_session_v3_organizations__org_id__sessions_post`'
+    MUST: 'dispatch to the `handle_create_session_v3_organizations__org_id__sessions_post` operation'
+    SEE: api/sessions@Operation_handle_create_session_v3_organizations__org_id__sessions_post
+  - WHEN: 'the command is exactly `handle_delete_account_idp_group_v3_enterprise_idp_groups__idp_group_name__delete`'
+    MUST: 'dispatch to the `handle_delete_account_idp_group_v3_enterprise_idp_groups__idp_group_name__delete` operation'
+    SEE: api/idp_groups@Operation_handle_delete_account_idp_group_v3_enterprise_idp_groups__idp_group_name__delete
+  - WHEN: 'the command is exactly `handle_delete_auto_scan_schedule_v3_enterprise_organizations__org_id__code_scans__scan_id__auto_scan_delete`'
+    MUST: 'dispatch to the `handle_delete_auto_scan_schedule_v3_enterprise_organizations__org_id__code_scans__scan_id__auto_scan_delete` operation'
+    SEE: api/code_scans@Operation_handle_delete_auto_scan_schedule_v3_enterprise_organizations__org_id__code_scans__scan_id__auto_scan_delete
+  - WHEN: 'the command is exactly `handle_delete_auto_scan_schedule_v3_organizations__org_id__code_scans__scan_id__auto_scan_delete`'
+    MUST: 'dispatch to the `handle_delete_auto_scan_schedule_v3_organizations__org_id__code_scans__scan_id__auto_scan_delete` operation'
+    SEE: api/code_scans@Operation_handle_delete_auto_scan_schedule_v3_organizations__org_id__code_scans__scan_id__auto_scan_delete
+  - WHEN: 'the command is exactly `handle_delete_automation_v3_organizations__org_id__automations__automation_id__delete`'
+    MUST: 'dispatch to the `handle_delete_automation_v3_organizations__org_id__automations__automation_id__delete` operation'
+    SEE: api/automations@Operation_handle_delete_automation_v3_organizations__org_id__automations__automation_id__delete
+  - WHEN: 'the command is exactly `handle_delete_note_v3_enterprise_knowledge_notes__note_id__delete`'
+    MUST: 'dispatch to the `handle_delete_note_v3_enterprise_knowledge_notes__note_id__delete` operation'
+    SEE: api/notes@Operation_handle_delete_note_v3_enterprise_knowledge_notes__note_id__delete
+  - WHEN: 'the command is exactly `handle_delete_note_v3_organizations__org_id__knowledge_notes__note_id__delete`'
+    MUST: 'dispatch to the `handle_delete_note_v3_organizations__org_id__knowledge_notes__note_id__delete` operation'
+    SEE: api/notes@Operation_handle_delete_note_v3_organizations__org_id__knowledge_notes__note_id__delete
+  - WHEN: 'the command is exactly `handle_delete_org_devin_acu_limit_v3_enterprise_consumption_acu_limits_devin_organizations__org_id__delete`'
+    MUST: 'dispatch to the `handle_delete_org_devin_acu_limit_v3_enterprise_consumption_acu_limits_devin_organizations__org_id__delete` operation'
+    SEE: api/acu_limits@Operation_handle_delete_org_devin_acu_limit_v3_enterprise_consumption_acu_limits_devin_organizations__org_id__delete
+  - WHEN: 'the command is exactly `handle_delete_organization_git_permission_v3_enterprise_organizations__org_id__git_providers_permissions__git_permission_id__delete`'
+    MUST: 'dispatch to the `handle_delete_organization_git_permission_v3_enterprise_organizations__org_id__git_providers_permissions__git_permission_id__delete` operation'
+    SEE: api/git_permissions@Operation_handle_delete_organization_git_permission_v3_enterprise_organizations__org_id__git_providers_permissions__git_permission_id__delete
+  - WHEN: 'the command is exactly `handle_delete_organization_v3_enterprise_organizations__org_id__delete`'
+    MUST: 'dispatch to the `handle_delete_organization_v3_enterprise_organizations__org_id__delete` operation'
+    SEE: api/organizations@Operation_handle_delete_organization_v3_enterprise_organizations__org_id__delete
+  - WHEN: 'the command is exactly `handle_delete_playbook_v3_enterprise_playbooks__playbook_id__delete`'
+    MUST: 'dispatch to the `handle_delete_playbook_v3_enterprise_playbooks__playbook_id__delete` operation'
+    SEE: api/playbooks@Operation_handle_delete_playbook_v3_enterprise_playbooks__playbook_id__delete
+  - WHEN: 'the command is exactly `handle_delete_playbook_v3_organizations__org_id__playbooks__playbook_id__delete`'
+    MUST: 'dispatch to the `handle_delete_playbook_v3_organizations__org_id__playbooks__playbook_id__delete` operation'
+    SEE: api/playbooks@Operation_handle_delete_playbook_v3_organizations__org_id__playbooks__playbook_id__delete
+  - WHEN: 'the command is exactly `handle_delete_responder_v3_organizations__org_id__oncall_responders__responder_id__delete`'
+    MUST: 'dispatch to the `handle_delete_responder_v3_organizations__org_id__oncall_responders__responder_id__delete` operation'
+    SEE: api/oncall@Operation_handle_delete_responder_v3_organizations__org_id__oncall_responders__responder_id__delete
+  - WHEN: 'the command is exactly `handle_delete_schedule_v3_organizations__org_id__schedules__schedule_id__delete`'
+    MUST: 'dispatch to the `handle_delete_schedule_v3_organizations__org_id__schedules__schedule_id__delete` operation'
+    SEE: api/schedules@Operation_handle_delete_schedule_v3_organizations__org_id__schedules__schedule_id__delete
+  - WHEN: 'the command is exactly `handle_delete_secret_v3_organizations__org_id__secrets__secret_id__delete`'
+    MUST: 'dispatch to the `handle_delete_secret_v3_organizations__org_id__secrets__secret_id__delete` operation'
+    SEE: api/secrets@Operation_handle_delete_secret_v3_organizations__org_id__secrets__secret_id__delete
+  - WHEN: 'the command is exactly `handle_delete_security_profile_v3beta1_enterprise_security_profiles__profile_id__delete`'
+    MUST: 'dispatch to the `handle_delete_security_profile_v3beta1_enterprise_security_profiles__profile_id__delete` operation'
+    SEE: api/security_profiles@Operation_handle_delete_security_profile_v3beta1_enterprise_security_profiles__profile_id__delete
+  - WHEN: 'the command is exactly `handle_delete_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__delete`'
+    MUST: 'dispatch to the `handle_delete_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__delete` operation'
+    SEE: api/security_profiles@Operation_handle_delete_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__delete
+  - WHEN: 'the command is exactly `handle_download_attachment_v3_organizations__org_id__attachments__uuid___name__get`'
+    MUST: 'dispatch to the `handle_download_attachment_v3_organizations__org_id__attachments__uuid___name__get` operation'
+    SEE: api/attachments@Operation_handle_download_attachment_v3_organizations__org_id__attachments__uuid___name__get
+  - WHEN: 'the command is exactly `handle_generate_account_session_insights_v3_enterprise_sessions__devin_id__insights_generate_post`'
+    MUST: 'dispatch to the `handle_generate_account_session_insights_v3_enterprise_sessions__devin_id__insights_generate_post` operation'
+    SEE: api/sessions@Operation_handle_generate_account_session_insights_v3_enterprise_sessions__devin_id__insights_generate_post
+  - WHEN: 'the command is exactly `handle_generate_session_insights_v3_organizations__org_id__sessions__devin_id__insights_generate_post`'
+    MUST: 'dispatch to the `handle_generate_session_insights_v3_organizations__org_id__sessions__devin_id__insights_generate_post` operation'
+    SEE: api/sessions@Operation_handle_generate_session_insights_v3_organizations__org_id__sessions__devin_id__insights_generate_post
+  - WHEN: 'the command is exactly `handle_get_account_session_attachments_v3_enterprise_sessions__devin_id__attachments_get`'
+    MUST: 'dispatch to the `handle_get_account_session_attachments_v3_enterprise_sessions__devin_id__attachments_get` operation'
+    SEE: api/sessions@Operation_handle_get_account_session_attachments_v3_enterprise_sessions__devin_id__attachments_get
+  - WHEN: 'the command is exactly `handle_get_account_session_insights_v3_enterprise_sessions__devin_id__insights_get`'
+    MUST: 'dispatch to the `handle_get_account_session_insights_v3_enterprise_sessions__devin_id__insights_get` operation'
+    SEE: api/sessions@Operation_handle_get_account_session_insights_v3_enterprise_sessions__devin_id__insights_get
+  - WHEN: 'the command is exactly `handle_get_account_session_messages_v3_enterprise_sessions__devin_id__messages_get`'
+    MUST: 'dispatch to the `handle_get_account_session_messages_v3_enterprise_sessions__devin_id__messages_get` operation'
+    SEE: api/sessions@Operation_handle_get_account_session_messages_v3_enterprise_sessions__devin_id__messages_get
+  - WHEN: 'the command is exactly `handle_get_account_session_tags_v3_enterprise_sessions__devin_id__tags_get`'
+    MUST: 'dispatch to the `handle_get_account_session_tags_v3_enterprise_sessions__devin_id__tags_get` operation'
+    SEE: api/sessions@Operation_handle_get_account_session_tags_v3_enterprise_sessions__devin_id__tags_get
+  - WHEN: 'the command is exactly `handle_get_account_session_v3_enterprise_sessions__devin_id__get`'
+    MUST: 'dispatch to the `handle_get_account_session_v3_enterprise_sessions__devin_id__get` operation'
+    SEE: api/sessions@Operation_handle_get_account_session_v3_enterprise_sessions__devin_id__get
+  - WHEN: 'the command is exactly `handle_get_account_sessions_insights_v3_enterprise_sessions_insights_get`'
+    MUST: 'dispatch to the `handle_get_account_sessions_insights_v3_enterprise_sessions_insights_get` operation'
+    SEE: api/sessions@Operation_handle_get_account_sessions_insights_v3_enterprise_sessions_insights_get
+  - WHEN: 'the command is exactly `handle_get_account_sessions_v3_enterprise_sessions_get`'
+    MUST: 'dispatch to the `handle_get_account_sessions_v3_enterprise_sessions_get` operation'
+    SEE: api/sessions@Operation_handle_get_account_sessions_v3_enterprise_sessions_get
+  - WHEN: 'the command is exactly `handle_get_active_users_metrics_v3_enterprise_metrics_active_users_get`'
+    MUST: 'dispatch to the `handle_get_active_users_metrics_v3_enterprise_metrics_active_users_get` operation'
+    SEE: api/metrics@Operation_handle_get_active_users_metrics_v3_enterprise_metrics_active_users_get
+  - WHEN: 'the command is exactly `handle_get_active_users_metrics_v3_organizations__org_id__metrics_active_users_get`'
+    MUST: 'dispatch to the `handle_get_active_users_metrics_v3_organizations__org_id__metrics_active_users_get` operation'
+    SEE: api/metrics@Operation_handle_get_active_users_metrics_v3_organizations__org_id__metrics_active_users_get
+  - WHEN: 'the command is exactly `handle_get_ai_gateway_metrics_v3beta1_ai_gateway_metrics_get`'
+    MUST: 'dispatch to the `handle_get_ai_gateway_metrics_v3beta1_ai_gateway_metrics_get` operation'
+    SEE: api/ai_gateway_metrics@Operation_handle_get_ai_gateway_metrics_v3beta1_ai_gateway_metrics_get
+  - WHEN: 'the command is exactly `handle_get_ai_gateway_models_v3beta1_ai_gateway_models_get`'
+    MUST: 'dispatch to the `handle_get_ai_gateway_models_v3beta1_ai_gateway_models_get` operation'
+    SEE: api/ai_gateway_metrics@Operation_handle_get_ai_gateway_models_v3beta1_ai_gateway_models_get
+  - WHEN: 'the command is exactly `handle_get_automation_schemas_v3_organizations__org_id__automations_schemas_get`'
+    MUST: 'dispatch to the `handle_get_automation_schemas_v3_organizations__org_id__automations_schemas_get` operation'
+    SEE: api/automations@Operation_handle_get_automation_schemas_v3_organizations__org_id__automations_schemas_get
+  - WHEN: 'the command is exactly `handle_get_automation_v3_organizations__org_id__automations__automation_id__get`'
+    MUST: 'dispatch to the `handle_get_automation_v3_organizations__org_id__automations__automation_id__get` operation'
+    SEE: api/automations@Operation_handle_get_automation_v3_organizations__org_id__automations__automation_id__get
+  - WHEN: 'the command is exactly `handle_get_code_scan_metrics_v3_enterprise_code_scans_metrics_get`'
+    MUST: 'dispatch to the `handle_get_code_scan_metrics_v3_enterprise_code_scans_metrics_get` operation'
+    SEE: api/code_scans@Operation_handle_get_code_scan_metrics_v3_enterprise_code_scans_metrics_get
+  - WHEN: 'the command is exactly `handle_get_code_scan_metrics_v3_organizations__org_id__code_scans_metrics_get`'
+    MUST: 'dispatch to the `handle_get_code_scan_metrics_v3_organizations__org_id__code_scans_metrics_get` operation'
+    SEE: api/code_scans@Operation_handle_get_code_scan_metrics_v3_organizations__org_id__code_scans_metrics_get
+  - WHEN: 'the command is exactly `handle_get_code_scan_profile_v3_enterprise_code_scans_profiles__profile_id__get`'
+    MUST: 'dispatch to the `handle_get_code_scan_profile_v3_enterprise_code_scans_profiles__profile_id__get` operation'
+    SEE: api/code_scans@Operation_handle_get_code_scan_profile_v3_enterprise_code_scans_profiles__profile_id__get
+  - WHEN: 'the command is exactly `handle_get_code_scan_profile_v3_organizations__org_id__code_scans_profiles__profile_id__get`'
+    MUST: 'dispatch to the `handle_get_code_scan_profile_v3_organizations__org_id__code_scans_profiles__profile_id__get` operation'
+    SEE: api/code_scans@Operation_handle_get_code_scan_profile_v3_organizations__org_id__code_scans_profiles__profile_id__get
+  - WHEN: 'the command is exactly `handle_get_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__get`'
+    MUST: 'dispatch to the `handle_get_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__get` operation'
+    SEE: api/code_scans@Operation_handle_get_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__get
+  - WHEN: 'the command is exactly `handle_get_code_scan_v3_organizations__org_id__code_scans__scan_id__get`'
+    MUST: 'dispatch to the `handle_get_code_scan_v3_organizations__org_id__code_scans__scan_id__get` operation'
+    SEE: api/code_scans@Operation_handle_get_code_scan_v3_organizations__org_id__code_scans__scan_id__get
+  - WHEN: 'the command is exactly `handle_get_consumption_cycles_v3_enterprise_consumption_cycles_get`'
+    MUST: 'dispatch to the `handle_get_consumption_cycles_v3_enterprise_consumption_cycles_get` operation'
+    SEE: api/consumption@Operation_handle_get_consumption_cycles_v3_enterprise_consumption_cycles_get
+  - WHEN: 'the command is exactly `handle_get_consumption_daily_v3_enterprise_consumption_daily_get`'
+    MUST: 'dispatch to the `handle_get_consumption_daily_v3_enterprise_consumption_daily_get` operation'
+    SEE: api/consumption@Operation_handle_get_consumption_daily_v3_enterprise_consumption_daily_get
+  - WHEN: 'the command is exactly `handle_get_consumption_daily_v3_organizations__org_id__consumption_daily_get`'
+    MUST: 'dispatch to the `handle_get_consumption_daily_v3_organizations__org_id__consumption_daily_get` operation'
+    SEE: api/consumption@Operation_handle_get_consumption_daily_v3_organizations__org_id__consumption_daily_get
+  - WHEN: 'the command is exactly `handle_get_dau_metrics_v3_enterprise_metrics_dau_get`'
+    MUST: 'dispatch to the `handle_get_dau_metrics_v3_enterprise_metrics_dau_get` operation'
+    SEE: api/metrics@Operation_handle_get_dau_metrics_v3_enterprise_metrics_dau_get
+  - WHEN: 'the command is exactly `handle_get_dau_metrics_v3_organizations__org_id__metrics_dau_get`'
+    MUST: 'dispatch to the `handle_get_dau_metrics_v3_organizations__org_id__metrics_dau_get` operation'
+    SEE: api/metrics@Operation_handle_get_dau_metrics_v3_organizations__org_id__metrics_dau_get
+  - WHEN: 'the command is exactly `handle_get_devin_acu_limits_v3_enterprise_consumption_acu_limits_devin_get`'
+    MUST: 'dispatch to the `handle_get_devin_acu_limits_v3_enterprise_consumption_acu_limits_devin_get` operation'
+    SEE: api/acu_limits@Operation_handle_get_devin_acu_limits_v3_enterprise_consumption_acu_limits_devin_get
+  - WHEN: 'the command is exactly `handle_get_enterprise_audit_logs_v3_enterprise_audit_logs_get`'
+    MUST: 'dispatch to the `handle_get_enterprise_audit_logs_v3_enterprise_audit_logs_get` operation'
+    SEE: api/audit_logs@Operation_handle_get_enterprise_audit_logs_v3_enterprise_audit_logs_get
+  - WHEN: 'the command is exactly `handle_get_enterprise_guardrail_violations_v3beta1_enterprise_guardrail_violations_get`'
+    MUST: 'dispatch to the `handle_get_enterprise_guardrail_violations_v3beta1_enterprise_guardrail_violations_get` operation'
+    SEE: api/guardrail_violations@Operation_handle_get_enterprise_guardrail_violations_v3beta1_enterprise_guardrail_violations_get
+  - WHEN: 'the command is exactly `handle_get_enterprise_idp_group_v3_enterprise_members_idp_groups__idp_group_name__get`'
+    MUST: 'dispatch to the `handle_get_enterprise_idp_group_v3_enterprise_members_idp_groups__idp_group_name__get` operation'
+    SEE: api/idp_groups@Operation_handle_get_enterprise_idp_group_v3_enterprise_members_idp_groups__idp_group_name__get
+  - WHEN: 'the command is exactly `handle_get_enterprise_service_user_v3_enterprise_members_service_users__service_user_id__get`'
+    MUST: 'dispatch to the `handle_get_enterprise_service_user_v3_enterprise_members_service_users__service_user_id__get` operation'
+    SEE: api/service_users@Operation_handle_get_enterprise_service_user_v3_enterprise_members_service_users__service_user_id__get
+  - WHEN: 'the command is exactly `handle_get_enterprise_user_v3_enterprise_members_users__user_id__get`'
+    MUST: 'dispatch to the `handle_get_enterprise_user_v3_enterprise_members_users__user_id__get` operation'
+    SEE: api/users@Operation_handle_get_enterprise_user_v3_enterprise_members_users__user_id__get
+  - WHEN: 'the command is exactly `handle_get_git_connections_v3_enterprise_git_providers_connections_get`'
+    MUST: 'dispatch to the `handle_get_git_connections_v3_enterprise_git_providers_connections_get` operation'
+    SEE: api/git_connections@Operation_handle_get_git_connections_v3_enterprise_git_providers_connections_get
+  - WHEN: 'the command is exactly `handle_get_hypervisors_v3_enterprise_hypervisors_get`'
+    MUST: 'dispatch to the `handle_get_hypervisors_v3_enterprise_hypervisors_get` operation'
+    SEE: api/untagged@Operation_handle_get_hypervisors_v3_enterprise_hypervisors_get
+  - WHEN: 'the command is exactly `handle_get_ip_access_list_v3_enterprise_ip_access_list_get`'
+    MUST: 'dispatch to the `handle_get_ip_access_list_v3_enterprise_ip_access_list_get` operation'
+    SEE: api/ip_access_list@Operation_handle_get_ip_access_list_v3_enterprise_ip_access_list_get
+  - WHEN: 'the command is exactly `handle_get_mau_metrics_v3_enterprise_metrics_mau_get`'
+    MUST: 'dispatch to the `handle_get_mau_metrics_v3_enterprise_metrics_mau_get` operation'
+    SEE: api/metrics@Operation_handle_get_mau_metrics_v3_enterprise_metrics_mau_get
+  - WHEN: 'the command is exactly `handle_get_mau_metrics_v3_organizations__org_id__metrics_mau_get`'
+    MUST: 'dispatch to the `handle_get_mau_metrics_v3_organizations__org_id__metrics_mau_get` operation'
+    SEE: api/metrics@Operation_handle_get_mau_metrics_v3_organizations__org_id__metrics_mau_get
+  - WHEN: 'the command is exactly `handle_get_note_v3_enterprise_knowledge_notes__note_id__get`'
+    MUST: 'dispatch to the `handle_get_note_v3_enterprise_knowledge_notes__note_id__get` operation'
+    SEE: api/notes@Operation_handle_get_note_v3_enterprise_knowledge_notes__note_id__get
+  - WHEN: 'the command is exactly `handle_get_note_v3_organizations__org_id__knowledge_notes__note_id__get`'
+    MUST: 'dispatch to the `handle_get_note_v3_organizations__org_id__knowledge_notes__note_id__get` operation'
+    SEE: api/notes@Operation_handle_get_note_v3_organizations__org_id__knowledge_notes__note_id__get
+  - WHEN: 'the command is exactly `handle_get_oncall_schemas_v3_organizations__org_id__oncall_schemas_get`'
+    MUST: 'dispatch to the `handle_get_oncall_schemas_v3_organizations__org_id__oncall_schemas_get` operation'
+    SEE: api/oncall@Operation_handle_get_oncall_schemas_v3_organizations__org_id__oncall_schemas_get
+  - WHEN: 'the command is exactly `handle_get_org_audit_logs_v3_enterprise_organizations__org_id__audit_logs_get`'
+    MUST: 'dispatch to the `handle_get_org_audit_logs_v3_enterprise_organizations__org_id__audit_logs_get` operation'
+    SEE: api/audit_logs@Operation_handle_get_org_audit_logs_v3_enterprise_organizations__org_id__audit_logs_get
+  - WHEN: 'the command is exactly `handle_get_org_consumption_daily_v3_enterprise_consumption_daily_organizations__org_id__get`'
+    MUST: 'dispatch to the `handle_get_org_consumption_daily_v3_enterprise_consumption_daily_organizations__org_id__get` operation'
+    SEE: api/consumption@Operation_handle_get_org_consumption_daily_v3_enterprise_consumption_daily_organizations__org_id__get
+  - WHEN: 'the command is exactly `handle_get_org_default_platform_v3beta1_organizations__org_id__default_platform_get`'
+    MUST: 'dispatch to the `handle_get_org_default_platform_v3beta1_organizations__org_id__default_platform_get` operation'
+    SEE: api/organization_settings@Operation_handle_get_org_default_platform_v3beta1_organizations__org_id__default_platform_get
+  - WHEN: 'the command is exactly `handle_get_org_guardrail_violations_v3beta1_enterprise_organizations__org_id__guardrail_violations_get`'
+    MUST: 'dispatch to the `handle_get_org_guardrail_violations_v3beta1_enterprise_organizations__org_id__guardrail_violations_get` operation'
+    SEE: api/guardrail_violations@Operation_handle_get_org_guardrail_violations_v3beta1_enterprise_organizations__org_id__guardrail_violations_get
+  - WHEN: 'the command is exactly `handle_get_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_get`'
+    MUST: 'dispatch to the `handle_get_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_get` operation'
+    SEE: api/organization_tags@Operation_handle_get_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_get
+  - WHEN: 'the command is exactly `handle_get_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_get`'
+    MUST: 'dispatch to the `handle_get_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_get` operation'
+    SEE: api/git_permissions@Operation_handle_get_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_get
+  - WHEN: 'the command is exactly `handle_get_organization_idp_group_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__get`'
+    MUST: 'dispatch to the `handle_get_organization_idp_group_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__get` operation'
+    SEE: api/idp_groups@Operation_handle_get_organization_idp_group_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__get
+  - WHEN: 'the command is exactly `handle_get_organization_usage_metrics_v3_enterprise_organizations__org_id__metrics_usage_get`'
+    MUST: 'dispatch to the `handle_get_organization_usage_metrics_v3_enterprise_organizations__org_id__metrics_usage_get` operation'
+    SEE: api/metrics@Operation_handle_get_organization_usage_metrics_v3_enterprise_organizations__org_id__metrics_usage_get
+  - WHEN: 'the command is exactly `handle_get_organization_user_v3beta1_organizations__org_id__members_users__user_id__get`'
+    MUST: 'dispatch to the `handle_get_organization_user_v3beta1_organizations__org_id__members_users__user_id__get` operation'
+    SEE: api/users@Operation_handle_get_organization_user_v3beta1_organizations__org_id__members_users__user_id__get
+  - WHEN: 'the command is exactly `handle_get_organization_v3_enterprise_organizations__org_id__get`'
+    MUST: 'dispatch to the `handle_get_organization_v3_enterprise_organizations__org_id__get` operation'
+    SEE: api/organizations@Operation_handle_get_organization_v3_enterprise_organizations__org_id__get
+  - WHEN: 'the command is exactly `handle_get_organizations_v3_enterprise_organizations_get`'
+    MUST: 'dispatch to the `handle_get_organizations_v3_enterprise_organizations_get` operation'
+    SEE: api/organizations@Operation_handle_get_organizations_v3_enterprise_organizations_get
+  - WHEN: 'the command is exactly `handle_get_playbook_v3_enterprise_playbooks__playbook_id__get`'
+    MUST: 'dispatch to the `handle_get_playbook_v3_enterprise_playbooks__playbook_id__get` operation'
+    SEE: api/playbooks@Operation_handle_get_playbook_v3_enterprise_playbooks__playbook_id__get
+  - WHEN: 'the command is exactly `handle_get_playbook_v3_organizations__org_id__playbooks__playbook_id__get`'
+    MUST: 'dispatch to the `handle_get_playbook_v3_organizations__org_id__playbooks__playbook_id__get` operation'
+    SEE: api/playbooks@Operation_handle_get_playbook_v3_organizations__org_id__playbooks__playbook_id__get
+  - WHEN: 'the command is exactly `handle_get_pr_metrics_v3_enterprise_metrics_prs_get`'
+    MUST: 'dispatch to the `handle_get_pr_metrics_v3_enterprise_metrics_prs_get` operation'
+    SEE: api/metrics@Operation_handle_get_pr_metrics_v3_enterprise_metrics_prs_get
+  - WHEN: 'the command is exactly `handle_get_pr_metrics_v3_organizations__org_id__metrics_prs_get`'
+    MUST: 'dispatch to the `handle_get_pr_metrics_v3_organizations__org_id__metrics_prs_get` operation'
+    SEE: api/metrics@Operation_handle_get_pr_metrics_v3_organizations__org_id__metrics_prs_get
+  - WHEN: 'the command is exactly `handle_get_pr_review_status_v3_enterprise_pr_reviews_get`'
+    MUST: 'dispatch to the `handle_get_pr_review_status_v3_enterprise_pr_reviews_get` operation'
+    SEE: api/pr_reviews@Operation_handle_get_pr_review_status_v3_enterprise_pr_reviews_get
+  - WHEN: 'the command is exactly `handle_get_pr_review_status_v3_organizations__org_id__pr_reviews_get`'
+    MUST: 'dispatch to the `handle_get_pr_review_status_v3_organizations__org_id__pr_reviews_get` operation'
+    SEE: api/pr_reviews@Operation_handle_get_pr_review_status_v3_organizations__org_id__pr_reviews_get
+  - WHEN: 'the command is exactly `handle_get_repository_indexing_status_v3_organizations__org_id__repositories__repository_path__indexing_get`'
+    MUST: 'dispatch to the `handle_get_repository_indexing_status_v3_organizations__org_id__repositories__repository_path__indexing_get` operation'
+    SEE: api/repositories@Operation_handle_get_repository_indexing_status_v3_organizations__org_id__repositories__repository_path__indexing_get
+  - WHEN: 'the command is exactly `handle_get_responder_v3_organizations__org_id__oncall_responders__responder_id__get`'
+    MUST: 'dispatch to the `handle_get_responder_v3_organizations__org_id__oncall_responders__responder_id__get` operation'
+    SEE: api/oncall@Operation_handle_get_responder_v3_organizations__org_id__oncall_responders__responder_id__get
+  - WHEN: 'the command is exactly `handle_get_role_v3_enterprise_roles__role_id__get`'
+    MUST: 'dispatch to the `handle_get_role_v3_enterprise_roles__role_id__get` operation'
+    SEE: api/roles@Operation_handle_get_role_v3_enterprise_roles__role_id__get
+  - WHEN: 'the command is exactly `handle_get_roles_v3_enterprise_roles_get`'
+    MUST: 'dispatch to the `handle_get_roles_v3_enterprise_roles_get` operation'
+    SEE: api/roles@Operation_handle_get_roles_v3_enterprise_roles_get
+  - WHEN: 'the command is exactly `handle_get_schedule_v3_organizations__org_id__schedules__schedule_id__get`'
+    MUST: 'dispatch to the `handle_get_schedule_v3_organizations__org_id__schedules__schedule_id__get` operation'
+    SEE: api/schedules@Operation_handle_get_schedule_v3_organizations__org_id__schedules__schedule_id__get
+  - WHEN: 'the command is exactly `handle_get_search_metrics_v3_enterprise_metrics_searches_get`'
+    MUST: 'dispatch to the `handle_get_search_metrics_v3_enterprise_metrics_searches_get` operation'
+    SEE: api/metrics@Operation_handle_get_search_metrics_v3_enterprise_metrics_searches_get
+  - WHEN: 'the command is exactly `handle_get_search_metrics_v3_organizations__org_id__metrics_searches_get`'
+    MUST: 'dispatch to the `handle_get_search_metrics_v3_organizations__org_id__metrics_searches_get` operation'
+    SEE: api/metrics@Operation_handle_get_search_metrics_v3_organizations__org_id__metrics_searches_get
+  - WHEN: 'the command is exactly `handle_get_security_profile_settings_v3beta1_enterprise_security_profile_settings_get`'
+    MUST: 'dispatch to the `handle_get_security_profile_settings_v3beta1_enterprise_security_profile_settings_get` operation'
+    SEE: api/security_profiles@Operation_handle_get_security_profile_settings_v3beta1_enterprise_security_profile_settings_get
+  - WHEN: 'the command is exactly `handle_get_security_profile_settings_v3beta1_organizations__org_id__security_profile_settings_get`'
+    MUST: 'dispatch to the `handle_get_security_profile_settings_v3beta1_organizations__org_id__security_profile_settings_get` operation'
+    SEE: api/security_profiles@Operation_handle_get_security_profile_settings_v3beta1_organizations__org_id__security_profile_settings_get
+  - WHEN: 'the command is exactly `handle_get_security_profile_v3beta1_enterprise_security_profiles__profile_id__get`'
+    MUST: 'dispatch to the `handle_get_security_profile_v3beta1_enterprise_security_profiles__profile_id__get` operation'
+    SEE: api/security_profiles@Operation_handle_get_security_profile_v3beta1_enterprise_security_profiles__profile_id__get
+  - WHEN: 'the command is exactly `handle_get_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__get`'
+    MUST: 'dispatch to the `handle_get_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__get` operation'
+    SEE: api/security_profiles@Operation_handle_get_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__get
+  - WHEN: 'the command is exactly `handle_get_self_v3_self_get`'
+    MUST: 'dispatch to the `handle_get_self_v3_self_get` operation'
+    SEE: api/self@Operation_handle_get_self_v3_self_get
+  - WHEN: 'the command is exactly `handle_get_service_user_consumption_daily_v3_enterprise_consumption_daily_service_users__service_user_id__get`'
+    MUST: 'dispatch to the `handle_get_service_user_consumption_daily_v3_enterprise_consumption_daily_service_users__service_user_id__get` operation'
+    SEE: api/consumption@Operation_handle_get_service_user_consumption_daily_v3_enterprise_consumption_daily_service_users__service_user_id__get
+  - WHEN: 'the command is exactly `handle_get_service_user_consumption_daily_v3_organizations__org_id__consumption_daily_service_users__service_user_id__get`'
+    MUST: 'dispatch to the `handle_get_service_user_consumption_daily_v3_organizations__org_id__consumption_daily_service_users__service_user_id__get` operation'
+    SEE: api/consumption@Operation_handle_get_service_user_consumption_daily_v3_organizations__org_id__consumption_daily_service_users__service_user_id__get
+  - WHEN: 'the command is exactly `handle_get_session_attachments_v3_organizations__org_id__sessions__devin_id__attachments_get`'
+    MUST: 'dispatch to the `handle_get_session_attachments_v3_organizations__org_id__sessions__devin_id__attachments_get` operation'
+    SEE: api/sessions@Operation_handle_get_session_attachments_v3_organizations__org_id__sessions__devin_id__attachments_get
+  - WHEN: 'the command is exactly `handle_get_session_consumption_daily_v3_enterprise_consumption_daily_sessions__session_id__get`'
+    MUST: 'dispatch to the `handle_get_session_consumption_daily_v3_enterprise_consumption_daily_sessions__session_id__get` operation'
+    SEE: api/consumption@Operation_handle_get_session_consumption_daily_v3_enterprise_consumption_daily_sessions__session_id__get
+  - WHEN: 'the command is exactly `handle_get_session_consumption_daily_v3_organizations__org_id__consumption_daily_sessions__session_id__get`'
+    MUST: 'dispatch to the `handle_get_session_consumption_daily_v3_organizations__org_id__consumption_daily_sessions__session_id__get` operation'
+    SEE: api/consumption@Operation_handle_get_session_consumption_daily_v3_organizations__org_id__consumption_daily_sessions__session_id__get
+  - WHEN: 'the command is exactly `handle_get_session_insights_v3_organizations__org_id__sessions__devin_id__insights_get`'
+    MUST: 'dispatch to the `handle_get_session_insights_v3_organizations__org_id__sessions__devin_id__insights_get` operation'
+    SEE: api/sessions@Operation_handle_get_session_insights_v3_organizations__org_id__sessions__devin_id__insights_get
+  - WHEN: 'the command is exactly `handle_get_session_messages_v3_organizations__org_id__sessions__devin_id__messages_get`'
+    MUST: 'dispatch to the `handle_get_session_messages_v3_organizations__org_id__sessions__devin_id__messages_get` operation'
+    SEE: api/sessions@Operation_handle_get_session_messages_v3_organizations__org_id__sessions__devin_id__messages_get
+  - WHEN: 'the command is exactly `handle_get_session_metrics_v3_enterprise_metrics_sessions_get`'
+    MUST: 'dispatch to the `handle_get_session_metrics_v3_enterprise_metrics_sessions_get` operation'
+    SEE: api/metrics@Operation_handle_get_session_metrics_v3_enterprise_metrics_sessions_get
+  - WHEN: 'the command is exactly `handle_get_session_metrics_v3_organizations__org_id__metrics_sessions_get`'
+    MUST: 'dispatch to the `handle_get_session_metrics_v3_organizations__org_id__metrics_sessions_get` operation'
+    SEE: api/metrics@Operation_handle_get_session_metrics_v3_organizations__org_id__metrics_sessions_get
+  - WHEN: 'the command is exactly `handle_get_session_tags_v3_organizations__org_id__sessions__devin_id__tags_get`'
+    MUST: 'dispatch to the `handle_get_session_tags_v3_organizations__org_id__sessions__devin_id__tags_get` operation'
+    SEE: api/sessions@Operation_handle_get_session_tags_v3_organizations__org_id__sessions__devin_id__tags_get
+  - WHEN: 'the command is exactly `handle_get_session_v3_organizations__org_id__sessions__devin_id__get`'
+    MUST: 'dispatch to the `handle_get_session_v3_organizations__org_id__sessions__devin_id__get` operation'
+    SEE: api/sessions@Operation_handle_get_session_v3_organizations__org_id__sessions__devin_id__get
+  - WHEN: 'the command is exactly `handle_get_sessions_by_category_v3_enterprise_metrics_sessions_by_category_get`'
+    MUST: 'dispatch to the `handle_get_sessions_by_category_v3_enterprise_metrics_sessions_by_category_get` operation'
+    SEE: api/metrics@Operation_handle_get_sessions_by_category_v3_enterprise_metrics_sessions_by_category_get
+  - WHEN: 'the command is exactly `handle_get_sessions_insights_v3_organizations__org_id__sessions_insights_get`'
+    MUST: 'dispatch to the `handle_get_sessions_insights_v3_organizations__org_id__sessions_insights_get` operation'
+    SEE: api/sessions@Operation_handle_get_sessions_insights_v3_organizations__org_id__sessions_insights_get
+  - WHEN: 'the command is exactly `handle_get_sessions_v3_organizations__org_id__sessions_get`'
+    MUST: 'dispatch to the `handle_get_sessions_v3_organizations__org_id__sessions_get` operation'
+    SEE: api/sessions@Operation_handle_get_sessions_v3_organizations__org_id__sessions_get
+  - WHEN: 'the command is exactly `handle_get_usage_metrics_v3_enterprise_metrics_usage_get`'
+    MUST: 'dispatch to the `handle_get_usage_metrics_v3_enterprise_metrics_usage_get` operation'
+    SEE: api/metrics@Operation_handle_get_usage_metrics_v3_enterprise_metrics_usage_get
+  - WHEN: 'the command is exactly `handle_get_usage_metrics_v3_organizations__org_id__metrics_usage_get`'
+    MUST: 'dispatch to the `handle_get_usage_metrics_v3_organizations__org_id__metrics_usage_get` operation'
+    SEE: api/metrics@Operation_handle_get_usage_metrics_v3_organizations__org_id__metrics_usage_get
+  - WHEN: 'the command is exactly `handle_get_user_consumption_daily_v3_enterprise_consumption_daily_users__user_id__get`'
+    MUST: 'dispatch to the `handle_get_user_consumption_daily_v3_enterprise_consumption_daily_users__user_id__get` operation'
+    SEE: api/consumption@Operation_handle_get_user_consumption_daily_v3_enterprise_consumption_daily_users__user_id__get
+  - WHEN: 'the command is exactly `handle_get_user_consumption_daily_v3_organizations__org_id__consumption_daily_users__user_id__get`'
+    MUST: 'dispatch to the `handle_get_user_consumption_daily_v3_organizations__org_id__consumption_daily_users__user_id__get` operation'
+    SEE: api/consumption@Operation_handle_get_user_consumption_daily_v3_organizations__org_id__consumption_daily_users__user_id__get
+  - WHEN: 'the command is exactly `handle_get_wau_metrics_v3_enterprise_metrics_wau_get`'
+    MUST: 'dispatch to the `handle_get_wau_metrics_v3_enterprise_metrics_wau_get` operation'
+    SEE: api/metrics@Operation_handle_get_wau_metrics_v3_enterprise_metrics_wau_get
+  - WHEN: 'the command is exactly `handle_get_wau_metrics_v3_organizations__org_id__metrics_wau_get`'
+    MUST: 'dispatch to the `handle_get_wau_metrics_v3_organizations__org_id__metrics_wau_get` operation'
+    SEE: api/metrics@Operation_handle_get_wau_metrics_v3_organizations__org_id__metrics_wau_get
+  - WHEN: 'the command is exactly `handle_index_single_repository_v3_organizations__org_id__repositories__repository_path__indexing_put`'
+    MUST: 'dispatch to the `handle_index_single_repository_v3_organizations__org_id__repositories__repository_path__indexing_put` operation'
+    SEE: api/repositories@Operation_handle_index_single_repository_v3_organizations__org_id__repositories__repository_path__indexing_put
+  - WHEN: 'the command is exactly `handle_link_code_scan_finding_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__link_session_post`'
+    MUST: 'dispatch to the `handle_link_code_scan_finding_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__link_session_post` operation'
+    SEE: api/code_scans@Operation_handle_link_code_scan_finding_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__link_session_post
+  - WHEN: 'the command is exactly `handle_link_code_scan_finding_session_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__link_session_post`'
+    MUST: 'dispatch to the `handle_link_code_scan_finding_session_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__link_session_post` operation'
+    SEE: api/code_scans@Operation_handle_link_code_scan_finding_session_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__link_session_post
+  - WHEN: 'the command is exactly `handle_link_code_scan_findings_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_link_session_post`'
+    MUST: 'dispatch to the `handle_link_code_scan_findings_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_link_session_post` operation'
+    SEE: api/code_scans@Operation_handle_link_code_scan_findings_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_link_session_post
+  - WHEN: 'the command is exactly `handle_link_code_scan_findings_session_v3_organizations__org_id__code_scans__scan_id__findings_link_session_post`'
+    MUST: 'dispatch to the `handle_link_code_scan_findings_session_v3_organizations__org_id__code_scans__scan_id__findings_link_session_post` operation'
+    SEE: api/code_scans@Operation_handle_link_code_scan_findings_session_v3_organizations__org_id__code_scans__scan_id__findings_link_session_post
+  - WHEN: 'the command is exactly `handle_list_account_idp_groups_v3_enterprise_idp_groups_get`'
+    MUST: 'dispatch to the `handle_list_account_idp_groups_v3_enterprise_idp_groups_get` operation'
+    SEE: api/idp_groups@Operation_handle_list_account_idp_groups_v3_enterprise_idp_groups_get
+  - WHEN: 'the command is exactly `handle_list_automation_templates_v3_organizations__org_id__automations_templates_get`'
+    MUST: 'dispatch to the `handle_list_automation_templates_v3_organizations__org_id__automations_templates_get` operation'
+    SEE: api/automations@Operation_handle_list_automation_templates_v3_organizations__org_id__automations_templates_get
+  - WHEN: 'the command is exactly `handle_list_automations_v3_organizations__org_id__automations_get`'
+    MUST: 'dispatch to the `handle_list_automations_v3_organizations__org_id__automations_get` operation'
+    SEE: api/automations@Operation_handle_list_automations_v3_organizations__org_id__automations_get
+  - WHEN: 'the command is exactly `handle_list_code_scan_findings_v3_enterprise_code_scans_findings_get`'
+    MUST: 'dispatch to the `handle_list_code_scan_findings_v3_enterprise_code_scans_findings_get` operation'
+    SEE: api/code_scans@Operation_handle_list_code_scan_findings_v3_enterprise_code_scans_findings_get
+  - WHEN: 'the command is exactly `handle_list_code_scan_findings_v3_organizations__org_id__code_scans_findings_get`'
+    MUST: 'dispatch to the `handle_list_code_scan_findings_v3_organizations__org_id__code_scans_findings_get` operation'
+    SEE: api/code_scans@Operation_handle_list_code_scan_findings_v3_organizations__org_id__code_scans_findings_get
+  - WHEN: 'the command is exactly `handle_list_code_scan_profiles_v3_enterprise_code_scans_profiles_get`'
+    MUST: 'dispatch to the `handle_list_code_scan_profiles_v3_enterprise_code_scans_profiles_get` operation'
+    SEE: api/code_scans@Operation_handle_list_code_scan_profiles_v3_enterprise_code_scans_profiles_get
+  - WHEN: 'the command is exactly `handle_list_code_scan_profiles_v3_organizations__org_id__code_scans_profiles_get`'
+    MUST: 'dispatch to the `handle_list_code_scan_profiles_v3_organizations__org_id__code_scans_profiles_get` operation'
+    SEE: api/code_scans@Operation_handle_list_code_scan_profiles_v3_organizations__org_id__code_scans_profiles_get
+  - WHEN: 'the command is exactly `handle_list_code_scans_v3_enterprise_code_scans_scans_get`'
+    MUST: 'dispatch to the `handle_list_code_scans_v3_enterprise_code_scans_scans_get` operation'
+    SEE: api/code_scans@Operation_handle_list_code_scans_v3_enterprise_code_scans_scans_get
+  - WHEN: 'the command is exactly `handle_list_code_scans_v3_organizations__org_id__code_scans_scans_get`'
+    MUST: 'dispatch to the `handle_list_code_scans_v3_organizations__org_id__code_scans_scans_get` operation'
+    SEE: api/code_scans@Operation_handle_list_code_scans_v3_organizations__org_id__code_scans_scans_get
+  - WHEN: 'the command is exactly `handle_list_enterprise_idp_groups_v3_enterprise_members_idp_groups_get`'
+    MUST: 'dispatch to the `handle_list_enterprise_idp_groups_v3_enterprise_members_idp_groups_get` operation'
+    SEE: api/idp_groups@Operation_handle_list_enterprise_idp_groups_v3_enterprise_members_idp_groups_get
+  - WHEN: 'the command is exactly `handle_list_enterprise_idp_users_v3_enterprise_members_idp_users_get`'
+    MUST: 'dispatch to the `handle_list_enterprise_idp_users_v3_enterprise_members_idp_users_get` operation'
+    SEE: api/users@Operation_handle_list_enterprise_idp_users_v3_enterprise_members_idp_users_get
+  - WHEN: 'the command is exactly `handle_list_enterprise_service_users_v3_enterprise_members_service_users_get`'
+    MUST: 'dispatch to the `handle_list_enterprise_service_users_v3_enterprise_members_service_users_get` operation'
+    SEE: api/service_users@Operation_handle_list_enterprise_service_users_v3_enterprise_members_service_users_get
+  - WHEN: 'the command is exactly `handle_list_enterprise_users_v3_enterprise_members_users_get`'
+    MUST: 'dispatch to the `handle_list_enterprise_users_v3_enterprise_members_users_get` operation'
+    SEE: api/users@Operation_handle_list_enterprise_users_v3_enterprise_members_users_get
+  - WHEN: 'the command is exactly `handle_list_folders_v3_enterprise_knowledge_folders_get`'
+    MUST: 'dispatch to the `handle_list_folders_v3_enterprise_knowledge_folders_get` operation'
+    SEE: api/notes@Operation_handle_list_folders_v3_enterprise_knowledge_folders_get
+  - WHEN: 'the command is exactly `handle_list_folders_v3_organizations__org_id__knowledge_folders_get`'
+    MUST: 'dispatch to the `handle_list_folders_v3_organizations__org_id__knowledge_folders_get` operation'
+    SEE: api/notes@Operation_handle_list_folders_v3_organizations__org_id__knowledge_folders_get
+  - WHEN: 'the command is exactly `handle_list_git_connection_repositories_v3_enterprise_git_providers_connections__connection_id__repositories_get`'
+    MUST: 'dispatch to the `handle_list_git_connection_repositories_v3_enterprise_git_providers_connections__connection_id__repositories_get` operation'
+    SEE: api/git_connections@Operation_handle_list_git_connection_repositories_v3_enterprise_git_providers_connections__connection_id__repositories_get
+  - WHEN: 'the command is exactly `handle_list_indexed_repositories_v3_organizations__org_id__repositories_indexing_get`'
+    MUST: 'dispatch to the `handle_list_indexed_repositories_v3_organizations__org_id__repositories_indexing_get` operation'
+    SEE: api/repositories@Operation_handle_list_indexed_repositories_v3_organizations__org_id__repositories_indexing_get
+  - WHEN: 'the command is exactly `handle_list_notes_v3_enterprise_knowledge_notes_get`'
+    MUST: 'dispatch to the `handle_list_notes_v3_enterprise_knowledge_notes_get` operation'
+    SEE: api/notes@Operation_handle_list_notes_v3_enterprise_knowledge_notes_get
+  - WHEN: 'the command is exactly `handle_list_notes_v3_organizations__org_id__knowledge_notes_get`'
+    MUST: 'dispatch to the `handle_list_notes_v3_organizations__org_id__knowledge_notes_get` operation'
+    SEE: api/notes@Operation_handle_list_notes_v3_organizations__org_id__knowledge_notes_get
+  - WHEN: 'the command is exactly `handle_list_organization_idp_groups_v3_enterprise_organizations__org_id__members_idp_groups_get`'
+    MUST: 'dispatch to the `handle_list_organization_idp_groups_v3_enterprise_organizations__org_id__members_idp_groups_get` operation'
+    SEE: api/idp_groups@Operation_handle_list_organization_idp_groups_v3_enterprise_organizations__org_id__members_idp_groups_get
+  - WHEN: 'the command is exactly `handle_list_organization_idp_users_v3_enterprise_organizations__org_id__members_idp_users_get`'
+    MUST: 'dispatch to the `handle_list_organization_idp_users_v3_enterprise_organizations__org_id__members_idp_users_get` operation'
+    SEE: api/users@Operation_handle_list_organization_idp_users_v3_enterprise_organizations__org_id__members_idp_users_get
+  - WHEN: 'the command is exactly `handle_list_organization_idp_users_v3beta1_organizations__org_id__members_idp_users_get`'
+    MUST: 'dispatch to the `handle_list_organization_idp_users_v3beta1_organizations__org_id__members_idp_users_get` operation'
+    SEE: api/users@Operation_handle_list_organization_idp_users_v3beta1_organizations__org_id__members_idp_users_get
+  - WHEN: 'the command is exactly `handle_list_organization_service_users_v3_enterprise_organizations__org_id__members_service_users_get`'
+    MUST: 'dispatch to the `handle_list_organization_service_users_v3_enterprise_organizations__org_id__members_service_users_get` operation'
+    SEE: api/service_users@Operation_handle_list_organization_service_users_v3_enterprise_organizations__org_id__members_service_users_get
+  - WHEN: 'the command is exactly `handle_list_organization_users_v3_enterprise_organizations__org_id__members_users_get`'
+    MUST: 'dispatch to the `handle_list_organization_users_v3_enterprise_organizations__org_id__members_users_get` operation'
+    SEE: api/users@Operation_handle_list_organization_users_v3_enterprise_organizations__org_id__members_users_get
+  - WHEN: 'the command is exactly `handle_list_organization_users_v3beta1_organizations__org_id__members_users_get`'
+    MUST: 'dispatch to the `handle_list_organization_users_v3beta1_organizations__org_id__members_users_get` operation'
+    SEE: api/users@Operation_handle_list_organization_users_v3beta1_organizations__org_id__members_users_get
+  - WHEN: 'the command is exactly `handle_list_playbooks_v3_enterprise_playbooks_get`'
+    MUST: 'dispatch to the `handle_list_playbooks_v3_enterprise_playbooks_get` operation'
+    SEE: api/playbooks@Operation_handle_list_playbooks_v3_enterprise_playbooks_get
+  - WHEN: 'the command is exactly `handle_list_playbooks_v3_organizations__org_id__playbooks_get`'
+    MUST: 'dispatch to the `handle_list_playbooks_v3_organizations__org_id__playbooks_get` operation'
+    SEE: api/playbooks@Operation_handle_list_playbooks_v3_organizations__org_id__playbooks_get
+  - WHEN: 'the command is exactly `handle_list_repositories_v3_organizations__org_id__repositories_get`'
+    MUST: 'dispatch to the `handle_list_repositories_v3_organizations__org_id__repositories_get` operation'
+    SEE: api/repositories@Operation_handle_list_repositories_v3_organizations__org_id__repositories_get
+  - WHEN: 'the command is exactly `handle_list_responders_v3_organizations__org_id__oncall_responders_get`'
+    MUST: 'dispatch to the `handle_list_responders_v3_organizations__org_id__oncall_responders_get` operation'
+    SEE: api/oncall@Operation_handle_list_responders_v3_organizations__org_id__oncall_responders_get
+  - WHEN: 'the command is exactly `handle_list_schedules_v3_organizations__org_id__schedules_get`'
+    MUST: 'dispatch to the `handle_list_schedules_v3_organizations__org_id__schedules_get` operation'
+    SEE: api/schedules@Operation_handle_list_schedules_v3_organizations__org_id__schedules_get
+  - WHEN: 'the command is exactly `handle_list_secrets_v3_organizations__org_id__secrets_get`'
+    MUST: 'dispatch to the `handle_list_secrets_v3_organizations__org_id__secrets_get` operation'
+    SEE: api/secrets@Operation_handle_list_secrets_v3_organizations__org_id__secrets_get
+  - WHEN: 'the command is exactly `handle_list_security_profiles_v3beta1_enterprise_security_profiles_get`'
+    MUST: 'dispatch to the `handle_list_security_profiles_v3beta1_enterprise_security_profiles_get` operation'
+    SEE: api/security_profiles@Operation_handle_list_security_profiles_v3beta1_enterprise_security_profiles_get
+  - WHEN: 'the command is exactly `handle_list_security_profiles_v3beta1_organizations__org_id__security_profiles_get`'
+    MUST: 'dispatch to the `handle_list_security_profiles_v3beta1_organizations__org_id__security_profiles_get` operation'
+    SEE: api/security_profiles@Operation_handle_list_security_profiles_v3beta1_organizations__org_id__security_profiles_get
+  - WHEN: 'the command is exactly `handle_list_service_user_api_keys_v3beta1_enterprise_service_users__service_user_id__api_keys_get`'
+    MUST: 'dispatch to the `handle_list_service_user_api_keys_v3beta1_enterprise_service_users__service_user_id__api_keys_get` operation'
+    SEE: api/service_user_api_keys@Operation_handle_list_service_user_api_keys_v3beta1_enterprise_service_users__service_user_id__api_keys_get
+  - WHEN: 'the command is exactly `handle_list_session_consumption_daily_v3_enterprise_consumption_daily_sessions_get`'
+    MUST: 'dispatch to the `handle_list_session_consumption_daily_v3_enterprise_consumption_daily_sessions_get` operation'
+    SEE: api/consumption@Operation_handle_list_session_consumption_daily_v3_enterprise_consumption_daily_sessions_get
+  - WHEN: 'the command is exactly `handle_post_account_session_message_v3_enterprise_sessions__devin_id__messages_post`'
+    MUST: 'dispatch to the `handle_post_account_session_message_v3_enterprise_sessions__devin_id__messages_post` operation'
+    SEE: api/sessions@Operation_handle_post_account_session_message_v3_enterprise_sessions__devin_id__messages_post
+  - WHEN: 'the command is exactly `handle_post_message_v3_organizations__org_id__sessions__devin_id__messages_post`'
+    MUST: 'dispatch to the `handle_post_message_v3_organizations__org_id__sessions__devin_id__messages_post` operation'
+    SEE: api/sessions@Operation_handle_post_message_v3_organizations__org_id__sessions__devin_id__messages_post
+  - WHEN: 'the command is exactly `handle_recover_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__recover_post`'
+    MUST: 'dispatch to the `handle_recover_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__recover_post` operation'
+    SEE: api/code_scans@Operation_handle_recover_code_scan_v3_enterprise_organizations__org_id__code_scans__scan_id__recover_post
+  - WHEN: 'the command is exactly `handle_recover_code_scan_v3_organizations__org_id__code_scans__scan_id__recover_post`'
+    MUST: 'dispatch to the `handle_recover_code_scan_v3_organizations__org_id__code_scans__scan_id__recover_post` operation'
+    SEE: api/code_scans@Operation_handle_recover_code_scan_v3_organizations__org_id__code_scans__scan_id__recover_post
+  - WHEN: 'the command is exactly `handle_remediate_code_scan_finding_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__remediate_post`'
+    MUST: 'dispatch to the `handle_remediate_code_scan_finding_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__remediate_post` operation'
+    SEE: api/code_scans@Operation_handle_remediate_code_scan_finding_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__remediate_post
+  - WHEN: 'the command is exactly `handle_remediate_code_scan_finding_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__remediate_post`'
+    MUST: 'dispatch to the `handle_remediate_code_scan_finding_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__remediate_post` operation'
+    SEE: api/code_scans@Operation_handle_remediate_code_scan_finding_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__remediate_post
+  - WHEN: 'the command is exactly `handle_remediate_code_scan_findings_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_remediate_post`'
+    MUST: 'dispatch to the `handle_remediate_code_scan_findings_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_remediate_post` operation'
+    SEE: api/code_scans@Operation_handle_remediate_code_scan_findings_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_remediate_post
+  - WHEN: 'the command is exactly `handle_remediate_code_scan_findings_v3_organizations__org_id__code_scans__scan_id__findings_remediate_post`'
+    MUST: 'dispatch to the `handle_remediate_code_scan_findings_v3_organizations__org_id__code_scans__scan_id__findings_remediate_post` operation'
+    SEE: api/code_scans@Operation_handle_remediate_code_scan_findings_v3_organizations__org_id__code_scans__scan_id__findings_remediate_post
+  - WHEN: 'the command is exactly `handle_remove_branch_v3_organizations__org_id__repositories__repository_path__indexing_branches__branch_name__delete`'
+    MUST: 'dispatch to the `handle_remove_branch_v3_organizations__org_id__repositories__repository_path__indexing_branches__branch_name__delete` operation'
+    SEE: api/repositories@Operation_handle_remove_branch_v3_organizations__org_id__repositories__repository_path__indexing_branches__branch_name__delete
+  - WHEN: 'the command is exactly `handle_remove_enterprise_idp_group_v3_enterprise_members_idp_groups__idp_group_name__delete`'
+    MUST: 'dispatch to the `handle_remove_enterprise_idp_group_v3_enterprise_members_idp_groups__idp_group_name__delete` operation'
+    SEE: api/idp_groups@Operation_handle_remove_enterprise_idp_group_v3_enterprise_members_idp_groups__idp_group_name__delete
+  - WHEN: 'the command is exactly `handle_remove_enterprise_service_user_v3_enterprise_members_service_users__service_user_id__delete`'
+    MUST: 'dispatch to the `handle_remove_enterprise_service_user_v3_enterprise_members_service_users__service_user_id__delete` operation'
+    SEE: api/service_users@Operation_handle_remove_enterprise_service_user_v3_enterprise_members_service_users__service_user_id__delete
+  - WHEN: 'the command is exactly `handle_remove_enterprise_user_v3_enterprise_members_users__user_id__delete`'
+    MUST: 'dispatch to the `handle_remove_enterprise_user_v3_enterprise_members_users__user_id__delete` operation'
+    SEE: api/users@Operation_handle_remove_enterprise_user_v3_enterprise_members_users__user_id__delete
+  - WHEN: 'the command is exactly `handle_remove_organization_idp_group_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__delete`'
+    MUST: 'dispatch to the `handle_remove_organization_idp_group_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__delete` operation'
+    SEE: api/idp_groups@Operation_handle_remove_organization_idp_group_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__delete
+  - WHEN: 'the command is exactly `handle_remove_organization_service_user_v3_enterprise_organizations__org_id__members_service_users__service_user_id__delete`'
+    MUST: 'dispatch to the `handle_remove_organization_service_user_v3_enterprise_organizations__org_id__members_service_users__service_user_id__delete` operation'
+    SEE: api/service_users@Operation_handle_remove_organization_service_user_v3_enterprise_organizations__org_id__members_service_users__service_user_id__delete
+  - WHEN: 'the command is exactly `handle_remove_organization_user_v3_enterprise_organizations__org_id__members_users__user_id__delete`'
+    MUST: 'dispatch to the `handle_remove_organization_user_v3_enterprise_organizations__org_id__members_users__user_id__delete` operation'
+    SEE: api/users@Operation_handle_remove_organization_user_v3_enterprise_organizations__org_id__members_users__user_id__delete
+  - WHEN: 'the command is exactly `handle_remove_single_repository_from_indexing_v3_organizations__org_id__repositories__repository_path__indexing_delete`'
+    MUST: 'dispatch to the `handle_remove_single_repository_from_indexing_v3_organizations__org_id__repositories__repository_path__indexing_delete` operation'
+    SEE: api/repositories@Operation_handle_remove_single_repository_from_indexing_v3_organizations__org_id__repositories__repository_path__indexing_delete
+  - WHEN: 'the command is exactly `handle_replace_account_session_tags_v3_enterprise_sessions__devin_id__tags_put`'
+    MUST: 'dispatch to the `handle_replace_account_session_tags_v3_enterprise_sessions__devin_id__tags_put` operation'
+    SEE: api/sessions@Operation_handle_replace_account_session_tags_v3_enterprise_sessions__devin_id__tags_put
+  - WHEN: 'the command is exactly `handle_replace_ip_access_list_v3_enterprise_ip_access_list_put`'
+    MUST: 'dispatch to the `handle_replace_ip_access_list_v3_enterprise_ip_access_list_put` operation'
+    SEE: api/ip_access_list@Operation_handle_replace_ip_access_list_v3_enterprise_ip_access_list_put
+  - WHEN: 'the command is exactly `handle_replace_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_put`'
+    MUST: 'dispatch to the `handle_replace_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_put` operation'
+    SEE: api/organization_tags@Operation_handle_replace_organization_allowed_tags_v3_enterprise_organizations__org_id__tags_put
+  - WHEN: 'the command is exactly `handle_replace_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_put`'
+    MUST: 'dispatch to the `handle_replace_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_put` operation'
+    SEE: api/git_permissions@Operation_handle_replace_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_put
+  - WHEN: 'the command is exactly `handle_replace_session_tags_v3_organizations__org_id__sessions__devin_id__tags_put`'
+    MUST: 'dispatch to the `handle_replace_session_tags_v3_organizations__org_id__sessions__devin_id__tags_put` operation'
+    SEE: api/sessions@Operation_handle_replace_session_tags_v3_organizations__org_id__sessions__devin_id__tags_put
+  - WHEN: 'the command is exactly `handle_revoke_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys__api_key_id__delete`'
+    MUST: 'dispatch to the `handle_revoke_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys__api_key_id__delete` operation'
+    SEE: api/service_user_api_keys@Operation_handle_revoke_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys__api_key_id__delete
+  - WHEN: 'the command is exactly `handle_rotate_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys__api_key_id__rotate_post`'
+    MUST: 'dispatch to the `handle_rotate_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys__api_key_id__rotate_post` operation'
+    SEE: api/service_user_api_keys@Operation_handle_rotate_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys__api_key_id__rotate_post
+  - WHEN: 'the command is exactly `handle_scan_new_commits_v3_enterprise_organizations__org_id__code_scans__scan_id__scan_new_commits_post`'
+    MUST: 'dispatch to the `handle_scan_new_commits_v3_enterprise_organizations__org_id__code_scans__scan_id__scan_new_commits_post` operation'
+    SEE: api/code_scans@Operation_handle_scan_new_commits_v3_enterprise_organizations__org_id__code_scans__scan_id__scan_new_commits_post
+  - WHEN: 'the command is exactly `handle_scan_new_commits_v3_organizations__org_id__code_scans__scan_id__scan_new_commits_post`'
+    MUST: 'dispatch to the `handle_scan_new_commits_v3_organizations__org_id__code_scans__scan_id__scan_new_commits_post` operation'
+    SEE: api/code_scans@Operation_handle_scan_new_commits_v3_organizations__org_id__code_scans__scan_id__scan_new_commits_post
+  - WHEN: 'the command is exactly `handle_set_org_devin_acu_limit_v3_enterprise_consumption_acu_limits_devin_organizations__org_id__put`'
+    MUST: 'dispatch to the `handle_set_org_devin_acu_limit_v3_enterprise_consumption_acu_limits_devin_organizations__org_id__put` operation'
+    SEE: api/acu_limits@Operation_handle_set_org_devin_acu_limit_v3_enterprise_consumption_acu_limits_devin_organizations__org_id__put
+  - WHEN: 'the command is exactly `handle_sleep_session_v3_organizations__org_id__sessions__devin_id__sleep_post`'
+    MUST: 'dispatch to the `handle_sleep_session_v3_organizations__org_id__sessions__devin_id__sleep_post` operation'
+    SEE: api/sessions@Operation_handle_sleep_session_v3_organizations__org_id__sessions__devin_id__sleep_post
+  - WHEN: 'the command is exactly `handle_start_code_scan_v3_enterprise_organizations__org_id__code_scans_post`'
+    MUST: 'dispatch to the `handle_start_code_scan_v3_enterprise_organizations__org_id__code_scans_post` operation'
+    SEE: api/code_scans@Operation_handle_start_code_scan_v3_enterprise_organizations__org_id__code_scans_post
+  - WHEN: 'the command is exactly `handle_start_code_scan_v3_organizations__org_id__code_scans_post`'
+    MUST: 'dispatch to the `handle_start_code_scan_v3_organizations__org_id__code_scans_post` operation'
+    SEE: api/code_scans@Operation_handle_start_code_scan_v3_organizations__org_id__code_scans_post
+  - WHEN: 'the command is exactly `handle_start_ingestion_scan_v3_enterprise_organizations__org_id__code_scans_ingestion_post`'
+    MUST: 'dispatch to the `handle_start_ingestion_scan_v3_enterprise_organizations__org_id__code_scans_ingestion_post` operation'
+    SEE: api/code_scans@Operation_handle_start_ingestion_scan_v3_enterprise_organizations__org_id__code_scans_ingestion_post
+  - WHEN: 'the command is exactly `handle_start_ingestion_scan_v3_organizations__org_id__code_scans_ingestion_post`'
+    MUST: 'dispatch to the `handle_start_ingestion_scan_v3_organizations__org_id__code_scans_ingestion_post` operation'
+    SEE: api/code_scans@Operation_handle_start_ingestion_scan_v3_organizations__org_id__code_scans_ingestion_post
+  - WHEN: 'the command is exactly `handle_switch_code_scan_profile_v3_enterprise_organizations__org_id__code_scans__scan_id__profile_put`'
+    MUST: 'dispatch to the `handle_switch_code_scan_profile_v3_enterprise_organizations__org_id__code_scans__scan_id__profile_put` operation'
+    SEE: api/code_scans@Operation_handle_switch_code_scan_profile_v3_enterprise_organizations__org_id__code_scans__scan_id__profile_put
+  - WHEN: 'the command is exactly `handle_switch_code_scan_profile_v3_organizations__org_id__code_scans__scan_id__profile_put`'
+    MUST: 'dispatch to the `handle_switch_code_scan_profile_v3_organizations__org_id__code_scans__scan_id__profile_put` operation'
+    SEE: api/code_scans@Operation_handle_switch_code_scan_profile_v3_organizations__org_id__code_scans__scan_id__profile_put
+  - WHEN: 'the command is exactly `handle_terminate_session_v3_organizations__org_id__sessions__devin_id__delete`'
+    MUST: 'dispatch to the `handle_terminate_session_v3_organizations__org_id__sessions__devin_id__delete` operation'
+    SEE: api/sessions@Operation_handle_terminate_session_v3_organizations__org_id__sessions__devin_id__delete
+  - WHEN: 'the command is exactly `handle_unarchive_session_v3_organizations__org_id__sessions__devin_id__unarchive_post`'
+    MUST: 'dispatch to the `handle_unarchive_session_v3_organizations__org_id__sessions__devin_id__unarchive_post` operation'
+    SEE: api/sessions@Operation_handle_unarchive_session_v3_organizations__org_id__sessions__devin_id__unarchive_post
+  - WHEN: 'the command is exactly `handle_unlink_code_scan_finding_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__unlink_session_post`'
+    MUST: 'dispatch to the `handle_unlink_code_scan_finding_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__unlink_session_post` operation'
+    SEE: api/code_scans@Operation_handle_unlink_code_scan_finding_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__unlink_session_post
+  - WHEN: 'the command is exactly `handle_unlink_code_scan_finding_session_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__unlink_session_post`'
+    MUST: 'dispatch to the `handle_unlink_code_scan_finding_session_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__unlink_session_post` operation'
+    SEE: api/code_scans@Operation_handle_unlink_code_scan_finding_session_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__unlink_session_post
+  - WHEN: 'the command is exactly `handle_unlink_code_scan_findings_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_unlink_session_post`'
+    MUST: 'dispatch to the `handle_unlink_code_scan_findings_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_unlink_session_post` operation'
+    SEE: api/code_scans@Operation_handle_unlink_code_scan_findings_session_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_unlink_session_post
+  - WHEN: 'the command is exactly `handle_unlink_code_scan_findings_session_v3_organizations__org_id__code_scans__scan_id__findings_unlink_session_post`'
+    MUST: 'dispatch to the `handle_unlink_code_scan_findings_session_v3_organizations__org_id__code_scans__scan_id__findings_unlink_session_post` operation'
+    SEE: api/code_scans@Operation_handle_unlink_code_scan_findings_session_v3_organizations__org_id__code_scans__scan_id__findings_unlink_session_post
+  - WHEN: 'the command is exactly `handle_update_automation_v3_organizations__org_id__automations__automation_id__patch`'
+    MUST: 'dispatch to the `handle_update_automation_v3_organizations__org_id__automations__automation_id__patch` operation'
+    SEE: api/automations@Operation_handle_update_automation_v3_organizations__org_id__automations__automation_id__patch
+  - WHEN: 'the command is exactly `handle_update_code_scan_effort_v3_enterprise_organizations__org_id__code_scans__scan_id__effort_put`'
+    MUST: 'dispatch to the `handle_update_code_scan_effort_v3_enterprise_organizations__org_id__code_scans__scan_id__effort_put` operation'
+    SEE: api/code_scans@Operation_handle_update_code_scan_effort_v3_enterprise_organizations__org_id__code_scans__scan_id__effort_put
+  - WHEN: 'the command is exactly `handle_update_code_scan_effort_v3_organizations__org_id__code_scans__scan_id__effort_put`'
+    MUST: 'dispatch to the `handle_update_code_scan_effort_v3_organizations__org_id__code_scans__scan_id__effort_put` operation'
+    SEE: api/code_scans@Operation_handle_update_code_scan_effort_v3_organizations__org_id__code_scans__scan_id__effort_put
+  - WHEN: 'the command is exactly `handle_update_code_scan_finding_status_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__patch`'
+    MUST: 'dispatch to the `handle_update_code_scan_finding_status_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__patch` operation'
+    SEE: api/code_scans@Operation_handle_update_code_scan_finding_status_v3_enterprise_organizations__org_id__code_scans__scan_id__findings__finding_id__patch
+  - WHEN: 'the command is exactly `handle_update_code_scan_finding_status_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__patch`'
+    MUST: 'dispatch to the `handle_update_code_scan_finding_status_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__patch` operation'
+    SEE: api/code_scans@Operation_handle_update_code_scan_finding_status_v3_organizations__org_id__code_scans__scan_id__findings__finding_id__patch
+  - WHEN: 'the command is exactly `handle_update_code_scan_findings_status_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_patch`'
+    MUST: 'dispatch to the `handle_update_code_scan_findings_status_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_patch` operation'
+    SEE: api/code_scans@Operation_handle_update_code_scan_findings_status_v3_enterprise_organizations__org_id__code_scans__scan_id__findings_patch
+  - WHEN: 'the command is exactly `handle_update_code_scan_findings_status_v3_organizations__org_id__code_scans__scan_id__findings_patch`'
+    MUST: 'dispatch to the `handle_update_code_scan_findings_status_v3_organizations__org_id__code_scans__scan_id__findings_patch` operation'
+    SEE: api/code_scans@Operation_handle_update_code_scan_findings_status_v3_organizations__org_id__code_scans__scan_id__findings_patch
+  - WHEN: 'the command is exactly `handle_update_enterprise_idp_group_role_v3_enterprise_members_idp_groups__idp_group_name__patch`'
+    MUST: 'dispatch to the `handle_update_enterprise_idp_group_role_v3_enterprise_members_idp_groups__idp_group_name__patch` operation'
+    SEE: api/idp_groups@Operation_handle_update_enterprise_idp_group_role_v3_enterprise_members_idp_groups__idp_group_name__patch
+  - WHEN: 'the command is exactly `handle_update_enterprise_service_user_role_v3_enterprise_members_service_users__service_user_id__patch`'
+    MUST: 'dispatch to the `handle_update_enterprise_service_user_role_v3_enterprise_members_service_users__service_user_id__patch` operation'
+    SEE: api/service_users@Operation_handle_update_enterprise_service_user_role_v3_enterprise_members_service_users__service_user_id__patch
+  - WHEN: 'the command is exactly `handle_update_enterprise_user_role_v3_enterprise_members_users__user_id__patch`'
+    MUST: 'dispatch to the `handle_update_enterprise_user_role_v3_enterprise_members_users__user_id__patch` operation'
+    SEE: api/users@Operation_handle_update_enterprise_user_role_v3_enterprise_members_users__user_id__patch
+  - WHEN: 'the command is exactly `handle_update_note_v3_enterprise_knowledge_notes__note_id__put`'
+    MUST: 'dispatch to the `handle_update_note_v3_enterprise_knowledge_notes__note_id__put` operation'
+    SEE: api/notes@Operation_handle_update_note_v3_enterprise_knowledge_notes__note_id__put
+  - WHEN: 'the command is exactly `handle_update_note_v3_organizations__org_id__knowledge_notes__note_id__put`'
+    MUST: 'dispatch to the `handle_update_note_v3_organizations__org_id__knowledge_notes__note_id__put` operation'
+    SEE: api/notes@Operation_handle_update_note_v3_organizations__org_id__knowledge_notes__note_id__put
+  - WHEN: 'the command is exactly `handle_update_org_default_platform_v3beta1_organizations__org_id__default_platform_put`'
+    MUST: 'dispatch to the `handle_update_org_default_platform_v3beta1_organizations__org_id__default_platform_put` operation'
+    SEE: api/organization_settings@Operation_handle_update_org_default_platform_v3beta1_organizations__org_id__default_platform_put
+  - WHEN: 'the command is exactly `handle_update_organization_git_permission_v3_enterprise_organizations__org_id__git_providers_permissions__git_permission_id__patch`'
+    MUST: 'dispatch to the `handle_update_organization_git_permission_v3_enterprise_organizations__org_id__git_providers_permissions__git_permission_id__patch` operation'
+    SEE: api/git_permissions@Operation_handle_update_organization_git_permission_v3_enterprise_organizations__org_id__git_providers_permissions__git_permission_id__patch
+  - WHEN: 'the command is exactly `handle_update_organization_idp_group_role_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__patch`'
+    MUST: 'dispatch to the `handle_update_organization_idp_group_role_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__patch` operation'
+    SEE: api/idp_groups@Operation_handle_update_organization_idp_group_role_v3_enterprise_organizations__org_id__members_idp_groups__idp_group_name__patch
+  - WHEN: 'the command is exactly `handle_update_organization_service_user_role_v3_enterprise_organizations__org_id__members_service_users__service_user_id__patch`'
+    MUST: 'dispatch to the `handle_update_organization_service_user_role_v3_enterprise_organizations__org_id__members_service_users__service_user_id__patch` operation'
+    SEE: api/service_users@Operation_handle_update_organization_service_user_role_v3_enterprise_organizations__org_id__members_service_users__service_user_id__patch
+  - WHEN: 'the command is exactly `handle_update_organization_user_role_v3_enterprise_organizations__org_id__members_users__user_id__patch`'
+    MUST: 'dispatch to the `handle_update_organization_user_role_v3_enterprise_organizations__org_id__members_users__user_id__patch` operation'
+    SEE: api/users@Operation_handle_update_organization_user_role_v3_enterprise_organizations__org_id__members_users__user_id__patch
+  - WHEN: 'the command is exactly `handle_update_organization_v3_enterprise_organizations__org_id__patch`'
+    MUST: 'dispatch to the `handle_update_organization_v3_enterprise_organizations__org_id__patch` operation'
+    SEE: api/organizations@Operation_handle_update_organization_v3_enterprise_organizations__org_id__patch
+  - WHEN: 'the command is exactly `handle_update_playbook_v3_enterprise_playbooks__playbook_id__put`'
+    MUST: 'dispatch to the `handle_update_playbook_v3_enterprise_playbooks__playbook_id__put` operation'
+    SEE: api/playbooks@Operation_handle_update_playbook_v3_enterprise_playbooks__playbook_id__put
+  - WHEN: 'the command is exactly `handle_update_playbook_v3_organizations__org_id__playbooks__playbook_id__put`'
+    MUST: 'dispatch to the `handle_update_playbook_v3_organizations__org_id__playbooks__playbook_id__put` operation'
+    SEE: api/playbooks@Operation_handle_update_playbook_v3_organizations__org_id__playbooks__playbook_id__put
+  - WHEN: 'the command is exactly `handle_update_responder_v3_organizations__org_id__oncall_responders__responder_id__patch`'
+    MUST: 'dispatch to the `handle_update_responder_v3_organizations__org_id__oncall_responders__responder_id__patch` operation'
+    SEE: api/oncall@Operation_handle_update_responder_v3_organizations__org_id__oncall_responders__responder_id__patch
+  - WHEN: 'the command is exactly `handle_update_schedule_v3_organizations__org_id__schedules__schedule_id__patch`'
+    MUST: 'dispatch to the `handle_update_schedule_v3_organizations__org_id__schedules__schedule_id__patch` operation'
+    SEE: api/schedules@Operation_handle_update_schedule_v3_organizations__org_id__schedules__schedule_id__patch
+  - WHEN: 'the command is exactly `handle_update_security_profile_settings_v3beta1_enterprise_security_profile_settings_patch`'
+    MUST: 'dispatch to the `handle_update_security_profile_settings_v3beta1_enterprise_security_profile_settings_patch` operation'
+    SEE: api/security_profiles@Operation_handle_update_security_profile_settings_v3beta1_enterprise_security_profile_settings_patch
+  - WHEN: 'the command is exactly `handle_update_security_profile_settings_v3beta1_organizations__org_id__security_profile_settings_patch`'
+    MUST: 'dispatch to the `handle_update_security_profile_settings_v3beta1_organizations__org_id__security_profile_settings_patch` operation'
+    SEE: api/security_profiles@Operation_handle_update_security_profile_settings_v3beta1_organizations__org_id__security_profile_settings_patch
+  - WHEN: 'the command is exactly `handle_update_security_profile_v3beta1_enterprise_security_profiles__profile_id__patch`'
+    MUST: 'dispatch to the `handle_update_security_profile_v3beta1_enterprise_security_profiles__profile_id__patch` operation'
+    SEE: api/security_profiles@Operation_handle_update_security_profile_v3beta1_enterprise_security_profiles__profile_id__patch
+  - WHEN: 'the command is exactly `handle_update_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__patch`'
+    MUST: 'dispatch to the `handle_update_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__patch` operation'
+    SEE: api/security_profiles@Operation_handle_update_security_profile_v3beta1_organizations__org_id__security_profiles__profile_id__patch
+  - WHEN: 'the command is exactly `handle_update_user_billing_orgs_v3_enterprise_members_users_billing_orgs_put`'
+    MUST: 'dispatch to the `handle_update_user_billing_orgs_v3_enterprise_members_users_billing_orgs_put` operation'
+    SEE: api/user_billing_orgs@Operation_handle_update_user_billing_orgs_v3_enterprise_members_users_billing_orgs_put
+  - WHEN: 'the command is exactly `handle_upload_attachment_v3_organizations__org_id__attachments_post`'
+    MUST: 'dispatch to the `handle_upload_attachment_v3_organizations__org_id__attachments_post` operation'
+    SEE: api/attachments@Operation_handle_upload_attachment_v3_organizations__org_id__attachments_post
+  - WHEN: 'the command is exactly `list_enterprise_blueprint_files_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_get`'
+    MUST: 'dispatch to the `list_enterprise_blueprint_files_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_get` operation'
+    SEE: api/snapshot_setup@Operation_list_enterprise_blueprint_files_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_get
+  - WHEN: 'the command is exactly `list_enterprise_blueprints_v3_enterprise_snapshot_setup_blueprints_get`'
+    MUST: 'dispatch to the `list_enterprise_blueprints_v3_enterprise_snapshot_setup_blueprints_get` operation'
+    SEE: api/snapshot_setup@Operation_list_enterprise_blueprints_v3_enterprise_snapshot_setup_blueprints_get
+  - WHEN: 'the command is exactly `list_org_blueprint_files_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_get`'
+    MUST: 'dispatch to the `list_org_blueprint_files_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_get` operation'
+    SEE: api/snapshot_setup@Operation_list_org_blueprint_files_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_get
+  - WHEN: 'the command is exactly `list_org_blueprints_v3_organizations__org_id__snapshot_setup_blueprints_get`'
+    MUST: 'dispatch to the `list_org_blueprints_v3_organizations__org_id__snapshot_setup_blueprints_get` operation'
+    SEE: api/snapshot_setup@Operation_list_org_blueprints_v3_organizations__org_id__snapshot_setup_blueprints_get
+  - WHEN: 'the command is exactly `list_org_builds_v3_organizations__org_id__snapshot_setup_builds_get`'
+    MUST: 'dispatch to the `list_org_builds_v3_organizations__org_id__snapshot_setup_builds_get` operation'
+    SEE: api/snapshot_setup@Operation_list_org_builds_v3_organizations__org_id__snapshot_setup_builds_get
+  - WHEN: 'the command is exactly `pin_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__pin_post`'
+    MUST: 'dispatch to the `pin_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__pin_post` operation'
+    SEE: api/snapshot_setup@Operation_pin_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__pin_post
+  - WHEN: 'the command is exactly `remove_organization_allowed_tag_v3_enterprise_organizations__org_id__tags__tag__delete`'
+    MUST: 'dispatch to the `remove_organization_allowed_tag_v3_enterprise_organizations__org_id__tags__tag__delete` operation'
+    SEE: api/organization_tags@Operation_remove_organization_allowed_tag_v3_enterprise_organizations__org_id__tags__tag__delete
+  - WHEN: 'the command is exactly `set_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_put`'
+    MUST: 'dispatch to the `set_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_put` operation'
+    SEE: api/organization_tags@Operation_set_organization_default_tag_v3_enterprise_organizations__org_id__tags_default_put
+  - WHEN: 'the command is exactly `trigger_org_build_v3_organizations__org_id__snapshot_setup_builds_post`'
+    MUST: 'dispatch to the `trigger_org_build_v3_organizations__org_id__snapshot_setup_builds_post` operation'
+    SEE: api/snapshot_setup@Operation_trigger_org_build_v3_organizations__org_id__snapshot_setup_builds_post
+  - WHEN: 'the command is exactly `unpin_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__pin_delete`'
+    MUST: 'dispatch to the `unpin_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__pin_delete` operation'
+    SEE: api/snapshot_setup@Operation_unpin_org_build_v3_organizations__org_id__snapshot_setup_builds__build_id__pin_delete
+  - WHEN: 'the command is exactly `update_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__put`'
+    MUST: 'dispatch to the `update_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__put` operation'
+    SEE: api/snapshot_setup@Operation_update_enterprise_blueprint_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__put
+  - WHEN: 'the command is exactly `update_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__patch`'
+    MUST: 'dispatch to the `update_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__patch` operation'
+    SEE: api/snapshot_setup@Operation_update_org_blueprint_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__patch
+  - WHEN: 'the command is exactly `update_org_groups_config_v3_enterprise_org_group_limits_put`'
+    MUST: 'dispatch to the `update_org_groups_config_v3_enterprise_org_group_limits_put` operation'
+    SEE: api/org_groups@Operation_update_org_groups_config_v3_enterprise_org_group_limits_put
+  - WHEN: 'the command is exactly `upload_enterprise_blueprint_file_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_post`'
+    MUST: 'dispatch to the `upload_enterprise_blueprint_file_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_post` operation'
+    SEE: api/snapshot_setup@Operation_upload_enterprise_blueprint_file_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_post
+  - WHEN: 'the command is exactly `upload_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_post`'
+    MUST: 'dispatch to the `upload_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_post` operation'
+    SEE: api/snapshot_setup@Operation_upload_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_post
+RETURN:
+  - MUST: 'provide the `devin` Go SDK package and the `devin-client` command from one Go module.'
+  - WHEN: 'no command is supplied'
+    MUST: 'print help to stdout and exit with code 0.'
+    SEE: cli@CLIHelp
+ERROR:
+  - WHEN: 'the command is not `ops`, a help or version flag, or one of the vendored operationIds'
+    MUST: 'reject the invocation with a usage diagnostic.'
+    CONFORMS: cli@CLI::ERROR
+SIDE-EFFECT:
+  - MUST: 'make API requests only after an explicit SDK operation or CLI operation command is invoked.'
+  - MUST-NOT: 'make network requests for help, version, operation listing, dry-run, or a read-only rejected write.'
+INVARIANT:
+  - MUST: 'use module path `github.com/shakefu/go-devin-client`.'
+  - MUST: 'publish under the MIT license.'
+  - CONFORMS: sdk@SDK
+  - CONFORMS: cli@CLI
+  - CONFORMS: repo@Repository
+  - USES: RepositoryToolchain
+  - USES: GenerationWorkflow
+  - USES: TestWorkflow
+  - USES: CLICommandGeneration
+---
+design: RepositoryToolchain
+type: constraint
+content: |
+  Keep Go version 1.26.11 in `.go-version` and `mise.toml`.
+  Pin `common-repo` 0.38.4, `prek` 0.5.10, `cocogitto` 7.0.0, and `yass` 0.14.0 in `mise.toml` and commit `mise.lock`.
+  Pin common-repo semantic-release v0.12.2 and mise v0.1.0 in `.common-repo.yaml`, following toxin's managed-file conventions.
+  Require conventional commits and semantic version releases from the default branch through common-repo.
+  Keep the source module installable with `go install github.com/shakefu/go-devin-client/cmd/devin-client@latest`; binary archives and checksums are not required for the initial release.
+  Document maintainer bootstrap prerequisites `BOT_CLIENT_ID` and `BOT_PRIVATE_KEY` by name without embedding values or adding private module dependencies.
+---
+design: GenerationWorkflow
+type: procedure
+content: |
+  Keep root `v3-openapi.yaml` byte-identical to the published Devin v3 source; update it only through explicit `script/update-spec <source>` invocation.
+  Run pinned okapi-gen-typed v0.4.0 through `script/generate` using a deterministic, versioned normalized input derived from the vendored source.
+  Apply a deterministic, tested generation adaptation that keeps the generated `NewClient` signature while configuring its default HTTP client not to follow redirects.
+  Apply a deterministic, tested generation adaptation so generated API error text never exposes response-body data that may contain the configured API key; preserve the complete raw body on `APIError.Body`.
+  Document and test each compatibility adaptation; nullable scalar and object values retain absent, null, and value distinctions wherever the source makes those distinctions.
+  Represent non-singleton unions without dropping JSON data, using `json.RawMessage` or a round-trip-equivalent `any` representation.
+  Generate complete methods for supported operations and provide complete handwritten methods for the three multipart operations and `handle_get_self_v3_self_get`.
+  Never discard an operation or a request body; generated methods plus handwritten methods cover each vendored operationId exactly once.
+  Keep `client.gen.go` and `types.gen.go` reproducible and never edit generated files by hand; `script/check-generated` fails when fresh output differs.
+---
+design: CLICommandGeneration
+type: procedure
+content: |
+  Build the API command metadata and operation leaf actions with the public okapi v0.4.0 CLI and spec APIs.
+  Keep a deterministic CLI-only projection with every operation method, path, parameter, request-body media type, and required bit; leave domain request validation to the Devin API.
+  Route CLI requests through the authenticated HTTP client created by `New` so the SDK origin and redirect policy also govern CLI calls.
+  Flatten okapi's underscore-delimited command tree into top-level leaves and reconstruct each exact operationId from its tree segments.
+  Adapt generated leaf actions as needed for timeout, shared transport, safety, and output contracts while preserving generated flags and operation semantics.
+  Keep the original operationIds unchanged and verify a one-to-one mapping between the 284 source operations and CLI operation commands.
+  Adapt multipart commands to stream the file part and apply the shared CLI safety and output contract without copying go-tcr-client private API contracts.
+  Fail generation when an operationId collides with `ops`, `help`, or `version`, or when an operation parameter collides with a global CLI flag.
+---
+design: TestWorkflow
+type: procedure
+content: |
+  Run `yass validate`, `yass lint`, `script/check-generated`, `go vet ./...`, and `go test ./...` through `script/test` and CI.
+  Exercise SDK and CLI HTTP behavior only against local `httptest` servers and subprocess fixtures; no test uses a paid or live Devin API.
+  Cover successful, empty, error, timeout, cancellation, malformed input, nullable and union JSON, uploads, redirects, credential redaction, dry-run, read-only rejection, and all operation mappings.

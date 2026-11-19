@@ -1,0 +1,85 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "service_users".
+version: v1
+---
+spec: Operation_handle_assign_enterprise_service_user_role_v3_enterprise_members_service_users__service_user_id__post
+INPUT:
+  - MUST: 'expose `Client.HandleAssignEnterpriseServiceUserRoleV3EnterpriseMembersServiceUsersServiceUserIdPost` for `POST /v3/enterprise/members/service-users/{service_user_id}`'
+  - MUST: 'expose the exact CLI command `handle_assign_enterprise_service_user_role_v3_enterprise_members_service_users__service_user_id__post` for `POST /v3/enterprise/members/service-users/{service_user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_assign_organization_service_user_role_v3_enterprise_organizations__org_id__members_service_users__service_user_id__post
+INPUT:
+  - MUST: 'expose `Client.HandleAssignOrganizationServiceUserRoleV3EnterpriseOrganizationsOrgIdMembersServiceUsersServiceUserIdPost` for `POST /v3/enterprise/organizations/{org_id}/members/service-users/{service_user_id}`'
+  - MUST: 'expose the exact CLI command `handle_assign_organization_service_user_role_v3_enterprise_organizations__org_id__members_service_users__service_user_id__post` for `POST /v3/enterprise/organizations/{org_id}/members/service-users/{service_user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_enterprise_service_user_v3_enterprise_members_service_users__service_user_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetEnterpriseServiceUserV3EnterpriseMembersServiceUsersServiceUserIdGet` for `GET /v3/enterprise/members/service-users/{service_user_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_enterprise_service_user_v3_enterprise_members_service_users__service_user_id__get` for `GET /v3/enterprise/members/service-users/{service_user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_enterprise_service_users_v3_enterprise_members_service_users_get
+INPUT:
+  - MUST: 'expose `Client.HandleListEnterpriseServiceUsersV3EnterpriseMembersServiceUsersGet` for `GET /v3/enterprise/members/service-users`'
+  - MUST: 'expose the exact CLI command `handle_list_enterprise_service_users_v3_enterprise_members_service_users_get` for `GET /v3/enterprise/members/service-users`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_organization_service_users_v3_enterprise_organizations__org_id__members_service_users_get
+INPUT:
+  - MUST: 'expose `Client.HandleListOrganizationServiceUsersV3EnterpriseOrganizationsOrgIdMembersServiceUsersGet` for `GET /v3/enterprise/organizations/{org_id}/members/service-users`'
+  - MUST: 'expose the exact CLI command `handle_list_organization_service_users_v3_enterprise_organizations__org_id__members_service_users_get` for `GET /v3/enterprise/organizations/{org_id}/members/service-users`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remove_enterprise_service_user_v3_enterprise_members_service_users__service_user_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleRemoveEnterpriseServiceUserV3EnterpriseMembersServiceUsersServiceUserIdDelete` for `DELETE /v3/enterprise/members/service-users/{service_user_id}`'
+  - MUST: 'expose the exact CLI command `handle_remove_enterprise_service_user_v3_enterprise_members_service_users__service_user_id__delete` for `DELETE /v3/enterprise/members/service-users/{service_user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_remove_organization_service_user_v3_enterprise_organizations__org_id__members_service_users__service_user_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleRemoveOrganizationServiceUserV3EnterpriseOrganizationsOrgIdMembersServiceUsersServiceUserIdDelete` for `DELETE /v3/enterprise/organizations/{org_id}/members/service-users/{service_user_id}`'
+  - MUST: 'expose the exact CLI command `handle_remove_organization_service_user_v3_enterprise_organizations__org_id__members_service_users__service_user_id__delete` for `DELETE /v3/enterprise/organizations/{org_id}/members/service-users/{service_user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_enterprise_service_user_role_v3_enterprise_members_service_users__service_user_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateEnterpriseServiceUserRoleV3EnterpriseMembersServiceUsersServiceUserIdPatch` for `PATCH /v3/enterprise/members/service-users/{service_user_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_enterprise_service_user_role_v3_enterprise_members_service_users__service_user_id__patch` for `PATCH /v3/enterprise/members/service-users/{service_user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_organization_service_user_role_v3_enterprise_organizations__org_id__members_service_users__service_user_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateOrganizationServiceUserRoleV3EnterpriseOrganizationsOrgIdMembersServiceUsersServiceUserIdPatch` for `PATCH /v3/enterprise/organizations/{org_id}/members/service-users/{service_user_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_organization_service_user_role_v3_enterprise_organizations__org_id__members_service_users__service_user_id__patch` for `PATCH /v3/enterprise/organizations/{org_id}/members/service-users/{service_user_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "service_user_api_keys".
+version: v1
+---
+spec: Operation_handle_create_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateServiceUserApiKeyV3beta1EnterpriseServiceUsersServiceUserIdApiKeysPost` for `POST /v3beta1/enterprise/service-users/{service_user_id}/api-keys`'
+  - MUST: 'expose the exact CLI command `handle_create_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys_post` for `POST /v3beta1/enterprise/service-users/{service_user_id}/api-keys`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_list_service_user_api_keys_v3beta1_enterprise_service_users__service_user_id__api_keys_get
+INPUT:
+  - MUST: 'expose `Client.HandleListServiceUserApiKeysV3beta1EnterpriseServiceUsersServiceUserIdApiKeysGet` for `GET /v3beta1/enterprise/service-users/{service_user_id}/api-keys`'
+  - MUST: 'expose the exact CLI command `handle_list_service_user_api_keys_v3beta1_enterprise_service_users__service_user_id__api_keys_get` for `GET /v3beta1/enterprise/service-users/{service_user_id}/api-keys`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_revoke_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys__api_key_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleRevokeServiceUserApiKeyV3beta1EnterpriseServiceUsersServiceUserIdApiKeysApiKeyIdDelete` for `DELETE /v3beta1/enterprise/service-users/{service_user_id}/api-keys/{api_key_id}`'
+  - MUST: 'expose the exact CLI command `handle_revoke_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys__api_key_id__delete` for `DELETE /v3beta1/enterprise/service-users/{service_user_id}/api-keys/{api_key_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_rotate_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys__api_key_id__rotate_post
+INPUT:
+  - MUST: 'expose `Client.HandleRotateServiceUserApiKeyV3beta1EnterpriseServiceUsersServiceUserIdApiKeysApiKeyIdRotatePost` for `POST /v3beta1/enterprise/service-users/{service_user_id}/api-keys/{api_key_id}/rotate`'
+  - MUST: 'expose the exact CLI command `handle_rotate_service_user_api_key_v3beta1_enterprise_service_users__service_user_id__api_keys__api_key_id__rotate_post` for `POST /v3beta1/enterprise/service-users/{service_user_id}/api-keys/{api_key_id}/rotate`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

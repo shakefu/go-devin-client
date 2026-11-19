@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "organization-settings".
+version: v1
+---
+spec: Operation_handle_get_org_default_platform_v3beta1_organizations__org_id__default_platform_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOrgDefaultPlatformV3beta1OrganizationsOrgIdDefaultPlatformGet` for `GET /v3beta1/organizations/{org_id}/default-platform`'
+  - MUST: 'expose the exact CLI command `handle_get_org_default_platform_v3beta1_organizations__org_id__default_platform_get` for `GET /v3beta1/organizations/{org_id}/default-platform`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_org_default_platform_v3beta1_organizations__org_id__default_platform_put
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateOrgDefaultPlatformV3beta1OrganizationsOrgIdDefaultPlatformPut` for `PUT /v3beta1/organizations/{org_id}/default-platform`'
+  - MUST: 'expose the exact CLI command `handle_update_org_default_platform_v3beta1_organizations__org_id__default_platform_put` for `PUT /v3beta1/organizations/{org_id}/default-platform`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

@@ -1,0 +1,239 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Public SDK construction, transport, API response, and OpenAPI source contracts.
+version: v1
+---
+spec: SDK
+INPUT:
+  - MUST: 'expose authenticated construction through `New(Config)`.'
+  - MUST: 'expose the generated lower-level `NewClient(baseURL)` constructor without authentication.'
+RETURN:
+  - MUST: 'expose `Client` methods for every operation in the vendored Devin v3 API source.'
+ERROR:
+  - CONFORMS: APIEndpointContract::ERROR
+SIDE-EFFECT:
+  - MUST-NOT: 'read environment variables.'
+  - MUST-NOT: 'contact the API during construction.'
+INVARIANT:
+  - MUST: 'keep package name `devin` at the module root.'
+  - CONFORMS: APIEndpointContract
+  - CONFORMS: OpenAPIAuthority
+  - USES: root@GenerationWorkflow
+  - USES: root@TestWorkflow
+  - SEE: Config
+  - SEE: New
+  - SEE: NewClient
+  - SEE: Client
+  - SEE: APIResponse
+  - SEE: APIError
+  - SEE: OpenAPISpec
+  - SEE: UploadEnterpriseBlueprintFileParams
+  - SEE: UploadEnterpriseBlueprintFile
+  - SEE: UploadAttachmentParams
+  - SEE: UploadAttachment
+  - SEE: UploadOrgBlueprintFileParams
+  - SEE: UploadOrgBlueprintFile
+  - SEE: GetSelf
+---
+spec: Config
+INPUT:
+  - MUST: 'expose exactly `APIKey string`, `BaseURL string`, `HTTPClient *http.Client`, `Timeout time.Duration`, and `AllowInsecureHTTP bool`.'
+INVARIANT:
+  - MUST: 'use `APIKey` as a bearer token without reading it from the environment.'
+---
+spec: New
+INPUT:
+  - MUST: 'accept one `Config` value.'
+    CONFORMS: Config::INPUT
+RETURN:
+  - MUST: 'return `(*Client, error)`.'
+  - WHEN: '`BaseURL` is blank'
+    MUST: 'use `https://api.devin.ai` as the base URL.'
+  - MUST: 'copy a supplied `HTTPClient` and leave the supplied value unchanged.'
+  - MUST: 'use a positive `Config.Timeout` in preference to the supplied `HTTPClient.Timeout`.'
+  - MUST: 'use a 60-second timeout when `Config.Timeout` is zero, including when the supplied `HTTPClient.Timeout` is nonzero.'
+SIDE-EFFECT:
+  - MUST-NOT: 'perform network I/O during construction.'
+ERROR:
+  - WHEN: '`APIKey` is empty or contains whitespace or an HTTP header control character'
+    MUST: 'return `(nil, error)`.'
+  - WHEN: '`BaseURL` is not an absolute origin, contains user information, query, fragment, or a path other than empty or `/`'
+    MUST: 'return `(nil, error)`.'
+  - WHEN: '`BaseURL` uses `http` and `AllowInsecureHTTP` is false, or uses a scheme other than `https` or explicitly allowed `http`'
+    MUST: 'return `(nil, error)`.'
+  - WHEN: '`Timeout` is negative'
+    MUST: 'return `(nil, error)`.'
+INVARIANT:
+  - MUST: 'apply bearer authorization only to requests whose origin matches the configured base origin.'
+  - MUST: 'configure authenticated requests not to follow redirects.'
+  - MUST: 'preserve context cancellation and deadline behavior.'
+  - MUST-NOT: 'log credentials.'
+  - MUST: 'classify every constructor rejection by the guards in `ERROR`.'
+---
+spec: NewClient
+INPUT:
+  - MUST: 'accept the generated constructor''s `baseURL string` argument.'
+RETURN:
+  - MUST: 'return the generated lower-level `*Client` without adding authentication or reading environment variables.'
+SIDE-EFFECT:
+  - MUST-NOT: 'perform network I/O during construction.'
+INVARIANT:
+  - MUST: 'document `New` as the recommended authenticated constructor.'
+  - MUST: 'configure the generated default HTTP client with a 60-second timeout.'
+  - MUST: 'configure the generated default HTTP client not to follow redirects.'
+  - MUST: 'use a deterministic generation adaptation rather than a manual edit to `*.gen.go`.'
+---
+spec: Client
+RETURN:
+  - MUST: 'return one operation result and `*APIResponse` metadata from each SDK operation method.'
+SIDE-EFFECT:
+  - MUST: 'make one logical HTTP request per operation call.'
+  - MUST-NOT: 'retry operation calls automatically.'
+  - MUST-NOT: 'fetch additional pages automatically.'
+INVARIANT:
+  - MUST: 'encode path values safely.'
+  - MUST: 'preserve operation query, header, request-body, and response contracts from the source.'
+  - MUST: 'tolerate and ignore unknown JSON object fields in typed response structs using standard Go JSON decoding behavior.'
+  - MUST: 'leave domain payload validation to the Devin API.'
+---
+spec: APIResponse
+RETURN:
+  - MUST: 'expose `StatusCode int` and `Header http.Header` for every received HTTP response.'
+INVARIANT:
+  - MUST: 'preserve the response status and headers on successful and failed calls.'
+---
+spec: APIError
+RETURN:
+  - MUST: 'expose `StatusCode int`, `Header http.Header`, and the unmodified response bytes in `Body []byte` for non-2xx responses.'
+  - MUST: 'implement `error` without including response-body data that may contain the configured API key.'
+INVARIANT:
+  - MUST: 'retain the original response body even when `Error()` redacts the API key.'
+---
+spec: OpenAPISpec
+INPUT:
+  - MUST: 'be callable as `OpenAPISpec() []byte` without a client or network.'
+RETURN:
+  - MUST: 'return a fresh byte-for-byte copy of embedded root `v3-openapi.yaml` on every call.'
+---
+spec: OpenAPIAuthority
+RETURN:
+  - MUST: 'use root `v3-openapi.yaml` as the byte-identical published Devin API v3 source with 284 operationIds.'
+  - MUST: 'preserve the source''s bearer authentication declaration.'
+  - MUST: 'preserve every operation''s method, path, parameters, request body, success responses, and schemas.'
+INVARIANT:
+  - MUST: 'treat the vendored source as authoritative for API wire behavior and include no v1 or v2 operations.'
+  - MUST: 'tolerate and ignore unknown JSON object fields in typed response structs using standard Go JSON decoding behavior.'
+  - MUST-NOT: 'require custom unmarshaling solely to retain unknown fields in typed response structs.'
+---
+spec: APIEndpointContract
+INPUT:
+  - MUST: 'expose request path, query, header, and body inputs declared by the corresponding source operation.'
+  - MUST: 'encode path values safely and serialize query values according to the source operation.'
+  - MUST: 'accept request payloads without local domain validation.'
+RETURN:
+  - MUST: 'preserve each operation''s declared success status, response headers, and response body shape.'
+  - WHEN: 'the source operation declares a response body'
+    MUST: 'decode or preserve the response using its declared schema.'
+  - WHEN: 'the source operation declares a no-content success response'
+    MUST: 'return response metadata without a response body value.'
+  - MUST: 'represent non-singleton unions without data loss.'
+  - MUST: 'preserve nullable scalar and object behavior.'
+  - MUST: 'return an `APIResponse` whenever an HTTP response is received.'
+ERROR:
+  - WHEN: 'request construction, JSON encoding, transport, context, response-body reading, or success-response decoding fails'
+    MUST: 'return a non-nil error and preserve response metadata when available.'
+  - WHEN: 'the API returns a non-2xx status'
+    MUST: 'return an `APIError` with its exact status, headers, and raw response body.'
+SIDE-EFFECT:
+  - MUST: 'issue one logical request per method call.'
+  - MUST-NOT: 'retry automatically.'
+  - MUST-NOT: 'fetch another page automatically.'
+INVARIANT:
+  - MUST: 'send bearer credentials only to the configured origin.'
+  - MUST-NOT: 'follow HTTP redirects.'
+  - MUST-NOT: 'log API credentials.'
+  - MUST: 'classify operation failures by the guarded cases in `ERROR`.'
+  - CONFORMS: OpenAPIAuthority::RETURN
+---
+spec: MultipartUploadContract
+INPUT:
+  - MUST: 'send the required file as multipart field `file`.'
+  - MUST: 'use the supplied `FileName` as the multipart filename.'
+  - MUST: 'set the file-part content type to `application/octet-stream`.'
+ERROR:
+  - WHEN: 'the upload reader is nil'
+    MUST: 'return an error without issuing a request.'
+SIDE-EFFECT:
+  - MUST: 'stream the multipart body from the supplied reader.'
+  - MUST-NOT: 'buffer the complete uploaded file in memory.'
+---
+spec: UploadEnterpriseBlueprintFileParams
+INPUT:
+  - MUST: 'expose `BlueprintID string`, `Name string`, `FileName string`, and `File io.Reader` for the source upload operation.'
+INVARIANT:
+  - MUST: 'map `BlueprintID` to the path parameter, `Name` to the query parameter, and `File` to multipart field `file`.'
+  - CONFORMS: MultipartUploadContract::INPUT
+---
+spec: UploadEnterpriseBlueprintFile
+INPUT:
+  - MUST: 'expose `Client.UploadEnterpriseBlueprintFile(ctx context.Context, params UploadEnterpriseBlueprintFileParams)` for `POST /v3/enterprise/snapshot-setup/blueprints/{blueprint_id}/files`.'
+    CONFORMS: UploadEnterpriseBlueprintFileParams::INPUT
+RETURN:
+  - MUST: 'return `(*BlueprintFile, *APIResponse, error)` using the source operation''s 201 JSON response.'
+SIDE-EFFECT:
+  - MUST: 'send an actual `multipart/form-data` request.'
+  - CONFORMS: MultipartUploadContract::SIDE-EFFECT
+ERROR:
+  - CONFORMS: MultipartUploadContract::ERROR
+INVARIANT:
+  - MUST: 'preserve the source operation''s required path and query parameters.'
+---
+spec: UploadAttachmentParams
+INPUT:
+  - MUST: 'expose `OrgID string`, `FileName string`, and `File io.Reader` for the source upload operation.'
+INVARIANT:
+  - MUST: 'map `OrgID` to the path parameter and `File` to multipart field `file`.'
+  - CONFORMS: MultipartUploadContract::INPUT
+---
+spec: UploadAttachment
+INPUT:
+  - MUST: 'expose `Client.UploadAttachment(ctx context.Context, params UploadAttachmentParams)` for `POST /v3/organizations/{org_id}/attachments`.'
+    CONFORMS: UploadAttachmentParams::INPUT
+RETURN:
+  - MUST: 'return `(*AttachmentResponse, *APIResponse, error)` using the source operation''s 200 JSON response.'
+SIDE-EFFECT:
+  - MUST: 'send an actual `multipart/form-data` request.'
+  - CONFORMS: MultipartUploadContract::SIDE-EFFECT
+ERROR:
+  - CONFORMS: MultipartUploadContract::ERROR
+INVARIANT:
+  - MUST: 'preserve the source operation''s required path parameter.'
+---
+spec: UploadOrgBlueprintFileParams
+INPUT:
+  - MUST: 'expose `OrgID string`, `BlueprintID string`, `Name string`, `FileName string`, and `File io.Reader` for the source upload operation.'
+INVARIANT:
+  - MUST: 'map `OrgID` and `BlueprintID` to their path parameters, `Name` to the query parameter, and `File` to multipart field `file`.'
+  - CONFORMS: MultipartUploadContract::INPUT
+---
+spec: UploadOrgBlueprintFile
+INPUT:
+  - MUST: 'expose `Client.UploadOrgBlueprintFile(ctx context.Context, params UploadOrgBlueprintFileParams)` for `POST /v3/organizations/{org_id}/snapshot-setup/blueprints/{blueprint_id}/files`.'
+    CONFORMS: UploadOrgBlueprintFileParams::INPUT
+RETURN:
+  - MUST: 'return `(*BlueprintFile, *APIResponse, error)` using the source operation''s 201 JSON response.'
+SIDE-EFFECT:
+  - MUST: 'send an actual `multipart/form-data` request.'
+  - CONFORMS: MultipartUploadContract::SIDE-EFFECT
+ERROR:
+  - CONFORMS: MultipartUploadContract::ERROR
+INVARIANT:
+  - MUST: 'preserve the source operation''s required path and query parameters.'
+---
+spec: GetSelf
+INPUT:
+  - MUST: 'expose `Client.GetSelf(ctx context.Context)` for `GET /v3/self`.'
+RETURN:
+  - MUST: 'return `json.RawMessage` for the source operation''s four-way JSON response union, alongside `*APIResponse` and `error`.'
+INVARIANT:
+  - MUST: 'preserve the response JSON without selecting or discarding a union member.'

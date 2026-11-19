@@ -1,0 +1,247 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "sessions".
+version: v1
+---
+spec: Operation_handle_append_account_session_tags_v3_enterprise_sessions__devin_id__tags_post
+INPUT:
+  - MUST: 'expose `Client.HandleAppendAccountSessionTagsV3EnterpriseSessionsDevinIdTagsPost` for `POST /v3/enterprise/sessions/{devin_id}/tags`'
+  - MUST: 'expose the exact CLI command `handle_append_account_session_tags_v3_enterprise_sessions__devin_id__tags_post` for `POST /v3/enterprise/sessions/{devin_id}/tags`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_append_session_tags_v3_organizations__org_id__sessions__devin_id__tags_post
+INPUT:
+  - MUST: 'expose `Client.HandleAppendSessionTagsV3OrganizationsOrgIdSessionsDevinIdTagsPost` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/tags`'
+  - MUST: 'expose the exact CLI command `handle_append_session_tags_v3_organizations__org_id__sessions__devin_id__tags_post` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/tags`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_archive_session_v3_organizations__org_id__sessions__devin_id__archive_post
+INPUT:
+  - MUST: 'expose `Client.HandleArchiveSessionV3OrganizationsOrgIdSessionsDevinIdArchivePost` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/archive`'
+  - MUST: 'expose the exact CLI command `handle_archive_session_v3_organizations__org_id__sessions__devin_id__archive_post` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/archive`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_create_session_v3_organizations__org_id__sessions_post
+INPUT:
+  - MUST: 'expose `Client.HandleCreateSessionV3OrganizationsOrgIdSessionsPost` for `POST /v3/organizations/{org_id}/sessions`'
+  - MUST: 'expose the exact CLI command `handle_create_session_v3_organizations__org_id__sessions_post` for `POST /v3/organizations/{org_id}/sessions`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_generate_account_session_insights_v3_enterprise_sessions__devin_id__insights_generate_post
+INPUT:
+  - MUST: 'expose `Client.HandleGenerateAccountSessionInsightsV3EnterpriseSessionsDevinIdInsightsGeneratePost` for `POST /v3/enterprise/sessions/{devin_id}/insights/generate`'
+  - MUST: 'expose the exact CLI command `handle_generate_account_session_insights_v3_enterprise_sessions__devin_id__insights_generate_post` for `POST /v3/enterprise/sessions/{devin_id}/insights/generate`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_generate_session_insights_v3_organizations__org_id__sessions__devin_id__insights_generate_post
+INPUT:
+  - MUST: 'expose `Client.HandleGenerateSessionInsightsV3OrganizationsOrgIdSessionsDevinIdInsightsGeneratePost` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/insights/generate`'
+  - MUST: 'expose the exact CLI command `handle_generate_session_insights_v3_organizations__org_id__sessions__devin_id__insights_generate_post` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/insights/generate`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_account_session_attachments_v3_enterprise_sessions__devin_id__attachments_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetAccountSessionAttachmentsV3EnterpriseSessionsDevinIdAttachmentsGet` for `GET /v3/enterprise/sessions/{devin_id}/attachments`'
+  - MUST: 'expose the exact CLI command `handle_get_account_session_attachments_v3_enterprise_sessions__devin_id__attachments_get` for `GET /v3/enterprise/sessions/{devin_id}/attachments`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_account_session_insights_v3_enterprise_sessions__devin_id__insights_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetAccountSessionInsightsV3EnterpriseSessionsDevinIdInsightsGet` for `GET /v3/enterprise/sessions/{devin_id}/insights`'
+  - MUST: 'expose the exact CLI command `handle_get_account_session_insights_v3_enterprise_sessions__devin_id__insights_get` for `GET /v3/enterprise/sessions/{devin_id}/insights`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_account_session_messages_v3_enterprise_sessions__devin_id__messages_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetAccountSessionMessagesV3EnterpriseSessionsDevinIdMessagesGet` for `GET /v3/enterprise/sessions/{devin_id}/messages`'
+  - MUST: 'expose the exact CLI command `handle_get_account_session_messages_v3_enterprise_sessions__devin_id__messages_get` for `GET /v3/enterprise/sessions/{devin_id}/messages`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_account_session_tags_v3_enterprise_sessions__devin_id__tags_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetAccountSessionTagsV3EnterpriseSessionsDevinIdTagsGet` for `GET /v3/enterprise/sessions/{devin_id}/tags`'
+  - MUST: 'expose the exact CLI command `handle_get_account_session_tags_v3_enterprise_sessions__devin_id__tags_get` for `GET /v3/enterprise/sessions/{devin_id}/tags`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_account_session_v3_enterprise_sessions__devin_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetAccountSessionV3EnterpriseSessionsDevinIdGet` for `GET /v3/enterprise/sessions/{devin_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_account_session_v3_enterprise_sessions__devin_id__get` for `GET /v3/enterprise/sessions/{devin_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_account_sessions_insights_v3_enterprise_sessions_insights_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetAccountSessionsInsightsV3EnterpriseSessionsInsightsGet` for `GET /v3/enterprise/sessions/insights`'
+  - MUST: 'expose the exact CLI command `handle_get_account_sessions_insights_v3_enterprise_sessions_insights_get` for `GET /v3/enterprise/sessions/insights`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_account_sessions_v3_enterprise_sessions_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetAccountSessionsV3EnterpriseSessionsGet` for `GET /v3/enterprise/sessions`'
+  - MUST: 'expose the exact CLI command `handle_get_account_sessions_v3_enterprise_sessions_get` for `GET /v3/enterprise/sessions`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_session_attachments_v3_organizations__org_id__sessions__devin_id__attachments_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionAttachmentsV3OrganizationsOrgIdSessionsDevinIdAttachmentsGet` for `GET /v3/organizations/{org_id}/sessions/{devin_id}/attachments`'
+  - MUST: 'expose the exact CLI command `handle_get_session_attachments_v3_organizations__org_id__sessions__devin_id__attachments_get` for `GET /v3/organizations/{org_id}/sessions/{devin_id}/attachments`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_session_insights_v3_organizations__org_id__sessions__devin_id__insights_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionInsightsV3OrganizationsOrgIdSessionsDevinIdInsightsGet` for `GET /v3/organizations/{org_id}/sessions/{devin_id}/insights`'
+  - MUST: 'expose the exact CLI command `handle_get_session_insights_v3_organizations__org_id__sessions__devin_id__insights_get` for `GET /v3/organizations/{org_id}/sessions/{devin_id}/insights`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_session_messages_v3_organizations__org_id__sessions__devin_id__messages_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionMessagesV3OrganizationsOrgIdSessionsDevinIdMessagesGet` for `GET /v3/organizations/{org_id}/sessions/{devin_id}/messages`'
+  - MUST: 'expose the exact CLI command `handle_get_session_messages_v3_organizations__org_id__sessions__devin_id__messages_get` for `GET /v3/organizations/{org_id}/sessions/{devin_id}/messages`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_session_tags_v3_organizations__org_id__sessions__devin_id__tags_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionTagsV3OrganizationsOrgIdSessionsDevinIdTagsGet` for `GET /v3/organizations/{org_id}/sessions/{devin_id}/tags`'
+  - MUST: 'expose the exact CLI command `handle_get_session_tags_v3_organizations__org_id__sessions__devin_id__tags_get` for `GET /v3/organizations/{org_id}/sessions/{devin_id}/tags`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_session_v3_organizations__org_id__sessions__devin_id__get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionV3OrganizationsOrgIdSessionsDevinIdGet` for `GET /v3/organizations/{org_id}/sessions/{devin_id}`'
+  - MUST: 'expose the exact CLI command `handle_get_session_v3_organizations__org_id__sessions__devin_id__get` for `GET /v3/organizations/{org_id}/sessions/{devin_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_sessions_insights_v3_organizations__org_id__sessions_insights_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionsInsightsV3OrganizationsOrgIdSessionsInsightsGet` for `GET /v3/organizations/{org_id}/sessions/insights`'
+  - MUST: 'expose the exact CLI command `handle_get_sessions_insights_v3_organizations__org_id__sessions_insights_get` for `GET /v3/organizations/{org_id}/sessions/insights`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_sessions_v3_organizations__org_id__sessions_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionsV3OrganizationsOrgIdSessionsGet` for `GET /v3/organizations/{org_id}/sessions`'
+  - MUST: 'expose the exact CLI command `handle_get_sessions_v3_organizations__org_id__sessions_get` for `GET /v3/organizations/{org_id}/sessions`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_post_account_session_message_v3_enterprise_sessions__devin_id__messages_post
+INPUT:
+  - MUST: 'expose `Client.HandlePostAccountSessionMessageV3EnterpriseSessionsDevinIdMessagesPost` for `POST /v3/enterprise/sessions/{devin_id}/messages`'
+  - MUST: 'expose the exact CLI command `handle_post_account_session_message_v3_enterprise_sessions__devin_id__messages_post` for `POST /v3/enterprise/sessions/{devin_id}/messages`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_post_message_v3_organizations__org_id__sessions__devin_id__messages_post
+INPUT:
+  - MUST: 'expose `Client.HandlePostMessageV3OrganizationsOrgIdSessionsDevinIdMessagesPost` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/messages`'
+  - MUST: 'expose the exact CLI command `handle_post_message_v3_organizations__org_id__sessions__devin_id__messages_post` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/messages`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_replace_account_session_tags_v3_enterprise_sessions__devin_id__tags_put
+INPUT:
+  - MUST: 'expose `Client.HandleReplaceAccountSessionTagsV3EnterpriseSessionsDevinIdTagsPut` for `PUT /v3/enterprise/sessions/{devin_id}/tags`'
+  - MUST: 'expose the exact CLI command `handle_replace_account_session_tags_v3_enterprise_sessions__devin_id__tags_put` for `PUT /v3/enterprise/sessions/{devin_id}/tags`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_replace_session_tags_v3_organizations__org_id__sessions__devin_id__tags_put
+INPUT:
+  - MUST: 'expose `Client.HandleReplaceSessionTagsV3OrganizationsOrgIdSessionsDevinIdTagsPut` for `PUT /v3/organizations/{org_id}/sessions/{devin_id}/tags`'
+  - MUST: 'expose the exact CLI command `handle_replace_session_tags_v3_organizations__org_id__sessions__devin_id__tags_put` for `PUT /v3/organizations/{org_id}/sessions/{devin_id}/tags`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_sleep_session_v3_organizations__org_id__sessions__devin_id__sleep_post
+INPUT:
+  - MUST: 'expose `Client.HandleSleepSessionV3OrganizationsOrgIdSessionsDevinIdSleepPost` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/sleep`'
+  - MUST: 'expose the exact CLI command `handle_sleep_session_v3_organizations__org_id__sessions__devin_id__sleep_post` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/sleep`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_terminate_session_v3_organizations__org_id__sessions__devin_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleTerminateSessionV3OrganizationsOrgIdSessionsDevinIdDelete` for `DELETE /v3/organizations/{org_id}/sessions/{devin_id}`'
+  - MUST: 'expose the exact CLI command `handle_terminate_session_v3_organizations__org_id__sessions__devin_id__delete` for `DELETE /v3/organizations/{org_id}/sessions/{devin_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_unarchive_session_v3_organizations__org_id__sessions__devin_id__unarchive_post
+INPUT:
+  - MUST: 'expose `Client.HandleUnarchiveSessionV3OrganizationsOrgIdSessionsDevinIdUnarchivePost` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/unarchive`'
+  - MUST: 'expose the exact CLI command `handle_unarchive_session_v3_organizations__org_id__sessions__devin_id__unarchive_post` for `POST /v3/organizations/{org_id}/sessions/{devin_id}/unarchive`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

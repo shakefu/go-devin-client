@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "ai-gateway-metrics".
+version: v1
+---
+spec: Operation_handle_get_ai_gateway_metrics_v3beta1_ai_gateway_metrics_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetAiGatewayMetricsV3beta1AiGatewayMetricsGet` for `GET /v3beta1/ai-gateway/metrics`'
+  - MUST: 'expose the exact CLI command `handle_get_ai_gateway_metrics_v3beta1_ai_gateway_metrics_get` for `GET /v3beta1/ai-gateway/metrics`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_ai_gateway_models_v3beta1_ai_gateway_models_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetAiGatewayModelsV3beta1AiGatewayModelsGet` for `GET /v3beta1/ai-gateway/models`'
+  - MUST: 'expose the exact CLI command `handle_get_ai_gateway_models_v3beta1_ai_gateway_models_get` for `GET /v3beta1/ai-gateway/models`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "attachments".
+version: v1
+---
+spec: Operation_handle_download_attachment_v3_organizations__org_id__attachments__uuid___name__get
+INPUT:
+  - MUST: 'expose `Client.HandleDownloadAttachmentV3OrganizationsOrgIdAttachmentsUuidNameGet` for `GET /v3/organizations/{org_id}/attachments/{uuid}/{name}`'
+  - MUST: 'expose the exact CLI command `handle_download_attachment_v3_organizations__org_id__attachments__uuid___name__get` for `GET /v3/organizations/{org_id}/attachments/{uuid}/{name}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_upload_attachment_v3_organizations__org_id__attachments_post
+INPUT:
+  - MUST: 'expose `Client.UploadAttachment` for `POST /v3/organizations/{org_id}/attachments`'
+  - MUST: 'expose the exact CLI command `handle_upload_attachment_v3_organizations__org_id__attachments_post` for `POST /v3/organizations/{org_id}/attachments`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

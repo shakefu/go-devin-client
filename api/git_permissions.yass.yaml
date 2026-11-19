@@ -1,0 +1,58 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "git_permissions".
+version: v1
+---
+spec: Operation_handle_bulk_create_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_post
+INPUT:
+  - MUST: 'expose `Client.HandleBulkCreateOrganizationGitPermissionsV3EnterpriseOrganizationsOrgIdGitProvidersPermissionsPost` for `POST /v3/enterprise/organizations/{org_id}/git-providers/permissions`'
+  - MUST: 'expose the exact CLI command `handle_bulk_create_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_post` for `POST /v3/enterprise/organizations/{org_id}/git-providers/permissions`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_clear_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_delete
+INPUT:
+  - MUST: 'expose `Client.HandleClearOrganizationGitPermissionsV3EnterpriseOrganizationsOrgIdGitProvidersPermissionsDelete` for `DELETE /v3/enterprise/organizations/{org_id}/git-providers/permissions`'
+  - MUST: 'expose the exact CLI command `handle_clear_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_delete` for `DELETE /v3/enterprise/organizations/{org_id}/git-providers/permissions`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_delete_organization_git_permission_v3_enterprise_organizations__org_id__git_providers_permissions__git_permission_id__delete
+INPUT:
+  - MUST: 'expose `Client.HandleDeleteOrganizationGitPermissionV3EnterpriseOrganizationsOrgIdGitProvidersPermissionsGitPermissionIdDelete` for `DELETE /v3/enterprise/organizations/{org_id}/git-providers/permissions/{git_permission_id}`'
+  - MUST: 'expose the exact CLI command `handle_delete_organization_git_permission_v3_enterprise_organizations__org_id__git_providers_permissions__git_permission_id__delete` for `DELETE /v3/enterprise/organizations/{org_id}/git-providers/permissions/{git_permission_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOrganizationGitPermissionsV3EnterpriseOrganizationsOrgIdGitProvidersPermissionsGet` for `GET /v3/enterprise/organizations/{org_id}/git-providers/permissions`'
+  - MUST: 'expose the exact CLI command `handle_get_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_get` for `GET /v3/enterprise/organizations/{org_id}/git-providers/permissions`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_replace_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_put
+INPUT:
+  - MUST: 'expose `Client.HandleReplaceOrganizationGitPermissionsV3EnterpriseOrganizationsOrgIdGitProvidersPermissionsPut` for `PUT /v3/enterprise/organizations/{org_id}/git-providers/permissions`'
+  - MUST: 'expose the exact CLI command `handle_replace_organization_git_permissions_v3_enterprise_organizations__org_id__git_providers_permissions_put` for `PUT /v3/enterprise/organizations/{org_id}/git-providers/permissions`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_update_organization_git_permission_v3_enterprise_organizations__org_id__git_providers_permissions__git_permission_id__patch
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateOrganizationGitPermissionV3EnterpriseOrganizationsOrgIdGitProvidersPermissionsGitPermissionIdPatch` for `PATCH /v3/enterprise/organizations/{org_id}/git-providers/permissions/{git_permission_id}`'
+  - MUST: 'expose the exact CLI command `handle_update_organization_git_permission_v3_enterprise_organizations__org_id__git_providers_permissions__git_permission_id__patch` for `PATCH /v3/enterprise/organizations/{org_id}/git-providers/permissions/{git_permission_id}`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

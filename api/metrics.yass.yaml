@@ -1,0 +1,166 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "metrics".
+version: v1
+---
+spec: Operation_handle_get_active_users_metrics_v3_enterprise_metrics_active_users_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetActiveUsersMetricsV3EnterpriseMetricsActiveUsersGet` for `GET /v3/enterprise/metrics/active-users`'
+  - MUST: 'expose the exact CLI command `handle_get_active_users_metrics_v3_enterprise_metrics_active_users_get` for `GET /v3/enterprise/metrics/active-users`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_active_users_metrics_v3_organizations__org_id__metrics_active_users_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetActiveUsersMetricsV3OrganizationsOrgIdMetricsActiveUsersGet` for `GET /v3/organizations/{org_id}/metrics/active-users`'
+  - MUST: 'expose the exact CLI command `handle_get_active_users_metrics_v3_organizations__org_id__metrics_active_users_get` for `GET /v3/organizations/{org_id}/metrics/active-users`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_dau_metrics_v3_enterprise_metrics_dau_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetDauMetricsV3EnterpriseMetricsDauGet` for `GET /v3/enterprise/metrics/dau`'
+  - MUST: 'expose the exact CLI command `handle_get_dau_metrics_v3_enterprise_metrics_dau_get` for `GET /v3/enterprise/metrics/dau`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_dau_metrics_v3_organizations__org_id__metrics_dau_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetDauMetricsV3OrganizationsOrgIdMetricsDauGet` for `GET /v3/organizations/{org_id}/metrics/dau`'
+  - MUST: 'expose the exact CLI command `handle_get_dau_metrics_v3_organizations__org_id__metrics_dau_get` for `GET /v3/organizations/{org_id}/metrics/dau`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_mau_metrics_v3_enterprise_metrics_mau_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetMauMetricsV3EnterpriseMetricsMauGet` for `GET /v3/enterprise/metrics/mau`'
+  - MUST: 'expose the exact CLI command `handle_get_mau_metrics_v3_enterprise_metrics_mau_get` for `GET /v3/enterprise/metrics/mau`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_mau_metrics_v3_organizations__org_id__metrics_mau_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetMauMetricsV3OrganizationsOrgIdMetricsMauGet` for `GET /v3/organizations/{org_id}/metrics/mau`'
+  - MUST: 'expose the exact CLI command `handle_get_mau_metrics_v3_organizations__org_id__metrics_mau_get` for `GET /v3/organizations/{org_id}/metrics/mau`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_organization_usage_metrics_v3_enterprise_organizations__org_id__metrics_usage_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetOrganizationUsageMetricsV3EnterpriseOrganizationsOrgIdMetricsUsageGet` for `GET /v3/enterprise/organizations/{org_id}/metrics/usage`'
+  - MUST: 'expose the exact CLI command `handle_get_organization_usage_metrics_v3_enterprise_organizations__org_id__metrics_usage_get` for `GET /v3/enterprise/organizations/{org_id}/metrics/usage`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_pr_metrics_v3_enterprise_metrics_prs_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetPrMetricsV3EnterpriseMetricsPrsGet` for `GET /v3/enterprise/metrics/prs`'
+  - MUST: 'expose the exact CLI command `handle_get_pr_metrics_v3_enterprise_metrics_prs_get` for `GET /v3/enterprise/metrics/prs`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_pr_metrics_v3_organizations__org_id__metrics_prs_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetPrMetricsV3OrganizationsOrgIdMetricsPrsGet` for `GET /v3/organizations/{org_id}/metrics/prs`'
+  - MUST: 'expose the exact CLI command `handle_get_pr_metrics_v3_organizations__org_id__metrics_prs_get` for `GET /v3/organizations/{org_id}/metrics/prs`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_search_metrics_v3_enterprise_metrics_searches_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSearchMetricsV3EnterpriseMetricsSearchesGet` for `GET /v3/enterprise/metrics/searches`'
+  - MUST: 'expose the exact CLI command `handle_get_search_metrics_v3_enterprise_metrics_searches_get` for `GET /v3/enterprise/metrics/searches`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_search_metrics_v3_organizations__org_id__metrics_searches_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSearchMetricsV3OrganizationsOrgIdMetricsSearchesGet` for `GET /v3/organizations/{org_id}/metrics/searches`'
+  - MUST: 'expose the exact CLI command `handle_get_search_metrics_v3_organizations__org_id__metrics_searches_get` for `GET /v3/organizations/{org_id}/metrics/searches`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_session_metrics_v3_enterprise_metrics_sessions_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionMetricsV3EnterpriseMetricsSessionsGet` for `GET /v3/enterprise/metrics/sessions`'
+  - MUST: 'expose the exact CLI command `handle_get_session_metrics_v3_enterprise_metrics_sessions_get` for `GET /v3/enterprise/metrics/sessions`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_session_metrics_v3_organizations__org_id__metrics_sessions_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionMetricsV3OrganizationsOrgIdMetricsSessionsGet` for `GET /v3/organizations/{org_id}/metrics/sessions`'
+  - MUST: 'expose the exact CLI command `handle_get_session_metrics_v3_organizations__org_id__metrics_sessions_get` for `GET /v3/organizations/{org_id}/metrics/sessions`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_sessions_by_category_v3_enterprise_metrics_sessions_by_category_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetSessionsByCategoryV3EnterpriseMetricsSessionsByCategoryGet` for `GET /v3/enterprise/metrics/sessions-by-category`'
+  - MUST: 'expose the exact CLI command `handle_get_sessions_by_category_v3_enterprise_metrics_sessions_by_category_get` for `GET /v3/enterprise/metrics/sessions-by-category`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_usage_metrics_v3_enterprise_metrics_usage_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetUsageMetricsV3EnterpriseMetricsUsageGet` for `GET /v3/enterprise/metrics/usage`'
+  - MUST: 'expose the exact CLI command `handle_get_usage_metrics_v3_enterprise_metrics_usage_get` for `GET /v3/enterprise/metrics/usage`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_usage_metrics_v3_organizations__org_id__metrics_usage_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetUsageMetricsV3OrganizationsOrgIdMetricsUsageGet` for `GET /v3/organizations/{org_id}/metrics/usage`'
+  - MUST: 'expose the exact CLI command `handle_get_usage_metrics_v3_organizations__org_id__metrics_usage_get` for `GET /v3/organizations/{org_id}/metrics/usage`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_wau_metrics_v3_enterprise_metrics_wau_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetWauMetricsV3EnterpriseMetricsWauGet` for `GET /v3/enterprise/metrics/wau`'
+  - MUST: 'expose the exact CLI command `handle_get_wau_metrics_v3_enterprise_metrics_wau_get` for `GET /v3/enterprise/metrics/wau`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
+---
+spec: Operation_handle_get_wau_metrics_v3_organizations__org_id__metrics_wau_get
+INPUT:
+  - MUST: 'expose `Client.HandleGetWauMetricsV3OrganizationsOrgIdMetricsWauGet` for `GET /v3/organizations/{org_id}/metrics/wau`'
+  - MUST: 'expose the exact CLI command `handle_get_wau_metrics_v3_organizations__org_id__metrics_wau_get` for `GET /v3/organizations/{org_id}/metrics/wau`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority

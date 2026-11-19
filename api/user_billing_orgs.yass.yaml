@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://shakefu.github.io/yass/v1.schema.json
+---
+description: Devin API operations tagged "user-billing-orgs".
+version: v1
+---
+spec: Operation_handle_update_user_billing_orgs_v3_enterprise_members_users_billing_orgs_put
+INPUT:
+  - MUST: 'expose `Client.HandleUpdateUserBillingOrgsV3EnterpriseMembersUsersBillingOrgsPut` for `PUT /v3/enterprise/members/users/billing-orgs`'
+  - MUST: 'expose the exact CLI command `handle_update_user_billing_orgs_v3_enterprise_members_users_billing_orgs_put` for `PUT /v3/enterprise/members/users/billing-orgs`'
+INVARIANT:
+  - CONFORMS: sdk@APIEndpointContract
+  - CONFORMS: cli@OperationCommand
+  - CONFORMS: sdk@OpenAPIAuthority
