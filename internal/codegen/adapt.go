@@ -50,7 +50,11 @@ func adaptGeneratedFiles(clientSource, typesSource, normalizedSpec []byte) ([]by
 	if err != nil {
 		return nil, nil, err
 	}
-	return client, []byte(typesText), nil
+	types, err := adaptNullableMapValues([]byte(typesText), normalizedSpec)
+	if err != nil {
+		return nil, nil, err
+	}
+	return client, types, nil
 }
 
 func collectOriginalEnumValues(node *yaml.Node, values map[string]string) error {
@@ -555,3 +559,176 @@ func addFormExplodedQuery(query url.Values, name string, value any) {
 	}
 }
 `
+
+func adaptNullableMapValues(source, spec []byte) ([]byte, error) {
+	var document yaml.Node
+	if err := yaml.Unmarshal(spec, &document); err != nil {
+		return nil, fmt.Errorf("parse OpenAPI nullable map schemas: %w", err)
+	}
+	if len(document.Content) != 1 || document.Content[0].Kind != yaml.MappingNode {
+		return nil, fmt.Errorf("normalized OpenAPI must have one mapping document")
+	}
+	schemas := mapValue(mapValue(document.Content[0], "components"), "schemas")
+	if schemas == nil || schemas.Kind != yaml.MappingNode {
+		return nil, fmt.Errorf("normalized OpenAPI lacks component schemas")
+	}
+	targets := make(map[string]map[string]bool)
+	for i := 0; i+1 < len(schemas.Content); i += 2 {
+		name, schema := schemas.Content[i].Value, schemas.Content[i+1]
+		properties := mapValue(schema, "properties")
+		if properties == nil || properties.Kind != yaml.MappingNode {
+			continue
+		}
+		for j := 0; j+1 < len(properties.Content); j += 2 {
+			propertyName, propertySchema := properties.Content[j].Value, properties.Content[j+1]
+			if nullableStringMap(propertySchema) {
+				if targets[name] == nil {
+					targets[name] = make(map[string]bool)
+				}
+				targets[name][propertyName] = true
+			}
+		}
+	}
+	if len(targets) == 0 {
+		return source, nil
+	}
+	fset := token.NewFileSet()
+	file, err := parser.ParseFile(fset, "types.gen.go", source, parser.ParseComments)
+	if err != nil {
+		return nil, fmt.Errorf("parse generated nullable map fields: %w", err)
+	}
+	matched := make(map[string]map[string]int, len(targets))
+	for _, declaration := range file.Decls {
+		general, ok := declaration.(*ast.GenDecl)
+		if !ok || general.Tok != token.TYPE {
+			continue
+		}
+		for _, spec := range general.Specs {
+			typeSpec, ok := spec.(*ast.TypeSpec)
+			if !ok {
+				continue
+			}
+			properties, ok := targets[typeSpec.Name.Name]
+			if !ok {
+				continue
+			}
+			structure, ok := typeSpec.Type.(*ast.StructType)
+			if !ok {
+				return nil, fmt.Errorf("generated schema %s is not a struct", typeSpec.Name.Name)
+			}
+			for _, field := range structure.Fields.List {
+				jsonName, err := generatedJSONFieldName(field)
+				if err != nil {
+					return nil, err
+				}
+				if !properties[jsonName] {
+					continue
+				}
+				if len(field.Names) != 1 {
+					return nil, fmt.Errorf("generated nullable map field %s.%s has unexpected names", typeSpec.Name.Name, jsonName)
+				}
+				outer, ok := field.Type.(*ast.StarExpr)
+				if !ok {
+					return nil, fmt.Errorf("generated nullable map field %s.%s is not a map pointer", typeSpec.Name.Name, jsonName)
+				}
+				mapping, ok := outer.X.(*ast.MapType)
+				if !ok || identifier(mapping.Key) != "string" || identifier(mapping.Value) != "string" {
+					return nil, fmt.Errorf("generated nullable map field %s.%s is not *map[string]string", typeSpec.Name.Name, jsonName)
+				}
+				mapping.Value = &ast.StarExpr{X: ast.NewIdent("string")}
+				if matched[typeSpec.Name.Name] == nil {
+					matched[typeSpec.Name.Name] = make(map[string]int)
+				}
+				matched[typeSpec.Name.Name][jsonName]++
+			}
+		}
+	}
+	for schema, properties := range targets {
+		for property := range properties {
+			if matched[schema][property] != 1 {
+				return nil, fmt.Errorf("expected one generated nullable map field %s.%s, found %d", schema, property, matched[schema][property])
+			}
+		}
+	}
+	var output bytes.Buffer
+	if err := format.Node(&output, fset, file); err != nil {
+		return nil, fmt.Errorf("format generated nullable map fields: %w", err)
+	}
+	return output.Bytes(), nil
+}
+
+func nullableStringMap(schema *yaml.Node) bool {
+	object := singleNonNullSchema(schema)
+	if scalar(mapValue(object, "type")) != "object" {
+		return false
+	}
+	value := mapValue(object, "additionalProperties")
+	if value == nil {
+		return false
+	}
+	branches := []*yaml.Node{value}
+	for _, keyword := range []string{"anyOf", "oneOf"} {
+		if union := mapValue(value, keyword); union != nil && union.Kind == yaml.SequenceNode {
+			branches = union.Content
+			break
+		}
+	}
+	var hasString, hasNull bool
+	for _, branch := range branches {
+		kind := scalar(mapValue(branch, "type"))
+		if kind == "string" {
+			hasString = true
+		}
+		if kind == "null" {
+			hasNull = true
+		}
+		if types := mapValue(branch, "type"); types != nil && types.Kind == yaml.SequenceNode {
+			for _, member := range types.Content {
+				hasString = hasString || scalar(member) == "string"
+				hasNull = hasNull || scalar(member) == "null"
+			}
+		}
+	}
+	return hasString && hasNull
+}
+
+func singleNonNullSchema(schema *yaml.Node) *yaml.Node {
+	for _, keyword := range []string{"anyOf", "oneOf"} {
+		union := mapValue(schema, keyword)
+		if union == nil || union.Kind != yaml.SequenceNode {
+			continue
+		}
+		var nonNull []*yaml.Node
+		for _, branch := range union.Content {
+			if scalar(mapValue(branch, "type")) != "null" {
+				nonNull = append(nonNull, branch)
+			}
+		}
+		if len(nonNull) == 1 {
+			return nonNull[0]
+		}
+		return nil
+	}
+	return schema
+}
+
+func generatedJSONFieldName(field *ast.Field) (string, error) {
+	if field.Tag == nil {
+		return "", nil
+	}
+	tag, err := strconv.Unquote(field.Tag.Value)
+	if err != nil {
+		return "", fmt.Errorf("decode generated struct tag: %w", err)
+	}
+	for _, item := range strings.Fields(tag) {
+		if !strings.HasPrefix(item, "json:") {
+			continue
+		}
+		value, err := strconv.Unquote(strings.TrimPrefix(item, "json:"))
+		if err != nil {
+			return "", fmt.Errorf("decode generated JSON field tag: %w", err)
+		}
+		return strings.Split(value, ",")[0], nil
+	}
+	return "", nil
+}
