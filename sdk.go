@@ -226,6 +226,9 @@ type bearerTransport struct {
 func (t *bearerTransport) RoundTrip(request *http.Request) (*http.Response, error) {
 	origin, ok := requestOrigin(request.URL)
 	if !ok || !t.origin.matches(origin) {
+		if request.Body != nil {
+			_ = request.Body.Close()
+		}
 		return nil, errors.New("devin: refusing request outside configured API origin")
 	}
 
