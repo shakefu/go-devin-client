@@ -6,23 +6,38 @@ if [[ -n "$(git tag --merged HEAD --list)" ]]; then
 	exit
 fi
 
-mapfile -t root_commits < <(git rev-list --max-parents=0 HEAD)
-if [[ "${#root_commits[@]}" -ne 1 ]]; then
-	printf 'expected one initial root commit, found %s\n' "${#root_commits[@]}" >&2
+root_commit_count=0
+root_commit=''
+while IFS= read -r commit; do
+	[[ -n "$commit" ]] || continue
+	root_commit="$commit"
+	root_commit_count=$((root_commit_count + 1))
+done < <(git rev-list --max-parents=0 HEAD)
+if [[ "$root_commit_count" -ne 1 ]]; then
+	printf 'expected one initial root commit, found %s\n' "$root_commit_count" >&2
 	exit 1
 fi
 
-root_commit="${root_commits[0]}"
-mapfile -t commits < <(git rev-list --reverse --topo-order HEAD)
-if [[ "${commits[0]}" != "$root_commit" ]]; then
-	printf 'history does not begin at the expected root commit\n' >&2
-	exit 1
-fi
-if [[ "${#commits[@]}" -eq 1 ]]; then
-	printf 'no commits after initial root commit\n'
-	exit 0
-fi
 
-for commit in "${commits[@]:1}"; do
+first_commit=true
+checked_commit_count=0
+while IFS= read -r commit; do
+	if [[ "$first_commit" == true ]]; then
+		first_commit=false
+		if [[ "$commit" != "$root_commit" ]]; then
+			printf 'history does not begin at the expected root commit\n' >&2
+			exit 1
+		fi
+		continue
+	fi
 	mise exec -- cog check "$commit..$commit"
-done
+	checked_commit_count=$((checked_commit_count + 1))
+done < <(git rev-list --reverse --topo-order HEAD)
+
+if [[ "$first_commit" == true ]]; then
+	printf 'history contains no commits\n' >&2
+	exit 1
+fi
+if [[ "$checked_commit_count" -eq 0 ]]; then
+	printf 'no commits after initial root commit\n'
+fi
