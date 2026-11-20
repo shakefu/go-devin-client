@@ -360,10 +360,41 @@ func projectionTreeSource(p Projection) ([]byte, error) {
 		if paths[operation.Path] == nil {
 			paths[operation.Path] = make(map[string]map[string]any)
 		}
-		paths[operation.Path][strings.ToLower(operation.Method)] = map[string]any{
+		rawOperation := map[string]any{
 			"operationId": operation.ID,
-			"responses":   map[string]any{"200": map[string]any{"description": "CLI projection"}},
+			"summary":     operation.Summary,
 		}
+		if len(operation.Parameters) > 0 {
+			parameters := make([]any, 0, len(operation.Parameters))
+			for _, parameter := range operation.Parameters {
+				schema := map[string]any{"type": okapiParameterType(parameter.Type)}
+				if parameter.Type == "array" && parameter.ItemsType != "" {
+					schema["items"] = map[string]any{"type": okapiParameterType(parameter.ItemsType)}
+				}
+				parameters = append(parameters, map[string]any{
+					"name": parameter.Name, "in": parameter.In, "description": parameter.Description,
+					"required": parameter.Required, "style": parameter.Style, "explode": parameter.Explode, "schema": schema,
+				})
+			}
+			rawOperation["parameters"] = parameters
+		}
+		if operation.RequestBody != nil {
+			content := make(map[string]any, len(operation.RequestBody.MediaTypes))
+			for _, mediaType := range operation.RequestBody.MediaTypes {
+				content[mediaType] = map[string]any{"schema": map[string]any{"type": "object"}}
+			}
+			rawOperation["requestBody"] = map[string]any{"required": operation.RequestBody.Required, "content": content}
+		}
+		responseContent := make(map[string]any, len(operation.ResponseMediaTypes))
+		for _, mediaType := range operation.ResponseMediaTypes {
+			responseContent[mediaType] = map[string]any{"schema": map[string]any{"type": "object"}}
+		}
+		responses := map[string]any{"description": "CLI projection"}
+		if len(responseContent) > 0 {
+			responses["content"] = responseContent
+		}
+		rawOperation["responses"] = map[string]any{"200": responses}
+		paths[operation.Path][strings.ToLower(operation.Method)] = rawOperation
 	}
 	doc := map[string]any{
 		"openapi": "3.1.0",
@@ -375,4 +406,13 @@ func projectionTreeSource(p Projection) ([]byte, error) {
 		return nil, err
 	}
 	return out.Bytes(), nil
+}
+
+func okapiParameterType(parameterType string) string {
+	switch parameterType {
+	case "string", "integer", "number", "boolean", "array":
+		return parameterType
+	default:
+		return "string"
+	}
 }

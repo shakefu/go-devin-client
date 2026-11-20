@@ -10,7 +10,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func operationCommands(projection Projection, action func(Operation) cli.ActionFunc) ([]*cli.Command, error) {
+func operationCommands(projection Projection, action func(Operation) cli.ActionFunc, onUsageError func(*cli.Context, error, bool) error) ([]*cli.Command, error) {
 	if len(projection.Operations) != operationCount {
 		return nil, fmt.Errorf("CLI projection has %d operations; want %d", len(projection.Operations), operationCount)
 	}
@@ -49,12 +49,16 @@ func operationCommands(projection Projection, action func(Operation) cli.ActionF
 					return fmt.Errorf("okapi command tree contains unknown operationId %q", id)
 				}
 				flattened[id] = struct{}{}
+				flags, err := adaptGeneratedFlags(generatedCommand.Flags, operation)
+				if err != nil {
+					return fmt.Errorf("adapt flags for %s: %w", id, err)
+				}
 				flatCommands = append(flatCommands, &cli.Command{
 					Name:            operation.ID,
-					Usage:           operation.Summary,
+					Usage:           generatedCommand.Usage,
 					HideHelpCommand: true,
-					OnUsageError:    suppressUsageErrors,
-					Flags:           operationFlags(operation),
+					OnUsageError:    onUsageError,
+					Flags:           flags,
 					Action:          action(operation),
 				})
 				continue
@@ -81,34 +85,69 @@ func operationCommands(projection Projection, action func(Operation) cli.ActionF
 	return flatCommands, nil
 }
 
-func operationFlags(operation Operation) []cli.Flag {
-	flags := commonFlags()
-	for _, parameter := range operation.Parameters {
-		var flag cli.Flag
-		switch parameter.Type {
-		case "integer":
-			flag = &cli.Int64Flag{Name: parameter.Name, Usage: parameter.Description}
-		case "number":
-			flag = &cli.Float64Flag{Name: parameter.Name, Usage: parameter.Description}
-		case "boolean":
-			flag = &cli.BoolFlag{Name: parameter.Name, Usage: parameter.Description}
-		case "array":
-			flag = &cli.StringSliceFlag{Name: parameter.Name, Usage: parameter.Description}
-		default:
-			flag = &cli.StringFlag{Name: parameter.Name, Usage: parameter.Description}
+func adaptGeneratedFlags(generated []cli.Flag, operation Operation) ([]cli.Flag, error) {
+	byName := make(map[string]cli.Flag, len(generated)+len(operation.Parameters)+8)
+	for _, flag := range generated {
+		if flag == nil || len(flag.Names()) == 0 {
+			continue
 		}
+		name := flag.Names()[0]
+		if name == "data" && requestBodyKind(operation) != bodyJSON {
+			continue
+		}
+		makeOptional(flag)
+		if bodyFlag, ok := flag.(*cli.StringFlag); ok && name == "data" {
+			bodyFlag.Value = ""
+			bodyFlag.Usage = "JSON request body: inline JSON, @file, or - for stdin."
+		}
+		byName[name] = flag
+	}
+	for _, parameter := range operation.Parameters {
+		if _, ok := byName[parameter.Name]; !ok {
+			return nil, fmt.Errorf("okapi did not generate a flag for parameter %q", parameter.Name)
+		}
+	}
+	if kind := requestBodyKind(operation); kind == bodyJSON {
+		if _, ok := byName["data"]; !ok {
+			byName["data"] = &cli.StringFlag{Name: "data", Usage: "JSON request body: inline JSON, @file, or - for stdin."}
+		}
+	} else if kind == bodyMultipart {
+		byName["file"] = &cli.StringFlag{Name: "file", Usage: "Required file to upload as multipart field file."}
+	}
+	for _, flag := range commonFlags() {
+		if _, ok := byName[flag.Names()[0]]; !ok {
+			byName[flag.Names()[0]] = flag
+		}
+	}
+	flags := make([]cli.Flag, 0, len(byName))
+	for _, flag := range byName {
+		makeOptional(flag)
 		flags = append(flags, flag)
 	}
-	if operation.RequestBody != nil {
-		switch requestBodyKind(operation) {
-		case bodyJSON:
-			flags = append(flags, &cli.StringFlag{Name: "data", Usage: "JSON request body: inline JSON, @file, or - for stdin."})
-		case bodyMultipart:
-			flags = append(flags, &cli.StringFlag{Name: "file", Usage: "File to upload as multipart field file."})
+	sort.SliceStable(flags, func(i, j int) bool { return flags[i].Names()[0] < flags[j].Names()[0] })
+	for _, parameter := range operation.Parameters {
+		if _, ok := byName[parameter.Name]; !ok {
+			return nil, fmt.Errorf("no generated flag for parameter %q", parameter.Name)
 		}
 	}
-	sort.SliceStable(flags, func(i, j int) bool { return flags[i].Names()[0] < flags[j].Names()[0] })
-	return flags
+	return flags, nil
+}
+
+func makeOptional(flag cli.Flag) {
+	switch typed := flag.(type) {
+	case *cli.StringFlag:
+		typed.Required = false
+	case *cli.IntFlag:
+		typed.Required = false
+	case *cli.Int64Flag:
+		typed.Required = false
+	case *cli.Float64Flag:
+		typed.Required = false
+	case *cli.BoolFlag:
+		typed.Required = false
+	case *cli.StringSliceFlag:
+		typed.Required = false
+	}
 }
 
 func commonFlags() []cli.Flag {

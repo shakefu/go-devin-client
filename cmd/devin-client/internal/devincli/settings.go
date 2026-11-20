@@ -46,7 +46,7 @@ func resolveSettings(c *cli.Context, getenv func(string) string) (settings, erro
 	if !timeoutSet {
 		timeoutValue = getenv("DEVIN_TIMEOUT")
 	}
-	if timeoutValue != "" {
+	if timeoutSet || timeoutValue != "" {
 		result.Timeout, err = time.ParseDuration(timeoutValue)
 		if err != nil {
 			return settings{}, fmt.Errorf("timeout must be a Go duration")
