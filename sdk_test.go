@@ -234,9 +234,22 @@ func TestBearerTransportRejectsOffOriginBeforeInnerTransport(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	body := &trackedReader{Reader: strings.NewReader("request body")}
+	request.Body = body
+	request.Header.Set("Authorization", "caller-value")
+	request.Header.Set("X-Original", "preserved")
 	_, err = transport.RoundTrip(request)
 	if err == nil || strings.Contains(err.Error(), "test-api-key") {
 		t.Fatalf("off-origin error = %v", err)
+	}
+	if got := body.closed.Load(); got != 1 {
+		t.Errorf("off-origin RoundTrip closed request body %d times, want once", got)
+	}
+	if got := request.Header.Get("Authorization"); got != "caller-value" {
+		t.Errorf("off-origin RoundTrip changed original Authorization to %q", got)
+	}
+	if got := request.Header.Get("X-Original"); got != "preserved" {
+		t.Errorf("off-origin RoundTrip changed original X-Original to %q", got)
 	}
 	if inner.calls.Load() != 0 {
 		t.Fatalf("off-origin request reached inner transport %d times", inner.calls.Load())
@@ -353,6 +366,7 @@ type uploadObservation struct {
 	method          string
 	path            string
 	rawQuery        string
+	authorization   string
 	requestType     string
 	partType        string
 	formName        string
@@ -429,10 +443,11 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 			observed := make(chan uploadObservation, 1)
 			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				observation := uploadObservation{
-					method:      r.Method,
-					path:        r.URL.EscapedPath(),
-					rawQuery:    r.URL.RawQuery,
-					requestType: r.Header.Get("Content-Type"),
+					method:        r.Method,
+					path:          r.URL.EscapedPath(),
+					rawQuery:      r.URL.RawQuery,
+					authorization: r.Header.Get("Authorization"),
+					requestType:   r.Header.Get("Content-Type"),
 				}
 				mediaType, _, err := mime.ParseMediaType(observation.requestType)
 				if err != nil {
@@ -485,6 +500,9 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 			}
 			if observation.method != tc.wantMethod || observation.path != tc.wantPath || observation.rawQuery != tc.wantQuery {
 				t.Errorf("request = %s %s?%s; want %s %s?%s", observation.method, observation.path, observation.rawQuery, tc.wantMethod, tc.wantPath, tc.wantQuery)
+			}
+			if observation.authorization != "Bearer upload-key" {
+				t.Errorf("upload Authorization = %q", observation.authorization)
 			}
 			if observation.formName != "file" || observation.fileName != `résumé "one".txt` || observation.partType != "application/octet-stream" {
 				t.Errorf("file part name=%q filename=%q content-type=%q", observation.formName, observation.fileName, observation.partType)
@@ -686,6 +704,32 @@ func TestUploadJSONErrorsPreserveResponseMetadata(t *testing.T) {
 	}
 }
 
+func TestUploadResponseReadErrorClosesBodyAndPreservesMetadata(t *testing.T) {
+	responseBody := &failingResponseBody{}
+	transport := roundTripFunc(func(request *http.Request) (*http.Response, error) {
+		if _, err := io.Copy(io.Discard, request.Body); err != nil {
+			return nil, err
+		}
+		response := testResponse(request, http.StatusOK, "")
+		response.Header.Set("X-Trace-ID", "upload-read-error")
+		response.Body = responseBody
+		return response, nil
+	})
+	client := newTestClient(t, "https://api.example.test", transport)
+	result, metadata, err := client.UploadAttachment(context.Background(), UploadAttachmentParams{
+		OrgID: "org-1", FileName: "file.bin", File: strings.NewReader("upload contents"),
+	})
+	if !errors.Is(err, errResponseReader) || result != nil {
+		t.Fatalf("upload result=%#v error=%v", result, err)
+	}
+	if metadata == nil || metadata.StatusCode != http.StatusOK || metadata.Header.Get("X-Trace-ID") != "upload-read-error" {
+		t.Errorf("upload read-error metadata = %#v", metadata)
+	}
+	if got := responseBody.closed.Load(); got != 1 {
+		t.Errorf("upload response body closed %d times, want once", got)
+	}
+}
+
 func TestAPIErrorPreservesRawBodyMetadataAndRedactsBodyFromError(t *testing.T) {
 	const apiKey = "secret-api-key-value"
 	const responseBody = `{"echo":"secret-api-key-value"}`
@@ -720,14 +764,16 @@ func TestGetSelfPreservesExactJSONForAllUnionMembers(t *testing.T) {
 		name string
 		body string
 	}{
-		{name: "service user", body: " {\"member\":\"ServiceUserSelf\",\"unknown\":{\"items\":[null,true]}} \n"},
-		{name: "PAT user", body: `{"member":"PatUserSelf","large":900719925474099312345678901234567890}`},
-		{name: "Devin Brain user", body: `{"member":"DevinBrainUserSelf","data":{"opaque":"value"}}`},
-		{name: "Windsurf session user", body: `{"member":"WindsurfSessionUserSelf","array":[1,2,3]}`},
+		{name: "service user", body: " {\"principal_type\":\"service_user\",\"service_user_id\":\"svc-1\",\"service_user_name\":\"Builder\",\"org_id\":null,\"unknown\":{\"items\":[null,true]}} \n"},
+		{name: "PAT user", body: `{"principal_type":"pat_user","user_id":"user-1","user_name":"alice","api_key_id":"key-1","api_key_name":"test key","unknown_large_number":900719925474099312345678901234567890}`},
+		{name: "Devin Brain user", body: `{"principal_type":"devin_brain","devin_id":"devin-1","org_id":"org-1","user_id":"user-1","unknown":{"opaque":"value"}}`},
+		{name: "Windsurf session user", body: `{"principal_type":"windsurf_session","user_id":"user-1","org_id":"org-1","devin_sessions_org_id":null,"user_name":null,"unknown_array":[1,2,3]}`},
 	}
 	for _, tc := range responses {
 		t.Run(tc.name, func(t *testing.T) {
+			requestObserved := make(chan *http.Request, 1)
 			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				requestObserved <- r.Clone(r.Context())
 				w.Header().Set("X-Self", "preserved")
 				_, _ = io.WriteString(w, tc.body)
 			}))
@@ -742,6 +788,13 @@ func TestGetSelfPreservesExactJSONForAllUnionMembers(t *testing.T) {
 			}
 			if !bytes.Equal(got, []byte(tc.body)) {
 				t.Errorf("GetSelf bytes = %q, want exact %q", got, tc.body)
+			}
+			request := <-requestObserved
+			if request.Method != http.MethodGet || request.URL.Path != "/v3/self" {
+				t.Errorf("GetSelf request = %s %s, want GET /v3/self", request.Method, request.URL.Path)
+			}
+			if got := request.Header.Get("Authorization"); got != "Bearer self-key" {
+				t.Errorf("GetSelf Authorization = %q", got)
 			}
 			if metadata == nil || metadata.StatusCode != http.StatusOK || metadata.Header.Get("X-Self") != "preserved" {
 				t.Errorf("GetSelf metadata = %#v", metadata)
@@ -782,7 +835,8 @@ func TestGetSelfMalformedAndEmptyJSONPreserveMetadata(t *testing.T) {
 var errResponseReader = errors.New("injected response reader failure")
 
 type failingResponseBody struct {
-	read bool
+	read   bool
+	closed atomic.Int32
 }
 
 func (b *failingResponseBody) Read(buffer []byte) (int, error) {
@@ -793,13 +847,17 @@ func (b *failingResponseBody) Read(buffer []byte) (int, error) {
 	return 0, errResponseReader
 }
 
-func (*failingResponseBody) Close() error { return nil }
+func (b *failingResponseBody) Close() error {
+	b.closed.Add(1)
+	return nil
+}
 
 func TestGetSelfReadErrorPreservesMetadata(t *testing.T) {
+	body := &failingResponseBody{}
 	transport := roundTripFunc(func(request *http.Request) (*http.Response, error) {
 		response := testResponse(request, http.StatusOK, "")
 		response.Header.Set("X-Trace-ID", "read-error")
-		response.Body = &failingResponseBody{}
+		response.Body = body
 		return response, nil
 	})
 	client := newTestClient(t, "https://api.example.test", transport)
@@ -809,6 +867,9 @@ func TestGetSelfReadErrorPreservesMetadata(t *testing.T) {
 	}
 	if metadata == nil || metadata.StatusCode != http.StatusOK || metadata.Header.Get("X-Trace-ID") != "read-error" {
 		t.Errorf("GetSelf read-error metadata = %#v", metadata)
+	}
+	if got := body.closed.Load(); got != 1 {
+		t.Errorf("GetSelf response body closed %d times, want once", got)
 	}
 }
 
