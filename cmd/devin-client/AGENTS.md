@@ -1,6 +1,6 @@
 # Devin CLI
 
-- `main.go` forwards signals and standard streams to `internal/devincli.Run`.
+- `main.go` forwards signals and standard streams to `internal/devincli.Run`, and exits promptly when signal context is canceled.
 - The CLI projection is generated from the repository's `v3-openapi.yaml`:
   run `go generate ./cmd/devin-client/internal/devincli` from the repository root.
 - `internal/devincli` separates projection/commands, settings, request building,

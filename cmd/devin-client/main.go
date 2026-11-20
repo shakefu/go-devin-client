@@ -11,7 +11,16 @@ import (
 
 func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
-	code := devincli.Run(ctx, os.Args, devincli.Options{Stdin: os.Stdin, Stdout: os.Stdout, Stderr: os.Stderr})
-	stop()
-	os.Exit(code)
+	finished := make(chan int, 1)
+	go func() {
+		finished <- devincli.Run(ctx, os.Args, devincli.Options{Stdin: os.Stdin, Stdout: os.Stdout, Stderr: os.Stderr})
+	}()
+	select {
+	case code := <-finished:
+		stop()
+		os.Exit(code)
+	case <-ctx.Done():
+		stop()
+		os.Exit(1)
+	}
 }
