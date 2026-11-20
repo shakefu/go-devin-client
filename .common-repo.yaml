@@ -21,3 +21,8 @@
     path: repos
     array_mode: merge_by_key
     key: repo
+- yaml:
+    source: .common-repo/conventional-commits-steps.yaml
+    dest: .github/workflows/conventional-commits.yaml
+    path: jobs.commits.steps
+    array_mode: replace

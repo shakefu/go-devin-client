@@ -17,6 +17,9 @@
   info "checking normalized and generated OpenAPI output"
   script/check-generated
 
+  info "checking conventional commit history behavior"
+  script/test-conventional-commits
+
   info "checking formatting, vet, tests, and build"
   unformatted="$(find . -type f -name '*.go' -not -path './.git/*' -print0 | xargs -0 gofmt -l)"
   if [ -n "$unformatted" ]; then
