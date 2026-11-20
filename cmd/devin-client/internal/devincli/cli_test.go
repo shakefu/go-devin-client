@@ -707,51 +707,115 @@ func TestSpecialSDKOperationsUseSDKMethodsAndPreserveRawOutput(t *testing.T) {
 		t.Fatal(err)
 	}
 	cases := []struct {
-		id, method, path, query, response string
-		flags                             []string
-		multipart                         bool
+		id, method, path, query string
+		flags                   []string
+		multipart               bool
 	}{
-		{id: "handle_get_self_v3_self_get", method: http.MethodGet, path: "/v3/self", response: "{ \"self\": true }\n"},
-		{id: uploadAttachment, method: http.MethodPost, path: "/v3/organizations/org-1/attachments", response: "{\"attachment_id\":\"att-1\"}\n", flags: []string{"--org_id=org-1", "--file", filePath}, multipart: true},
-		{id: "upload_enterprise_blueprint_file_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_post", method: http.MethodPost, path: "/v3/enterprise/snapshot-setup/blueprints/bp-1/files", query: "name=blueprint", response: "{\"name\":\"file\"}\n", flags: []string{"--blueprint_id=bp-1", "--name=blueprint", "--file", filePath}, multipart: true},
-		{id: "upload_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_post", method: http.MethodPost, path: "/v3/organizations/org-1/snapshot-setup/blueprints/bp-1/files", query: "name=blueprint", response: "{\"name\":\"file\"}\n", flags: []string{"--org_id=org-1", "--blueprint_id=bp-1", "--name=blueprint", "--file", filePath}, multipart: true},
+		{id: "handle_get_self_v3_self_get", method: http.MethodGet, path: "/v3/self"},
+		{id: uploadAttachment, method: http.MethodPost, path: "/v3/organizations/org-1/attachments", flags: []string{"--org_id=org-1", "--file", filePath}, multipart: true},
+		{id: "upload_enterprise_blueprint_file_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_post", method: http.MethodPost, path: "/v3/enterprise/snapshot-setup/blueprints/bp-1/files", query: "name=blueprint", flags: []string{"--blueprint_id=bp-1", "--name=blueprint", "--file", filePath}, multipart: true},
+		{id: "upload_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_post", method: http.MethodPost, path: "/v3/organizations/org-1/snapshot-setup/blueprints/bp-1/files", query: "name=blueprint", flags: []string{"--org_id=org-1", "--blueprint_id=bp-1", "--name=blueprint", "--file", filePath}, multipart: true},
+	}
+	responses := []struct {
+		name string
+		code int
+		body string
+	}{
+		{name: "text", code: http.StatusOK, body: "ok\n"},
+		{name: "empty", code: http.StatusNoContent},
+		{name: "non-object-json", code: http.StatusOK, body: "[]\n"},
 	}
 	for _, test := range cases {
-		t.Run(test.id, func(t *testing.T) {
-			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-				if r.Method != test.method || r.URL.Path != test.path || r.URL.RawQuery != test.query {
-					t.Errorf("request=%s %s?%s", r.Method, r.URL.Path, r.URL.RawQuery)
-				}
-				if r.Header.Get("Authorization") != "Bearer test-key" {
-					t.Errorf("authorization=%q", r.Header.Get("Authorization"))
-				}
-				if test.multipart {
-					file, header, err := r.FormFile("file")
-					if err != nil {
-						t.Errorf("FormFile: %v", err)
-					} else {
-						data, _ := io.ReadAll(file)
-						file.Close()
-						if header.Filename != "upload.txt" || string(data) != "upload-data" {
-							t.Errorf("upload=%s %q", header.Filename, data)
+		for _, response := range responses {
+			t.Run(test.id+"/"+response.name, func(t *testing.T) {
+				server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+					if r.Method != test.method || r.URL.Path != test.path || r.URL.RawQuery != test.query {
+						t.Errorf("request=%s %s?%s", r.Method, r.URL.Path, r.URL.RawQuery)
+					}
+					if r.Header.Get("Authorization") != "Bearer test-key" {
+						t.Errorf("authorization=%q", r.Header.Get("Authorization"))
+					}
+					if test.multipart {
+						file, header, err := r.FormFile("file")
+						if err != nil {
+							t.Errorf("FormFile: %v", err)
+						} else {
+							data, _ := io.ReadAll(file)
+							file.Close()
+							if header.Filename != "upload.txt" || string(data) != "upload-data" {
+								t.Errorf("upload=%s %q", header.Filename, data)
+							}
 						}
 					}
+					w.WriteHeader(response.code)
+					_, _ = io.WriteString(w, response.body)
+				}))
+				defer server.Close()
+				args := []string{"devin-client", test.id, "--allow-insecure-http", "--base-url", server.URL, "--api-key=test-key"}
+				args = append(args, test.flags...)
+				var stdout, stderr bytes.Buffer
+				options := testOptions(server, func(string) string { return "" })
+				options.Stdout, options.Stderr = &stdout, &stderr
+				if code := Run(context.Background(), args, options); code != 0 {
+					t.Fatalf("code=%d stderr=%q", code, stderr.String())
 				}
-				_, _ = io.WriteString(w, test.response)
-			}))
-			defer server.Close()
-			args := []string{"devin-client", test.id, "--allow-insecure-http", "--base-url", server.URL, "--api-key=test-key"}
-			args = append(args, test.flags...)
-			var stdout, stderr bytes.Buffer
-			options := testOptions(server, func(string) string { return "" })
-			options.Stdout, options.Stderr = &stdout, &stderr
-			if code := Run(context.Background(), args, options); code != 0 {
-				t.Fatalf("code=%d stderr=%q", code, stderr.String())
-			}
-			if stdout.String() != test.response {
-				t.Fatalf("stdout=%q want=%q", stdout.String(), test.response)
-			}
-		})
+				if stdout.String() != response.body {
+					t.Fatalf("stdout=%q want=%q", stdout.String(), response.body)
+				}
+			})
+		}
+	}
+}
+
+type roundTripperFunc func(*http.Request) (*http.Response, error)
+
+func (f roundTripperFunc) RoundTrip(request *http.Request) (*http.Response, error) {
+	return f(request)
+}
+
+type failingResponseBody struct{ read bool }
+
+func (b *failingResponseBody) Read(buffer []byte) (int, error) {
+	if b.read {
+		return 0, errors.New("response body read failed")
+	}
+	b.read = true
+	return copy(buffer, "partial"), nil
+}
+
+func (*failingResponseBody) Close() error { return nil }
+
+func TestSpecialSDKResponseCaptureReadErrorIsReturned(t *testing.T) {
+	client := &http.Client{Transport: roundTripperFunc(func(request *http.Request) (*http.Response, error) {
+		return &http.Response{
+			StatusCode: http.StatusOK, Header: make(http.Header), Body: &failingResponseBody{},
+			ContentLength: -1, Request: request,
+		}, nil
+	})}
+	var stdout, stderr bytes.Buffer
+	options := Options{Stdin: strings.NewReader(""), Stdout: &stdout, Stderr: &stderr, Getenv: func(string) string { return "" }, HTTPClient: client}
+	args := []string{"devin-client", "handle_get_self_v3_self_get", "--api-key=test-key"}
+	if code := Run(context.Background(), args, options); code != 1 || stdout.Len() != 0 {
+		t.Fatalf("code=%d stdout=%q stderr=%q", code, stdout.String(), stderr.String())
+	}
+}
+
+func TestSpecialSDKCancellationWithoutResponseReturnsExitOne(t *testing.T) {
+	entered := make(chan struct{}, 1)
+	server := httptest.NewServer(http.HandlerFunc(func(_ http.ResponseWriter, request *http.Request) {
+		entered <- struct{}{}
+		<-request.Context().Done()
+	}))
+	defer server.Close()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	go func() { <-entered; cancel() }()
+	var stdout, stderr bytes.Buffer
+	options := testOptions(server, func(string) string { return "" })
+	options.Stdout, options.Stderr = &stdout, &stderr
+	args := []string{"devin-client", "handle_get_self_v3_self_get", "--allow-insecure-http", "--base-url", server.URL, "--api-key=test-key"}
+	if code := Run(ctx, args, options); code != 1 || stdout.Len() != 0 {
+		t.Fatalf("code=%d stdout=%q stderr=%q", code, stdout.String(), stderr.String())
 	}
 }
 
