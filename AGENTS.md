@@ -8,6 +8,7 @@ Go client foundation for the published Devin v3 API. The root yass specs are the
 - `internal/codegen/` — deterministic normalized input, exact operation exclusions, and checked adaptations to generated transport/error behavior.
 - `codegen/EXCLUDED_OPERATIONS.md` — four pending methods for the later SDK session.
 - `script/generate`, `script/check-generated`, `script/update-spec` — generation, regression check, and explicit source refresh.
+- `script/check-conventional-commits`, `script/test-conventional-commits` — pinned commit-history check and tagless-history regression.
 - `.common-repo.yaml`, `.common-repo/`, `.github/`, `.pre-commit-config.yaml`, `cog.toml` — common-repo-managed; change upstream inputs or consumer overlays, then run `common-repo apply`.
 - `mise.toml`, `mise.lock`, `.go-version` — pinned repository toolchain.
 

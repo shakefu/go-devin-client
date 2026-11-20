@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+tmpdir="$(mktemp -d "$repo_root/.tmp-conventional-commits.XXXXXX")"
+trap 'rm -rf "$tmpdir"' EXIT
+
+init_repo() {
+	git -C "$1" init --quiet
+	git -C "$1" config user.name 'Conventional Commit Test'
+	git -C "$1" config user.email 'conventional-commit-test@example.invalid'
+	git -C "$1" commit --allow-empty -m 'Initial commit' >/dev/null
+}
+
+checker="$repo_root/script/check-conventional-commits"
+mkdir "$tmpdir/valid" "$tmpdir/invalid"
+
+init_repo "$tmpdir/valid"
+git -C "$tmpdir/valid" commit --allow-empty -m 'docs: valid post-root commit' >/dev/null
+(cd "$tmpdir/valid" && "$checker")
+printf 'tagless valid history passes\n'
+
+init_repo "$tmpdir/invalid"
+git -C "$tmpdir/invalid" commit --allow-empty -m 'bad post-root message' >/dev/null
+if (cd "$tmpdir/invalid" && "$checker") >"$tmpdir/invalid.log" 2>&1; then
+	cat "$tmpdir/invalid.log" >&2
+	printf 'tagless malformed non-root commit unexpectedly passed\n' >&2
+	exit 1
+fi
+if ! grep -Fq 'bad post-root message' "$tmpdir/invalid.log"; then
+	cat "$tmpdir/invalid.log" >&2
+	printf 'malformed-history failure did not identify the bad commit\n' >&2
+	exit 1
+fi
+printf 'tagless malformed non-root commit rejected\n'
