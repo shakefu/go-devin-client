@@ -239,6 +239,12 @@ func (t *bearerTransport) RoundTrip(request *http.Request) (*http.Response, erro
 	return t.base.RoundTrip(clone)
 }
 
+func (t *bearerTransport) CloseIdleConnections() {
+	if closer, ok := t.base.(interface{ CloseIdleConnections() }); ok {
+		closer.CloseIdleConnections()
+	}
+}
+
 // UploadEnterpriseBlueprintFileParams contains the enterprise blueprint upload inputs.
 type UploadEnterpriseBlueprintFileParams struct {
 	BlueprintID string
