@@ -7,6 +7,9 @@ trap 'rm -rf "$tmpdir"' EXIT
 
 init_repo() {
 	git -C "$1" init --quiet
+	mkdir "$1/hooks"
+	git -C "$1" config core.hooksPath "$1/hooks"
+	git -C "$1" config commit.gpgsign false
 	git -C "$1" config user.name 'Conventional Commit Test'
 	git -C "$1" config user.email 'conventional-commit-test@example.invalid'
 	git -C "$1" commit --allow-empty -m 'Initial commit' >/dev/null
