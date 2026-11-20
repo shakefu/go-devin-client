@@ -298,7 +298,9 @@ func (c *Client) sendMultipart(ctx context.Context, method, path string, pathPar
 	if err != nil {
 		return nil, nil, err
 	}
-	return c.send(ctx, method, path, pathParams, query, nil, body, contentType, "application/json")
+	headers := make(http.Header)
+	headers.Set("Content-Type", contentType)
+	return c.send(ctx, method, path, pathParams, query, headers, body, contentType, "application/json")
 }
 
 func multipartStream(fileName string, file io.Reader) (io.Reader, string, error) {
