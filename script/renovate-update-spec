@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+snapshot_path="${OPENAPI_SNAPSHOT_PATH:-/tmp/devin-openapi.yaml}"
+marker_path="$repo_root/.renovate/openapi-source.yaml"
+tmpdir="$(mktemp -d)"
+trap 'rm -rf -- "$tmpdir"' EXIT
+
+fail() {
+	printf 'OpenAPI update failed: %s\n' "$1" >&2
+	exit 1
+}
+
+if [[ ! -s "$snapshot_path" ]]; then
+	fail "snapshot is missing or empty"
+fi
+
+version="$(awk '$1 == "version:" { print $2; exit }' "$marker_path")"
+expected_digest="$(awk '$1 == "digest:" { print $2; exit }' "$marker_path")"
+if [[ "$version" != 1.0.0 || ! "$expected_digest" =~ ^sha256:[0-9a-f]{64}$ ]]; then
+	fail "marker is invalid"
+fi
+
+actual_digest="sha256:$(sha256sum -- "$snapshot_path" | awk '{print $1}')"
+if [[ "$actual_digest" != "$expected_digest" ]]; then
+	fail "snapshot digest does not match the Renovate marker"
+fi
+
+staging="$tmpdir/repo"
+mkdir -p "$staging/script" "$staging/internal" "$staging/codegen"
+cp -a -- "$repo_root/go.mod" "$repo_root/go.sum" "$repo_root/v3-openapi.yaml" "$repo_root/client.gen.go" "$repo_root/types.gen.go" "$staging/"
+cp -a -- "$repo_root/codegen/." "$staging/codegen/"
+cp -a -- "$repo_root/internal/codegen" "$staging/internal/"
+cp -a -- "$repo_root/.renovate" "$staging/.renovate"
+cp -a -- "$repo_root/script/update-spec" "$repo_root/script/generate" "$repo_root/script/check-generated" "$staging/script/"
+
+"$staging/script/update-spec" "$snapshot_path"
+"$staging/script/generate"
+"$staging/script/check-generated"
+
+cp -- "$staging/.renovate/openapi-source.yaml" "$marker_path"
+cp -- "$staging/v3-openapi.yaml" "$repo_root/v3-openapi.yaml"
+cp -- "$staging/codegen/v3-openapi.normalized.yaml" "$repo_root/codegen/v3-openapi.normalized.yaml"
+cp -- "$staging/client.gen.go" "$repo_root/client.gen.go"
+cp -- "$staging/types.gen.go" "$repo_root/types.gen.go"

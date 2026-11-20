@@ -1,9 +1,19 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-global-schema.json",
   "allowedCommands": [
-    "^common-repo apply$"
+    "^common-repo apply$",
+    "^script/renovate-update-spec$"
   ],
   "automerge": false,
+  "customDatasources": {
+    "devin-openapi": {
+      "defaultRegistryUrlTemplate": "file://.renovate/openapi-source.yaml",
+      "format": "yaml",
+      "transformTemplates": [
+        "{\"releases\":[{\"version\":version,\"digest\":digest}]}"
+      ]
+    }
+  },
   "customManagers": [
     {
       "customType": "regex",
@@ -30,6 +40,20 @@
         "ref:[ \\t]*[\"']?(?<currentValue>[^\\s\"'#]+)[\"']?[ \\t]*(?:#[^\\n]*)?\\n(?:[ \\t]*(?:#[^\\n]*)?\\n)*[ \\t]*url:[ \\t]*[\"']?https://github\\.com/(?<depName>[^/\\s\"'#]+/[^/\\s\"'#]+?)(?:\\.git)?[\"']?[ \\t]*(?:#[^\\n]*)?(?:\\n|$)"
       ],
       "packageNameTemplate": "https://github.com/{{{depName}}}"
+    },
+    {
+      "customType": "regex",
+      "datasourceTemplate": "custom.devin-openapi",
+      "depNameTemplate": "devin-openapi-spec",
+      "depTypeTemplate": "openapi-spec",
+      "description": "Devin OpenAPI SHA-256 digest",
+      "managerFilePatterns": [
+        "/\\.renovate\\/openapi-source\\.yaml$/"
+      ],
+      "matchStrings": [
+        "version:[ \\t]*(?<currentValue>1\\.0\\.0)[ \\t]*\\n[ \\t]*digest:[ \\t]*(?<currentDigest>sha256:[0-9a-f]{64})"
+      ],
+      "versioningTemplate": "semver-coerced"
     }
   ],
   "enabledManagers": [
@@ -48,6 +72,29 @@
         "fileFilters": [
           "**/*"
         ]
+      }
+    },
+    {
+      "constraints": {
+        "golang": "1.26.11"
+      },
+      "matchDepTypes": [
+        "openapi-spec"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "script/renovate-update-spec"
+        ],
+        "fileFilters": [
+          ".renovate/openapi-source.yaml",
+          "v3-openapi.yaml",
+          "codegen/v3-openapi.normalized.yaml",
+          "client.gen.go",
+          "types.gen.go"
+        ],
+        "installTools": {
+          "golang": {}
+        }
       }
     }
   ],

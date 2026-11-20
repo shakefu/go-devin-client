@@ -16,3 +16,9 @@ cd "$repo_root"
 
 cp -- "$source_path" v3-openapi.yaml
 cmp -- "$source_path" v3-openapi.yaml
+
+mkdir -p .renovate
+marker_tmp="$(mktemp .renovate/openapi-source.yaml.XXXXXX)"
+digest="$(sha256sum -- v3-openapi.yaml | awk '{print $1}')"
+printf 'version: 1.0.0\ndigest: sha256:%s\n' "$digest" >"$marker_tmp"
+mv -- "$marker_tmp" .renovate/openapi-source.yaml

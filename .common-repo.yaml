@@ -33,6 +33,7 @@
 - json:
     source: .common-repo/renovate-global.json
     dest: .github/renovate-global.json
+    array_mode: append_unique
 - yaml:
     source: .common-repo/renovate-workflow.yaml
     dest: .github/workflows/renovate.yaml
@@ -42,5 +43,11 @@
     source: .common-repo/renovate-workflow-env.yaml
     dest: .github/workflows/renovate.yaml
     path: jobs.renovate.env
+- yaml:
+    source: .common-repo/renovate-openapi-workflow.yaml
+    dest: .github/workflows/renovate.yaml
+    path: jobs.renovate.steps
+    array_mode: merge_by_key
+    key: id
 - template:
     - .github/workflows/renovate.yaml

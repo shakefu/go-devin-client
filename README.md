@@ -2,7 +2,9 @@
 
 This repository generates a Go client for Devin's published v3 API. `v3-openapi.yaml` is the byte-identical source; run `script/generate` to regenerate the typed client and `script/check-generated` to verify it.
 
-Renovate opens daily pull requests for `.common-repo.yaml` ref updates only. Keep OpenAPI refreshes manual with `script/update-spec <published-source>`, then run `script/generate`; the unversioned endpoint's response headers are not exposed as a digest by Renovate's custom datasource.
+Renovate checks the published OpenAPI document daily and opens a review-required pull request when its SHA-256 digest changes. Before Renovate starts, the workflow downloads one snapshot and injects its validated digest into the runtime custom-datasource transform; lookup reads the tracked marker from the repository, and regeneration uses those same downloaded bytes. The tracked transform defaults to the marker's current digest, so it is a no-op if preparation is skipped. Renovate never auto-merges. `script/update-spec <published-source>` remains the manual refresh path and updates the tracked digest marker.
+
+If regeneration fails, Renovate may still open a marker-only pull request flagged with an artifact failure. The staging transaction leaves the published spec and generated files untouched, while CI fails the marker/source consistency check. This is intentional visibility for incompatible schema changes: maintainers must repair and regenerate the update, and must not merge it while those checks fail.
 
 Use `New(Config)` for authenticated API access. `NewClient(baseURL)` is the lower-level unauthenticated generated constructor. The four operations omitted from generated methods have handwritten SDK implementations; see [the operation inventory](codegen/EXCLUDED_OPERATIONS.md).
 

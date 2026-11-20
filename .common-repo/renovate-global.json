@@ -1,3 +1,56 @@
 {
-  "automerge": false
+  "automerge": false,
+  "allowedCommands": [
+    "^script/renovate-update-spec$"
+  ],
+  "customDatasources": {
+    "devin-openapi": {
+      "defaultRegistryUrlTemplate": "file://.renovate/openapi-source.yaml",
+      "format": "yaml",
+      "transformTemplates": [
+        "{\"releases\":[{\"version\":version,\"digest\":digest}]}"
+      ]
+    }
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Devin OpenAPI SHA-256 digest",
+      "managerFilePatterns": [
+        "/\\.renovate\\/openapi-source\\.yaml$/"
+      ],
+      "matchStrings": [
+        "version:[ \\t]*(?<currentValue>1\\.0\\.0)[ \\t]*\\n[ \\t]*digest:[ \\t]*(?<currentDigest>sha256:[0-9a-f]{64})"
+      ],
+      "depNameTemplate": "devin-openapi-spec",
+      "depTypeTemplate": "openapi-spec",
+      "datasourceTemplate": "custom.devin-openapi",
+      "versioningTemplate": "semver-coerced"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "openapi-spec"
+      ],
+      "constraints": {
+        "golang": "1.26.11"
+      },
+      "postUpgradeTasks": {
+        "commands": [
+          "script/renovate-update-spec"
+        ],
+        "fileFilters": [
+          ".renovate/openapi-source.yaml",
+          "v3-openapi.yaml",
+          "codegen/v3-openapi.normalized.yaml",
+          "client.gen.go",
+          "types.gen.go"
+        ],
+        "installTools": {
+          "golang": {}
+        }
+      }
+    }
+  ]
 }

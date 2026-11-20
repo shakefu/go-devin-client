@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+source_url="${OPENAPI_SOURCE_URL:-https://docs.devin.ai/v3-openapi.yaml}"
+snapshot_path="${OPENAPI_SNAPSHOT_PATH:-/tmp/devin-openapi.yaml}"
+config_path="${OPENAPI_CONFIG_PATH:-$repo_root/.github/renovate-global.json}"
+
+mkdir -p "$(dirname "$snapshot_path")"
+rm -f -- "$snapshot_path"
+snapshot_tmp="$(mktemp "${snapshot_path}.XXXXXX")"
+config_tmp="$(mktemp "${config_path}.XXXXXX")"
+trap 'rm -f -- "$snapshot_tmp" "$config_tmp"' EXIT
+
+"${CURL_BIN:-curl}" --fail --show-error --location --output "$snapshot_tmp" "$source_url"
+if [[ ! -s "$snapshot_tmp" ]]; then
+	printf 'downloaded OpenAPI snapshot is empty\n' >&2
+	exit 1
+fi
+
+digest="$(sha256sum -- "$snapshot_tmp" | awk '{print $1}')"
+if [[ ! "$digest" =~ ^[0-9a-f]{64}$ ]]; then
+	printf 'could not compute OpenAPI SHA-256 digest\n' >&2
+	exit 1
+fi
+
+jq --arg digest "sha256:$digest" \
+	'.customDatasources["devin-openapi"].transformTemplates = ["{\"releases\":[{\"version\":version,\"digest\":\"" + $digest + "\"}]}"]' \
+	"$config_path" >"$config_tmp"
+chmod 0644 -- "$snapshot_tmp" "$config_tmp"
+mv -- "$snapshot_tmp" "$snapshot_path"
+mv -- "$config_tmp" "$config_path"

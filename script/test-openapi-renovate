@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+tmpdir="$(mktemp -d)"
+trap 'rm -rf -- "$tmpdir"' EXIT
+
+mock_bin="$tmpdir/mock-bin"
+mkdir -p "$mock_bin"
+cp -- "$repo_root/script/.test/mock-curl" "$mock_bin/curl"
+cp -- "$repo_root/script/.test/mock-go" "$mock_bin/go"
+chmod +x "$mock_bin/curl" "$mock_bin/go"
+
+fixture="$tmpdir/openapi.yaml"
+printf 'openapi: 3.1.0\ninfo:\n  title: mocked\n' >"$fixture"
+snapshot="$tmpdir/snapshot.yaml"
+config="$tmpdir/renovate-global.json"
+cp -- "$repo_root/.github/renovate-global.json" "$config"
+
+PATH="$mock_bin:$PATH" MOCK_CURL_MODE=copy MOCK_CURL_FIXTURE="$fixture" \
+	OPENAPI_SOURCE_URL=https://example.invalid/spec.yaml OPENAPI_SNAPSHOT_PATH="$snapshot" \
+	OPENAPI_CONFIG_PATH="$config" "$repo_root/script/prepare-openapi-update"
+expected_digest="sha256:$(sha256sum -- "$fixture" | awk '{print $1}')"
+[[ "$(sha256sum -- "$snapshot" | awk '{print $1}')" == "${expected_digest#sha256:}" ]]
+[[ "$(stat -c '%a' "$snapshot")" == 644 ]]
+[[ "$(stat -c '%a' "$config")" == 644 ]]
+expected_transform="{\"releases\":[{\"version\":version,\"digest\":\"$expected_digest\"}]}"
+[[ "$(jq -r '.customDatasources["devin-openapi"].transformTemplates[0]' "$config")" == "$expected_transform" ]]
+
+printf 'openapi: 3.1.0\ninfo:\n  title: mocked changed\n' >"$fixture"
+PATH="$mock_bin:$PATH" MOCK_CURL_MODE=copy MOCK_CURL_FIXTURE="$fixture" \
+	OPENAPI_SOURCE_URL=https://example.invalid/spec.yaml OPENAPI_SNAPSHOT_PATH="$snapshot" \
+	OPENAPI_CONFIG_PATH="$config" "$repo_root/script/prepare-openapi-update"
+changed_digest="sha256:$(sha256sum -- "$fixture" | awk '{print $1}')"
+changed_transform="{\"releases\":[{\"version\":version,\"digest\":\"$changed_digest\"}]}"
+[[ "$(sha256sum -- "$snapshot" | awk '{print $1}')" == "${changed_digest#sha256:}" ]]
+[[ "$(jq -r '.customDatasources["devin-openapi"].transformTemplates[0]' "$config")" == "$changed_transform" ]]
+
+for mode in empty fail; do
+	if PATH="$mock_bin:$PATH" MOCK_CURL_MODE="$mode" MOCK_CURL_FIXTURE="$fixture" \
+		OPENAPI_SOURCE_URL=https://example.invalid/spec.yaml OPENAPI_SNAPSHOT_PATH="$snapshot" \
+		OPENAPI_CONFIG_PATH="$config" "$repo_root/script/prepare-openapi-update"; then
+		printf 'prepare-openapi-update unexpectedly accepted %s download\n' "$mode" >&2
+		exit 1
+	fi
+	[[ ! -e "$snapshot" ]]
+done
+
+manual_repo="$tmpdir/manual"
+mkdir -p "$manual_repo/.renovate" "$manual_repo/script"
+cp -- "$repo_root/script/update-spec" "$repo_root/script/check-generated" "$manual_repo/script/"
+printf 'openapi: 3.1.0\ninfo:\n  title: manual old\n' >"$manual_repo/v3-openapi.yaml"
+old_manual_digest="sha256:$(sha256sum -- "$manual_repo/v3-openapi.yaml" | awk '{print $1}')"
+printf 'version: 1.0.0\ndigest: %s\n' "$old_manual_digest" >"$manual_repo/.renovate/openapi-source.yaml"
+printf 'openapi: 3.1.0\ninfo:\n  title: manual new\n' >"$fixture"
+"$manual_repo/script/update-spec" "$fixture"
+new_manual_digest="sha256:$(sha256sum -- "$manual_repo/v3-openapi.yaml" | awk '{print $1}')"
+[[ "$(awk '$1 == "digest:" { print $2; exit }' "$manual_repo/.renovate/openapi-source.yaml")" == "$new_manual_digest" ]]
+
+printf 'version: 1.0.0\ndigest: sha256:0000000000000000000000000000000000000000000000000000000000000000\n' >"$manual_repo/.renovate/openapi-source.yaml"
+if PATH="$mock_bin:$PATH" "$manual_repo/script/check-generated" >"$tmpdir/check-generated.out" 2>&1; then
+	printf 'check-generated unexpectedly accepted a stale OpenAPI marker\n' >&2
+	exit 1
+fi
+grep -q 'OpenAPI marker does not match' "$tmpdir/check-generated.out"
+
+test_repo="$tmpdir/repo"
+mkdir -p "$test_repo/script" "$test_repo/internal" "$test_repo/codegen"
+cp -a -- "$repo_root/go.mod" "$repo_root/go.sum" "$repo_root/v3-openapi.yaml" "$repo_root/client.gen.go" "$repo_root/types.gen.go" "$test_repo/"
+cp -a -- "$repo_root/codegen/." "$test_repo/codegen/"
+cp -a -- "$repo_root/internal/codegen" "$test_repo/internal/"
+cp -a -- "$repo_root/.renovate" "$test_repo/.renovate"
+cp -a -- "$repo_root/script/update-spec" "$repo_root/script/generate" "$repo_root/script/check-generated" "$repo_root/script/renovate-update-spec" "$test_repo/script/"
+
+baseline_digest="sha256:$(sha256sum -- "$test_repo/v3-openapi.yaml" | awk '{print $1}')"
+before_outputs="$(sha256sum "$test_repo/v3-openapi.yaml" "$test_repo/codegen/v3-openapi.normalized.yaml" "$test_repo/client.gen.go" "$test_repo/types.gen.go")"
+printf 'openapi: 3.1.0\ninfo:\n  title: changed fixture\n' >"$snapshot"
+changed_digest="sha256:$(sha256sum -- "$snapshot" | awk '{print $1}')"
+if OPENAPI_SNAPSHOT_PATH="$snapshot" "$test_repo/script/renovate-update-spec"; then
+	printf 'renovate-update-spec unexpectedly accepted a digest mismatch\n' >&2
+	exit 1
+fi
+[[ "$(cat "$test_repo/.renovate/openapi-source.yaml")" == "version: 1.0.0
+digest: $baseline_digest" ]]
+[[ "$(sha256sum "$test_repo/v3-openapi.yaml" "$test_repo/codegen/v3-openapi.normalized.yaml" "$test_repo/client.gen.go" "$test_repo/types.gen.go")" == "$before_outputs" ]]
+
+printf 'version: 1.0.0\ndigest: %s\n' "$changed_digest" >"$test_repo/.renovate/openapi-source.yaml"
+
+if PATH="$mock_bin:$PATH" OPENAPI_SNAPSHOT_PATH="$snapshot" "$test_repo/script/renovate-update-spec"; then
+	printf 'renovate-update-spec unexpectedly accepted a digest-matched but invalid spec\n' >&2
+	exit 1
+fi
+[[ "$(cat "$test_repo/.renovate/openapi-source.yaml")" == "version: 1.0.0
+digest: $changed_digest" ]]
+[[ "$(sha256sum "$test_repo/v3-openapi.yaml" "$test_repo/codegen/v3-openapi.normalized.yaml" "$test_repo/client.gen.go" "$test_repo/types.gen.go")" == "$before_outputs" ]]
+if "$test_repo/script/check-generated" >"$tmpdir/check-generated-after-failure.out" 2>&1; then
+	printf 'check-generated unexpectedly accepted the failed Renovate update\n' >&2
+	exit 1
+fi
+grep -q 'OpenAPI marker does not match' "$tmpdir/check-generated-after-failure.out"
+
+printf 'OpenAPI snapshot preparation, failure handling, and transaction tests passed\n'
