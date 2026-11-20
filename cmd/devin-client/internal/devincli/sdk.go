@@ -113,14 +113,11 @@ func (d *sdkDispatcher) specialResponse(request *http.Request, metadata *devin.A
 	}
 	body, header, captureErr := d.capture.snapshot()
 	response := &http.Response{StatusCode: metadata.StatusCode, Status: http.StatusText(metadata.StatusCode), Header: header, Body: io.NopCloser(bytes.NewReader(body)), Request: request}
-	if metadata.StatusCode < 200 || metadata.StatusCode >= 300 {
-		return response, nil
-	}
-	if callErr != nil {
-		return response, callErr
-	}
 	if captureErr != nil {
 		return response, captureErr
+	}
+	if metadata.StatusCode < 200 || metadata.StatusCode >= 300 {
+		return response, nil
 	}
 	return response, nil
 }
