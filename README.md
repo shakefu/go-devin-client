@@ -2,6 +2,8 @@
 
 This repository generates a Go client for Devin's published v3 API. `v3-openapi.yaml` is the byte-identical source; run `script/generate` to regenerate the typed client and `script/check-generated` to verify it.
 
+Renovate opens daily pull requests for `.common-repo.yaml` ref updates only. Keep OpenAPI refreshes manual with `script/update-spec <published-source>`, then run `script/generate`; the unversioned endpoint's response headers are not exposed as a digest by Renovate's custom datasource.
+
 Use `New(Config)` for authenticated API access. `NewClient(baseURL)` is the lower-level unauthenticated generated constructor. The four operations omitted from generated methods have handwritten SDK implementations; see [the operation inventory](codegen/EXCLUDED_OPERATIONS.md).
 
 ## CLI
