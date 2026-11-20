@@ -16,7 +16,7 @@ import (
 )
 
 type Options struct {
-	Stdin      io.Reader
+	Stdin      io.Reader // Blocking readers need a Close method that interrupts Read on cancellation.
 	Stdout     io.Writer
 	Stderr     io.Writer
 	Getenv     func(string) string

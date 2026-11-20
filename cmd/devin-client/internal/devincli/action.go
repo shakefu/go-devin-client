@@ -50,7 +50,7 @@ func (r *runner) operationAction(operation Operation) cli.ActionFunc {
 		if err := checkRequiredInputs(c, operation); err != nil {
 			return err
 		}
-		input, err := loadRequestBodyInput(c, operation, r.opts.Stdin)
+		input, err := loadRequestBodyInput(r.ctx, c, operation, r.opts.Stdin)
 		if err != nil {
 			return err
 		}
@@ -126,12 +126,12 @@ type requestBodyInput struct {
 	fileSize int64
 }
 
-func loadRequestBodyInput(c *cli.Context, operation Operation, stdin io.Reader) (requestBodyInput, error) {
+func loadRequestBodyInput(ctx context.Context, c *cli.Context, operation Operation, stdin io.Reader) (requestBodyInput, error) {
 	var input requestBodyInput
 	switch requestBodyKind(operation) {
 	case bodyJSON:
 		if c.IsSet("data") {
-			data, err := readJSONInput(c.String("data"), stdin)
+			data, err := readJSONInput(ctx, c.String("data"), stdin)
 			if err != nil {
 				return requestBodyInput{}, err
 			}
@@ -364,12 +364,12 @@ func valueString(value any) string {
 	}
 }
 
-func readJSONInput(source string, stdin io.Reader) ([]byte, error) {
+func readJSONInput(ctx context.Context, source string, stdin io.Reader) ([]byte, error) {
 	var data []byte
 	var err error
 	switch {
 	case source == "-":
-		data, err = io.ReadAll(stdin)
+		data, err = readJSONStdin(ctx, stdin)
 		if err != nil {
 			return nil, failure(1, "could not read JSON from stdin")
 		}
@@ -388,4 +388,31 @@ func readJSONInput(source string, stdin io.Reader) ([]byte, error) {
 		return nil, failure(2, "request body must be exactly one valid JSON document")
 	}
 	return data, nil
+}
+
+func readJSONStdin(ctx context.Context, stdin io.Reader) ([]byte, error) {
+	if err := ctx.Err(); err != nil {
+		return nil, err
+	}
+	closer, ok := stdin.(io.ReadCloser)
+	if !ok {
+		return io.ReadAll(stdin)
+	}
+	type readResult struct {
+		data []byte
+		err  error
+	}
+	completed := make(chan readResult, 1)
+	go func() {
+		data, err := io.ReadAll(stdin)
+		completed <- readResult{data: data, err: err}
+	}()
+	select {
+	case result := <-completed:
+		return result.data, result.err
+	case <-ctx.Done():
+		_ = closer.Close()
+		<-completed
+		return nil, ctx.Err()
+	}
 }
