@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+printf 'mock go failure\n' >&2
+exit 42

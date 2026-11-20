@@ -14,6 +14,9 @@
   yass validate .
   yass lint .
 
+  info "checking offline OpenAPI Renovate helpers"
+  script/test-openapi-renovate
+
   info "checking normalized and generated OpenAPI output"
   script/check-generated
 

@@ -1,0 +1,10 @@
+- name: Check out global config
+  with:
+    sparse-checkout: |
+      .github/renovate-global.json
+      script/prepare-openapi-update
+- id: repo
+  name: Prepare OpenAPI snapshot and resolve repository name
+  run: |
+    script/prepare-openapi-update
+    echo "name=${GITHUB_REPOSITORY#*/}" >> "$GITHUB_OUTPUT"

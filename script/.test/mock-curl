@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+output=""
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+		--output)
+			output="$2"
+			shift 2
+			;;
+		--fail|--show-error|--location)
+			shift
+			;;
+		*)
+			shift
+			;;
+	esac
+done
+
+case "${MOCK_CURL_MODE:-}" in
+	copy)
+		cp -- "$MOCK_CURL_FIXTURE" "$output"
+		;;
+	empty)
+		: >"$output"
+		;;
+	fail)
+		printf 'mock download failure\n' >&2
+		exit 22
+		;;
+	*)
+		printf 'unknown mock curl mode\n' >&2
+		exit 2
+		;;
+esac
