@@ -11,6 +11,7 @@ Go client foundation for the published Devin v3 API. The root yass specs are the
 - `codegen/EXCLUDED_OPERATIONS.md` — four handwritten operations kept out of generated code and implemented in `sdk.go`.
 - `script/generate`, `script/check-generated`, `script/update-spec` — generation, regression check, and explicit source refresh.
 - `script/check-conventional-commits`, `script/test-conventional-commits` — pinned commit-history check and tagless-history regression.
+- Renovate overlays: `.common-repo/renovate-global.json`, `.common-repo/renovate-workflow.yaml`, and `.common-repo/renovate-workflow-env.yaml`, wired in `.common-repo.yaml`.
 - `.common-repo.yaml`, `.common-repo/`, `.github/`, `.pre-commit-config.yaml`, `cog.toml` — common-repo-managed; change upstream inputs or consumer overlays, then run `common-repo apply`.
 - `mise.toml`, `mise.lock`, `.go-version` — pinned repository toolchain.
 

@@ -5,10 +5,14 @@
 - repo:
     url: https://github.com/common-repo/mise
     ref: v0.1.0
+- repo:
+    url: https://github.com/common-repo/renovate
+    ref: v0.2.2
 - template-vars:
     GH_APP_ID_SECRET: BOT_CLIENT_ID
     GH_APP_KEY_SECRET: BOT_PRIVATE_KEY
     GH_APP_OWNER: shakefu
+    COMMON_REPO_VERSION: v0.38.4
 - yaml:
     source: .common-repo/mise-action.yaml
     dest: .github/workflows/ci.yaml
@@ -26,3 +30,17 @@
     dest: .github/workflows/conventional-commits.yaml
     path: jobs.commits.steps
     array_mode: replace
+- json:
+    source: .common-repo/renovate-global.json
+    dest: .github/renovate-global.json
+- yaml:
+    source: .common-repo/renovate-workflow.yaml
+    dest: .github/workflows/renovate.yaml
+    path: on.schedule
+    array_mode: replace
+- yaml:
+    source: .common-repo/renovate-workflow-env.yaml
+    dest: .github/workflows/renovate.yaml
+    path: jobs.renovate.env
+- template:
+    - .github/workflows/renovate.yaml

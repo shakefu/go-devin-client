@@ -19,7 +19,9 @@ SIDE-EFFECT:
   - MUST-NOT: 'require private Go module dependencies.'
   - MUST-NOT: 'require a live API credential to build or test.'
   - MUST-NOT: 'require binary release archives for the initial source release.'
-  - MUST-NOT: 'run an automatic API-spec watcher or mutate release secrets.'
+  - MUST-NOT: 'mutate release secrets.'
+  - MUST: 'run Renovate daily to open pull requests for common-repo reference updates.'
+  - MUST-NOT: 'automatically merge Renovate pull requests.'
 INVARIANT:
   - MUST: 'follow the pinned Go, mise, common-repo, conventional-commit, and semantic-release setup in root design `RepositoryToolchain`.'
   - USES: root@RepositoryToolchain
