@@ -46,7 +46,7 @@ func TestProjectionFreshnessAndOperationCoverage(t *testing.T) {
 
 	commands, err := operationCommands(projection, func(Operation) cli.ActionFunc {
 		return func(*cli.Context) error { return nil }
-	})
+	}, suppressUsageErrors)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -128,17 +128,72 @@ paths:
 	}
 }
 
-func TestOperationFlagsAreSorted(t *testing.T) {
-	flags := operationFlags(Operation{
-		Parameters: []Parameter{
-			{Name: "zeta", Type: "string"},
-			{Name: "alpha", Type: "integer"},
-		},
-		RequestBody: &RequestBody{Required: true, MediaTypes: []string{"application/json"}},
-	})
-	for index := 1; index < len(flags); index++ {
-		if flags[index-1].Names()[0] > flags[index].Names()[0] {
-			t.Fatalf("flags are not sorted: %s precedes %s", flags[index-1].Names()[0], flags[index].Names()[0])
+func TestGeneratedFlagsAlignWithProjection(t *testing.T) {
+	projection, err := embeddedProjection()
+	if err != nil {
+		t.Fatal(err)
+	}
+	commands, err := operationCommands(projection, func(Operation) cli.ActionFunc { return func(*cli.Context) error { return nil } }, suppressUsageErrors)
+	if err != nil {
+		t.Fatal(err)
+	}
+	byID := make(map[string]*cli.Command, len(commands))
+	for _, command := range commands {
+		byID[command.Name] = command
+	}
+	for _, operation := range projection.Operations {
+		command := byID[operation.ID]
+		if command == nil {
+			t.Fatalf("missing command %s", operation.ID)
+		}
+		names := make(map[string]bool, len(command.Flags))
+		for i, flag := range command.Flags {
+			name := flag.Names()[0]
+			names[name] = true
+			switch typed := flag.(type) {
+			case *cli.StringFlag:
+				if typed.Required {
+					t.Errorf("%s --%s remains parser-required", operation.ID, name)
+				}
+			case *cli.IntFlag:
+				if typed.Required {
+					t.Errorf("%s --%s remains parser-required", operation.ID, name)
+				}
+			case *cli.Int64Flag:
+				if typed.Required {
+					t.Errorf("%s --%s remains parser-required", operation.ID, name)
+				}
+			case *cli.Float64Flag:
+				if typed.Required {
+					t.Errorf("%s --%s remains parser-required", operation.ID, name)
+				}
+			case *cli.BoolFlag:
+				if typed.Required {
+					t.Errorf("%s --%s remains parser-required", operation.ID, name)
+				}
+			case *cli.StringSliceFlag:
+				if typed.Required {
+					t.Errorf("%s --%s remains parser-required", operation.ID, name)
+				}
+			}
+			if i > 0 && command.Flags[i-1].Names()[0] > name {
+				t.Errorf("%s flags are unsorted", operation.ID)
+			}
+		}
+		for _, parameter := range operation.Parameters {
+			if !names[parameter.Name] {
+				t.Errorf("%s missing generated --%s", operation.ID, parameter.Name)
+			}
+		}
+		switch requestBodyKind(operation) {
+		case bodyJSON:
+			if !names["data"] {
+				t.Errorf("%s missing generated --data", operation.ID)
+			}
+		case bodyMultipart:
+			if !names["file"] {
+				t.Errorf("%s missing --file", operation.ID)
+			}
 		}
 	}
 }

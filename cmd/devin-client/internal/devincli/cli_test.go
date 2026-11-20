@@ -4,16 +4,19 @@ import (
 	"bytes"
 	"context"
 	"errors"
+	"flag"
 	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
-	"net/url"
 	"os"
 	"path/filepath"
 	"reflect"
 	"strings"
 	"testing"
+	"time"
+
+	"github.com/urfave/cli/v2"
 )
 
 const (
@@ -26,27 +29,8 @@ const (
 	indexRepository   = "handle_index_single_repository_v3_organizations__org_id__repositories__repository_path__indexing_put"
 )
 
-type httpDispatcher struct {
-	client   *http.Client
-	settings settings
-}
-
-func (d httpDispatcher) Do(_ context.Context, request *http.Request) (*http.Response, error) {
-	base, err := url.Parse(d.settings.BaseURL)
-	if err == nil && request.URL.Scheme == base.Scheme && request.URL.Host == base.Host {
-		request.Header.Set("Authorization", "Bearer "+d.settings.APIKey)
-	}
-	return d.client.Do(request)
-}
-
 func testOptions(server *httptest.Server, getenv func(string) string) Options {
-	return Options{
-		Getenv:     getenv,
-		HTTPClient: server.Client(),
-		sdkFactory: func(configuration settings, client *http.Client) (sdkDispatcher, error) {
-			return httpDispatcher{client: client, settings: configuration}, nil
-		},
-	}
+	return Options{Getenv: getenv, HTTPClient: server.Client()}
 }
 
 func runOperation(ctx context.Context, operation string, flags ...string) ([]byte, []byte, int) {
@@ -63,7 +47,7 @@ func TestRunPreservesTypedQueryValuesAndRawResponse(t *testing.T) {
 		if request.Method != http.MethodGet || request.URL.Path != "/v3/enterprise/sessions/insights" {
 			t.Errorf("unexpected request %s %s", request.Method, request.URL.String())
 		}
-		if query.Get("created_after") != "0" || query.Get("first") != "0" || query.Get("is_archived") != "false" {
+		if query.Get("created_after") != "0" || query.Get("first") != "17" || query.Get("is_archived") != "false" {
 			t.Errorf("typed query values were lost: %v", query)
 		}
 		if got, want := query["tags"], []string{"alpha", "beta"}; !reflect.DeepEqual(got, want) {
@@ -89,7 +73,7 @@ func TestRunPreservesTypedQueryValuesAndRawResponse(t *testing.T) {
 		return ""
 	})
 	args := []string{"devin-client", "--allow-insecure-http", "--base-url", server.URL, "--api-key", "test-key", "--read-only",
-		insightsOperation, "--created_after", "0", "--first", "0", "--is_archived=false", "--tags", "alpha", "--tags", "beta"}
+		insightsOperation, "--created_after", "0", "--first", "17", "--is_archived=false", "--tags", "alpha", "--tags", "beta"}
 	var stdout, stderr bytes.Buffer
 	options.Stdout, options.Stderr = &stdout, &stderr
 	if code := Run(context.Background(), args, options); code != 0 {
@@ -97,6 +81,36 @@ func TestRunPreservesTypedQueryValuesAndRawResponse(t *testing.T) {
 	}
 	if stdout.String() != response {
 		t.Fatalf("stdout = %q; want raw response %q", stdout.String(), response)
+	}
+}
+
+func TestEnabledReadOnlyAndDryRunFormsNeverReadEnvironment(t *testing.T) {
+	values := []string{"1", "t", "T", "TRUE", "true", "True"}
+	runWithoutEnvironment := func(args []string) int {
+		return Run(context.Background(), args, Options{
+			Stdin: strings.NewReader(""), Stdout: io.Discard, Stderr: io.Discard,
+			Getenv: func(name string) string { t.Fatalf("Getenv(%q) called", name); return "" },
+		})
+	}
+	for _, value := range values {
+		for _, prefix := range []string{"--", "-"} {
+			flag := prefix + "read-only=" + value
+			if code := runWithoutEnvironment([]string{"devin-client", flag, appendTags}); code != 2 {
+				t.Errorf("global %s exit=%d; want read-only rejection", flag, code)
+			}
+			if code := runWithoutEnvironment([]string{"devin-client", appendTags, flag}); code != 2 {
+				t.Errorf("leaf %s exit=%d; want read-only rejection", flag, code)
+			}
+			flag = prefix + "dry-run=" + value
+			global := []string{"devin-client", flag, insightsOperation, "--base-url=" + defaultBaseURL, "--timeout=1s"}
+			leaf := []string{"devin-client", insightsOperation, flag, "--base-url=" + defaultBaseURL, "--timeout=1s"}
+			if code := runWithoutEnvironment(global); code != 0 {
+				t.Errorf("global %s exit=%d; want dry-run success", flag, code)
+			}
+			if code := runWithoutEnvironment(leaf); code != 0 {
+				t.Errorf("leaf %s exit=%d; want dry-run success", flag, code)
+			}
+		}
 	}
 }
 
@@ -272,7 +286,7 @@ func TestRunMultipartUploadStreamsFile(t *testing.T) {
 			}
 		}
 		writer.WriteHeader(http.StatusOK)
-		_, _ = io.WriteString(writer, "uploaded")
+		_, _ = io.WriteString(writer, `{"attachment_id":"att-1"}`)
 	}))
 	defer server.Close()
 	filePath := filepath.Join(t.TempDir(), "evidence.bin")
@@ -287,7 +301,7 @@ func TestRunMultipartUploadStreamsFile(t *testing.T) {
 	if code := Run(context.Background(), args, options); code != 0 {
 		t.Fatalf("Run() code = %d, stderr: %s", code, stderr.String())
 	}
-	if stdout.String() != "uploaded" {
+	if stdout.String() != `{"attachment_id":"att-1"}` {
 		t.Fatalf("stdout = %q", stdout.String())
 	}
 }
@@ -313,21 +327,16 @@ func TestReadOnlyRejectsWritesBeforeReadingInputsOrEnvironment(t *testing.T) {
 			var stdout, stderr bytes.Buffer
 			getenvCalls := 0
 			stdin := &countingReader{reader: strings.NewReader(`{"tag":"x"}`)}
-			factoryCalled := false
 			options := Options{
 				Stdin: stdin, Stdout: &stdout, Stderr: &stderr,
 				Getenv: func(string) string { getenvCalls++; return "" },
-				sdkFactory: func(settings, *http.Client) (sdkDispatcher, error) {
-					factoryCalled = true
-					return nil, errors.New("unexpected factory call")
-				},
 			}
 			args := append([]string{"devin-client", test.operation, "--read-only", "--dry-run", "--timeout=not-a-duration", "--api-key=secret"}, test.flags...)
 			if code := Run(context.Background(), args, options); code != 2 {
 				t.Fatalf("Run() code = %d; want 2; stderr: %s", code, stderr.String())
 			}
-			if getenvCalls != 0 || stdin.reads != 0 || factoryCalled {
-				t.Fatalf("read-only rejection side effects: getenv=%d stdin=%d factory=%t", getenvCalls, stdin.reads, factoryCalled)
+			if getenvCalls != 0 || stdin.reads != 0 {
+				t.Fatalf("read-only rejection side effects: getenv=%d stdin=%d", getenvCalls, stdin.reads)
 			}
 			if !strings.Contains(stderr.String(), "read-only mode") || strings.Contains(stderr.String(), "secret") {
 				t.Fatalf("unexpected diagnostic: %q", stderr.String())
@@ -342,7 +351,6 @@ func TestReadOnlyRejectsWritesBeforeReadingInputsOrEnvironment(t *testing.T) {
 func TestDryRunNeedsNoAPIKeyAndReportsRequest(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 	var getenvCalls []string
-	factoryCalled := false
 	options := Options{
 		Stdin: strings.NewReader(""), Stdout: &stdout, Stderr: &stderr,
 		Getenv: func(name string) string {
@@ -355,17 +363,10 @@ func TestDryRunNeedsNoAPIKeyAndReportsRequest(t *testing.T) {
 			}
 			return ""
 		},
-		sdkFactory: func(settings, *http.Client) (sdkDispatcher, error) {
-			factoryCalled = true
-			return nil, errors.New("dry-run must not create an SDK")
-		},
 	}
 	args := []string{"devin-client", createBlueprint, "--dry-run", "--api-key=argument-secret", "--data", `{"name":"preview"}`}
 	if code := Run(context.Background(), args, options); code != 0 {
 		t.Fatalf("Run() code = %d; stderr: %s", code, stderr.String())
-	}
-	if factoryCalled {
-		t.Fatal("dry-run constructed an SDK dispatcher")
 	}
 	if strings.Contains(strings.Join(getenvCalls, ","), "DEVIN_API_KEY") {
 		t.Fatalf("dry-run read API key environment variable: %v", getenvCalls)
@@ -396,9 +397,6 @@ func TestDryRunMultipartUsesStatMetadata(t *testing.T) {
 	options := Options{
 		Stdin: strings.NewReader(""), Stdout: &stdout, Stderr: &stderr,
 		Getenv: func(string) string { return "" },
-		sdkFactory: func(settings, *http.Client) (sdkDispatcher, error) {
-			return nil, errors.New("dry-run must not create an SDK")
-		},
 	}
 	args := []string{"devin-client", uploadAttachment, "--dry-run", "--org_id=org-1", "--file", filePath}
 	if code := Run(context.Background(), args, options); code != 0 {
@@ -435,13 +433,75 @@ func TestOpsAndVersionDoNotParseTimeoutOrReadEnvironment(t *testing.T) {
 		if len(args) > 1 && args[1] == "ops" && strings.Count(stdout.String(), "\n") != operationCount {
 			t.Errorf("ops output has %d lines; want %d", strings.Count(stdout.String(), "\n"), operationCount)
 		}
-		if len(args) > 1 && args[1] == "--version" && !strings.Contains(stdout.String(), "dev") {
-			t.Errorf("unreleased version output = %q; want dev", stdout.String())
+		if len(args) > 1 && args[1] == "--version" && stdout.String() != "dev\n" {
+			t.Errorf("unreleased version output = %q; want exactly dev newline", stdout.String())
 		}
 	}
 }
 
+func TestReleaseVersionPrintsOnlyTheReleaseValue(t *testing.T) {
+	previous := version
+	version = "v1.2.3"
+	defer func() { version = previous }()
+	var stdout, stderr bytes.Buffer
+	if code := Run(context.Background(), []string{"devin-client", "--version"}, Options{Stdout: &stdout, Stderr: &stderr, Getenv: func(string) string { t.Fatal("version read environment"); return "" }}); code != 0 {
+		t.Fatalf("version code=%d stderr=%q", code, stderr.String())
+	}
+	if stdout.String() != "v1.2.3\n" {
+		t.Fatalf("version output=%q", stdout.String())
+	}
+}
+
+func TestExplicitEmptyTimeoutAndPositionalsAreRejectedBeforeSideEffects(t *testing.T) {
+	t.Run("empty timeout", func(t *testing.T) {
+		var stdout, stderr bytes.Buffer
+		code := Run(context.Background(), []string{"devin-client", insightsOperation, "--dry-run", "--timeout="}, Options{Stdout: &stdout, Stderr: &stderr, Getenv: func(string) string { return "" }})
+		if code != 1 || !strings.Contains(stderr.String(), "timeout must be a Go duration") {
+			t.Fatalf("code=%d stderr=%q", code, stderr.String())
+		}
+	})
+	for _, terminator := range []bool{false, true} {
+		var stdout, stderr bytes.Buffer
+		getenvCalls, requests := 0, 0
+		server := httptest.NewServer(http.HandlerFunc(func(http.ResponseWriter, *http.Request) { requests++ }))
+		args := []string{"devin-client", insightsOperation, "--allow-insecure-http", "--base-url", server.URL, "--api-key=secret"}
+		if terminator {
+			args = append(args, "--", "unexpected")
+		} else {
+			args = append(args, "unexpected")
+		}
+		options := testOptions(server, func(string) string { getenvCalls++; return "" })
+		options.Stdout, options.Stderr = &stdout, &stderr
+		if code := Run(context.Background(), args, options); code != 2 {
+			t.Errorf("terminator=%v code=%d stderr=%q", terminator, code, stderr.String())
+		}
+		if requests != 0 || getenvCalls != 0 {
+			t.Errorf("terminator=%v requests=%d getenv=%d", terminator, requests, getenvCalls)
+		}
+		server.Close()
+	}
+}
+
+func TestMultipartAlwaysRequiresFileEvenWhenBodyOptional(t *testing.T) {
+	context := cli.NewContext(&cli.App{}, flag.NewFlagSet("test", flag.ContinueOnError), nil)
+	err := checkRequiredInputs(context, Operation{RequestBody: &RequestBody{Required: false, MediaTypes: []string{"multipart/form-data"}}})
+	if err == nil || !strings.Contains(err.Error(), "--file") {
+		t.Fatalf("error=%v; want required --file", err)
+	}
+}
+
 func TestErrorsAreClassifiedAndRedactSuppliedKey(t *testing.T) {
+	t.Run("credential equals diagnostic", func(t *testing.T) {
+		key := "invalid command syntax"
+		var stdout, stderr bytes.Buffer
+		args := []string{"devin-client", "--api-key", "old-key", insightsOperation, "-api-key", key, "--unknown-flag"}
+		if code := Run(context.Background(), args, Options{Stdout: &stdout, Stderr: &stderr, Getenv: func(string) string { return "" }}); code != 2 {
+			t.Fatalf("code=%d stderr=%q", code, stderr.String())
+		}
+		if strings.Contains(stderr.String(), key) {
+			t.Fatalf("diagnostic leaked exact credential: %q", stderr.String())
+		}
+	})
 	t.Run("flag parse error", func(t *testing.T) {
 		var stdout, stderr bytes.Buffer
 		args := []string{"devin-client", insightsOperation, "--api-key=private-key", "--created_after=private-key"}
@@ -500,21 +560,17 @@ func TestWrongBodyFlagIsRejectedBeforeSDKOrEnvironment(t *testing.T) {
 		{operation: createBlueprint, flags: []string{"--file", "/must/not/be/read", "--data", `{"x":1}`}},
 	} {
 		var stdout, stderr bytes.Buffer
-		getenvCalls, factoryCalls := 0, 0
+		getenvCalls := 0
 		options := Options{
 			Stdin: strings.NewReader(""), Stdout: &stdout, Stderr: &stderr,
 			Getenv: func(string) string { getenvCalls++; return "" },
-			sdkFactory: func(settings, *http.Client) (sdkDispatcher, error) {
-				factoryCalls++
-				return nil, errors.New("unexpected factory call")
-			},
 		}
 		args := append([]string{"devin-client", test.operation, "--api-key=test-key"}, test.flags...)
 		if code := Run(context.Background(), args, options); code != 2 {
 			t.Errorf("Run(%v) code = %d; want 2; stderr: %s", args, code, stderr.String())
 		}
-		if getenvCalls != 0 || factoryCalls != 0 {
-			t.Errorf("Run(%v) side effects: getenv=%d factory=%d", args, getenvCalls, factoryCalls)
+		if getenvCalls != 0 {
+			t.Errorf("Run(%v) side effects: getenv=%d", args, getenvCalls)
 		}
 		if strings.Contains(stdout.String()+stderr.String(), "test-key") {
 			t.Errorf("Run(%v) leaked the API key", args)
@@ -579,17 +635,198 @@ func TestOutputFailureReturnsExitOne(t *testing.T) {
 	}
 }
 
-func TestProductionRequestsReportPendingSDKIntegration(t *testing.T) {
+func TestInfoCommandOutputFailureReturnsExitOne(t *testing.T) {
+	var stderr bytes.Buffer
+	if code := Run(context.Background(), []string{"devin-client", "ops"}, Options{Stdout: failingWriter{}, Stderr: &stderr, Getenv: func(string) string { return "" }}); code != 1 {
+		t.Fatalf("ops writer failure code=%d stderr=%q", code, stderr.String())
+	}
+}
+
+func TestSDKTimeoutReturnsExitOne(t *testing.T) {
+	entered := make(chan struct{})
+	server := httptest.NewServer(http.HandlerFunc(func(_ http.ResponseWriter, request *http.Request) {
+		close(entered)
+		<-request.Context().Done()
+	}))
+	defer server.Close()
+	args := []string{"devin-client", insightsOperation, "--allow-insecure-http", "--base-url", server.URL, "--api-key=test-key", "--timeout=10ms"}
 	var stdout, stderr bytes.Buffer
-	args := []string{"devin-client", insightsOperation, "--api-key=test-key"}
-	code := Run(context.Background(), args, Options{
-		Stdin: strings.NewReader(""), Stdout: &stdout, Stderr: &stderr, Getenv: func(string) string { return "" },
-	})
-	if code != 1 || !strings.Contains(stderr.String(), "SDK integration is pending") {
+	options := testOptions(server, func(string) string { return "" })
+	options.Stdout, options.Stderr = &stdout, &stderr
+	if code := Run(context.Background(), args, options); code != 1 {
+		t.Fatalf("timeout code=%d stderr=%q", code, stderr.String())
+	}
+	select {
+	case <-entered:
+	case <-time.After(time.Second):
+		t.Fatal("request did not reach local server")
+	}
+}
+
+func TestSDKCancellationReturnsExitOne(t *testing.T) {
+	entered := make(chan struct{}, 1)
+	server := httptest.NewServer(http.HandlerFunc(func(_ http.ResponseWriter, request *http.Request) { entered <- struct{}{}; <-request.Context().Done() }))
+	defer server.Close()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+	go func() { <-entered; cancel() }()
+	args := []string{"devin-client", insightsOperation, "--allow-insecure-http", "--base-url", server.URL, "--api-key=test-key"}
+	var stdout, stderr bytes.Buffer
+	options := testOptions(server, func(string) string { return "" })
+	options.Stdout, options.Stderr = &stdout, &stderr
+	if code := Run(ctx, args, options); code != 1 {
+		t.Fatalf("cancellation code=%d stderr=%q", code, stderr.String())
+	}
+}
+
+func TestProductionRequestsUseAuthenticatedSDKTransportAndPreserveRawResponse(t *testing.T) {
+	var stdout, stderr bytes.Buffer
+	const raw = "{ \"raw\": true }\n"
+	server := httptest.NewServer(http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
+		if request.Header.Get("Authorization") != "Bearer test-key" {
+			t.Errorf("Authorization=%q", request.Header.Get("Authorization"))
+		}
+		_, _ = io.WriteString(writer, raw)
+	}))
+	defer server.Close()
+	options := testOptions(server, func(string) string { return "" })
+	options.Stdout, options.Stderr = &stdout, &stderr
+	args := []string{"devin-client", insightsOperation, "--allow-insecure-http", "--base-url", server.URL, "--api-key=test-key"}
+	code := Run(context.Background(), args, options)
+	if code != 0 {
 		t.Fatalf("stdout=%q stderr=%q code=%d", stdout.String(), stderr.String(), code)
 	}
-	if stdout.Len() != 0 {
-		t.Fatalf("stdout = %q", stdout.String())
+	if stdout.String() != raw {
+		t.Fatalf("stdout=%q want raw %q", stdout.String(), raw)
+	}
+}
+
+func TestSpecialSDKOperationsUseSDKMethodsAndPreserveRawOutput(t *testing.T) {
+	filePath := filepath.Join(t.TempDir(), "upload.txt")
+	if err := os.WriteFile(filePath, []byte("upload-data"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	cases := []struct {
+		id, method, path, query, response string
+		flags                             []string
+		multipart                         bool
+	}{
+		{id: "handle_get_self_v3_self_get", method: http.MethodGet, path: "/v3/self", response: "{ \"self\": true }\n"},
+		{id: uploadAttachment, method: http.MethodPost, path: "/v3/organizations/org-1/attachments", response: "{\"attachment_id\":\"att-1\"}\n", flags: []string{"--org_id=org-1", "--file", filePath}, multipart: true},
+		{id: "upload_enterprise_blueprint_file_endpoint_v3_enterprise_snapshot_setup_blueprints__blueprint_id__files_post", method: http.MethodPost, path: "/v3/enterprise/snapshot-setup/blueprints/bp-1/files", query: "name=blueprint", response: "{\"name\":\"file\"}\n", flags: []string{"--blueprint_id=bp-1", "--name=blueprint", "--file", filePath}, multipart: true},
+		{id: "upload_org_blueprint_file_v3_organizations__org_id__snapshot_setup_blueprints__blueprint_id__files_post", method: http.MethodPost, path: "/v3/organizations/org-1/snapshot-setup/blueprints/bp-1/files", query: "name=blueprint", response: "{\"name\":\"file\"}\n", flags: []string{"--org_id=org-1", "--blueprint_id=bp-1", "--name=blueprint", "--file", filePath}, multipart: true},
+	}
+	for _, test := range cases {
+		t.Run(test.id, func(t *testing.T) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				if r.Method != test.method || r.URL.Path != test.path || r.URL.RawQuery != test.query {
+					t.Errorf("request=%s %s?%s", r.Method, r.URL.Path, r.URL.RawQuery)
+				}
+				if r.Header.Get("Authorization") != "Bearer test-key" {
+					t.Errorf("authorization=%q", r.Header.Get("Authorization"))
+				}
+				if test.multipart {
+					file, header, err := r.FormFile("file")
+					if err != nil {
+						t.Errorf("FormFile: %v", err)
+					} else {
+						data, _ := io.ReadAll(file)
+						file.Close()
+						if header.Filename != "upload.txt" || string(data) != "upload-data" {
+							t.Errorf("upload=%s %q", header.Filename, data)
+						}
+					}
+				}
+				_, _ = io.WriteString(w, test.response)
+			}))
+			defer server.Close()
+			args := []string{"devin-client", test.id, "--allow-insecure-http", "--base-url", server.URL, "--api-key=test-key"}
+			args = append(args, test.flags...)
+			var stdout, stderr bytes.Buffer
+			options := testOptions(server, func(string) string { return "" })
+			options.Stdout, options.Stderr = &stdout, &stderr
+			if code := Run(context.Background(), args, options); code != 0 {
+				t.Fatalf("code=%d stderr=%q", code, stderr.String())
+			}
+			if stdout.String() != test.response {
+				t.Fatalf("stdout=%q want=%q", stdout.String(), test.response)
+			}
+		})
+	}
+}
+
+func TestAllOperationCommandsSupportHelpDryRunAndReadOnly(t *testing.T) {
+	projection, err := embeddedProjection()
+	if err != nil {
+		t.Fatal(err)
+	}
+	filePath := filepath.Join(t.TempDir(), "empty-upload")
+	if err := os.WriteFile(filePath, nil, 0o600); err != nil {
+		t.Fatal(err)
+	}
+	r := &runner{ctx: context.Background(), opts: Options{Stdin: strings.NewReader(""), Getenv: func(name string) string {
+		if name == "DEVIN_API_KEY" {
+			t.Fatal("offline command read API key")
+		}
+		return ""
+	}}, stdout: &trackingWriter{writer: io.Discard}, stderr: &trackingWriter{writer: io.Discard}}
+	app, err := r.newApp()
+	if err != nil {
+		t.Fatal(err)
+	}
+	run := func(args []string) int {
+		err := app.RunContext(context.Background(), args)
+		if err == nil {
+			return 0
+		}
+		var commandErr *commandFailure
+		if errors.As(err, &commandErr) {
+			return commandErr.code
+		}
+		return 2
+	}
+	for _, operation := range projection.Operations {
+		if code := run([]string{"devin-client", operation.ID, "--help"}); code != 0 {
+			t.Errorf("%s help exit=%d", operation.ID, code)
+		}
+		args := []string{"devin-client", operation.ID}
+		for _, parameter := range operation.Parameters {
+			if !parameter.Required {
+				continue
+			}
+			value := "x"
+			switch parameter.Type {
+			case "integer", "number":
+				value = "1"
+			case "boolean":
+				value = "true"
+			case "object", "union":
+				value = "{}"
+			}
+			args = append(args, "--"+parameter.Name+"="+value)
+		}
+		if operation.RequestBody != nil {
+			switch requestBodyKind(operation) {
+			case bodyJSON:
+				if operation.RequestBody.Required {
+					args = append(args, "--data={}")
+				}
+			case bodyMultipart:
+				args = append(args, "--file", filePath)
+			}
+		}
+		args = append(args, "--dry-run")
+		if code := run(args); code != 0 {
+			t.Errorf("%s dry-run exit=%d", operation.ID, code)
+		}
+		readonlyArgs := append(append([]string(nil), args...), "--read-only")
+		want := 0
+		if operation.Method != http.MethodGet && operation.Method != http.MethodHead {
+			want = 2
+		}
+		if code := run(readonlyArgs); code != want {
+			t.Errorf("%s read-only exit=%d want=%d", operation.ID, code, want)
+		}
 	}
 }
 
@@ -597,9 +834,7 @@ func TestNetworkFailureReturnsExitOneAndRedactsKey(t *testing.T) {
 	var stdout, stderr bytes.Buffer
 	options := Options{
 		Stdin: strings.NewReader(""), Stdout: &stdout, Stderr: &stderr, Getenv: func(string) string { return "" },
-		sdkFactory: func(settings, *http.Client) (sdkDispatcher, error) {
-			return failingDispatcher{}, nil
-		},
+		HTTPClient: &http.Client{Transport: failingRoundTripper{}},
 	}
 	args := []string{"devin-client", insightsOperation, "--api-key=private-key"}
 	if code := Run(context.Background(), args, options); code != 1 {
@@ -610,8 +845,8 @@ func TestNetworkFailureReturnsExitOneAndRedactsKey(t *testing.T) {
 	}
 }
 
-type failingDispatcher struct{}
+type failingRoundTripper struct{}
 
-func (failingDispatcher) Do(context.Context, *http.Request) (*http.Response, error) {
+func (failingRoundTripper) RoundTrip(*http.Request) (*http.Response, error) {
 	return nil, errors.New("private-key network failure")
 }

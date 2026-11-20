@@ -7,11 +7,9 @@ import (
 	"fmt"
 	"io"
 	"math"
-	"mime/multipart"
 	"net/http"
 	"net/url"
 	"os"
-	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
@@ -35,13 +33,19 @@ type preparedRequest struct {
 	preview    string
 	uploadPath string
 	uploadSize int64
-	finish     func() error
+	values     map[string]any
 }
 
 func (r *runner) operationAction(operation Operation) cli.ActionFunc {
 	return func(c *cli.Context) error {
 		if lookupBool(c, "read-only") && operation.Method != http.MethodGet && operation.Method != http.MethodHead {
 			return failure(2, fmt.Sprintf("read-only mode: %s %s is not allowed", operation.Method, operation.Path))
+		}
+		if c.Args().Len() != 0 {
+			return failure(2, "operation does not accept positional arguments")
+		}
+		if !lookupBool(c, "dry-run") {
+			r.apiKey = settingValue(c, "api-key", "DEVIN_API_KEY", r.opts.Getenv)
 		}
 		if err := checkRequiredInputs(c, operation); err != nil {
 			return err
@@ -66,38 +70,15 @@ func (r *runner) operationAction(operation Operation) cli.ActionFunc {
 			return nil
 		}
 
-		factory := r.opts.sdkFactory
-		if factory == nil {
-			factory = pendingSDKFactory
-		}
-		dispatcher, err := factory(settings, requestHTTPClient(r.opts.HTTPClient, settings.Timeout))
+		dispatcher, err := newSDKDispatcher(settings, r.opts.HTTPClient)
 		if err != nil {
-			return failure(1, err.Error())
+			return failure(1, "could not initialize API client")
 		}
-		if prepared.uploadPath != "" {
-			reader, contentType, finish, streamErr := streamMultipart(prepared.uploadPath)
-			if streamErr != nil {
-				return failure(1, "could not open upload file")
-			}
-			prepared.request.Body = reader
-			prepared.request.ContentLength = -1
-			prepared.request.Header.Set("Content-Type", contentType)
-			prepared.finish = finish
-		}
-
-		response, err := dispatcher.Do(r.ctx, prepared.request)
-		if prepared.finish != nil {
-			if prepared.request.Body != nil {
-				_ = prepared.request.Body.Close()
-			}
-			if finishErr := prepared.finish(); finishErr != nil {
-				if response != nil && response.Body != nil {
-					_ = response.Body.Close()
-				}
-				return failure(1, "could not read upload file")
-			}
-		}
+		response, err := dispatcher.Do(r.ctx, operation, prepared.request, input, prepared.values)
 		if err != nil {
+			if response != nil && response.Body != nil {
+				_ = response.Body.Close()
+			}
 			return failure(1, "API request failed")
 		}
 		if response == nil {
@@ -130,7 +111,7 @@ func checkRequiredInputs(c *cli.Context, operation Operation) error {
 			return failure(2, "required input missing: --data")
 		}
 	case bodyMultipart:
-		if operation.RequestBody.Required && !c.IsSet("file") {
+		if !c.IsSet("file") {
 			return failure(2, "required input missing: --file")
 		}
 	default:
@@ -173,6 +154,7 @@ func prepareRequest(ctx context.Context, c *cli.Context, operation Operation, se
 	requestPath := operation.Path
 	query := make(url.Values)
 	header := make(http.Header)
+	values := make(map[string]any, len(operation.Parameters))
 	for _, parameter := range operation.Parameters {
 		if !c.IsSet(parameter.Name) {
 			continue
@@ -181,6 +163,7 @@ func prepareRequest(ctx context.Context, c *cli.Context, operation Operation, se
 		if err != nil {
 			return preparedRequest{}, failure(2, "invalid value for --"+parameter.Name)
 		}
+		values[parameter.Name] = value
 		switch parameter.In {
 		case "path":
 			if strings.Contains(requestPath, "{"+parameter.Name+"}") {
@@ -240,7 +223,7 @@ func prepareRequest(ctx context.Context, c *cli.Context, operation Operation, se
 		return preparedRequest{}, failure(1, "could not construct API request")
 	}
 	request.Header = header
-	prepared := preparedRequest{request: request, uploadPath: input.filePath, uploadSize: input.fileSize}
+	prepared := preparedRequest{request: request, uploadPath: input.filePath, uploadSize: input.fileSize, values: values}
 	if settings.DryRun {
 		prepared.preview = dryRunOutput(request, bodyBytes, input.filePath, input.fileSize)
 	}
@@ -250,7 +233,7 @@ func prepareRequest(ctx context.Context, c *cli.Context, operation Operation, se
 func flagValue(c *cli.Context, parameter Parameter) (any, error) {
 	switch parameter.Type {
 	case "integer":
-		return c.Int64(parameter.Name), nil
+		return int64(c.Int(parameter.Name)), nil
 	case "number":
 		number := c.Float64(parameter.Name)
 		if math.IsNaN(number) || math.IsInf(number, 0) {
@@ -405,35 +388,4 @@ func readJSONInput(source string, stdin io.Reader) ([]byte, error) {
 		return nil, failure(2, "request body must be exactly one valid JSON document")
 	}
 	return data, nil
-}
-
-func streamMultipart(filePath string) (io.ReadCloser, string, func() error, error) {
-	reader, writer := io.Pipe()
-	multipartWriter := multipart.NewWriter(writer)
-	contentType := multipartWriter.FormDataContentType()
-	done := make(chan error, 1)
-	go func() {
-		file, err := os.Open(filePath)
-		if err == nil {
-			var part io.Writer
-			part, err = multipartWriter.CreateFormFile("file", filepath.Base(filePath))
-			if err == nil {
-				_, err = io.Copy(part, file)
-			}
-			if closeErr := file.Close(); err == nil {
-				err = closeErr
-			}
-		}
-		if err == nil {
-			err = multipartWriter.Close()
-			if err == nil {
-				err = writer.Close()
-			}
-		} else {
-			_ = writer.CloseWithError(err)
-		}
-		done <- err
-	}()
-	wait := func() error { return <-done }
-	return reader, contentType, wait, nil
 }
