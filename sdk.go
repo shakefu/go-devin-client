@@ -10,10 +10,8 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"mime"
 	"mime/multipart"
 	"net/http"
-	"net/textproto"
 	"net/url"
 	"strconv"
 	"strings"
@@ -304,17 +302,13 @@ func (c *Client) sendMultipart(ctx context.Context, method, path string, pathPar
 }
 
 func multipartStream(fileName string, file io.Reader) (io.Reader, string, error) {
-	disposition := mime.FormatMediaType("form-data", map[string]string{"name": "file", "filename": fileName})
-	if disposition == "" {
-		return nil, "", errors.New("devin: invalid multipart filename")
+	if strings.ContainsAny(fileName, "\r\n") {
+		return nil, "", errors.New("devin: multipart filename must not contain CR or LF")
 	}
 
 	var buffer bytes.Buffer
 	writer := multipart.NewWriter(&buffer)
-	header := make(textproto.MIMEHeader)
-	header.Set("Content-Disposition", disposition)
-	header.Set("Content-Type", "application/octet-stream")
-	if _, err := writer.CreatePart(header); err != nil {
+	if _, err := writer.CreateFormFile("file", fileName); err != nil {
 		return nil, "", fmt.Errorf("devin: create multipart file part: %w", err)
 	}
 	prefixLength := buffer.Len()

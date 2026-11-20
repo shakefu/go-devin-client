@@ -368,6 +368,7 @@ type uploadObservation struct {
 	rawQuery        string
 	authorization   string
 	requestType     string
+	disposition     string
 	partType        string
 	formName        string
 	fileName        string
@@ -377,6 +378,7 @@ type uploadObservation struct {
 }
 
 func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
+	const uploadFileName = `résumé "one"\draft.txt`
 	cases := []struct {
 		name         string
 		wantPath     string
@@ -395,7 +397,7 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 			responseBody: `{"name":"uploaded"}`,
 			checkResult: func(t *testing.T, client *Client, file io.Reader) (*APIResponse, error) {
 				got, metadata, err := client.UploadEnterpriseBlueprintFile(context.Background(), UploadEnterpriseBlueprintFileParams{
-					BlueprintID: "blue/one", Name: "", FileName: `résumé "one".txt`, File: file,
+					BlueprintID: "blue/one", Name: "", FileName: uploadFileName, File: file,
 				})
 				if err == nil && (got == nil || got.Name != "uploaded") {
 					t.Errorf("enterprise upload result = %#v", got)
@@ -411,7 +413,7 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 			responseBody: `{"attachment_id":"att-1"}`,
 			checkResult: func(t *testing.T, client *Client, file io.Reader) (*APIResponse, error) {
 				got, metadata, err := client.UploadAttachment(context.Background(), UploadAttachmentParams{
-					OrgID: "org/team", FileName: `résumé "one".txt`, File: file,
+					OrgID: "org/team", FileName: uploadFileName, File: file,
 				})
 				if err == nil && (got == nil || got.AttachmentId != "att-1") {
 					t.Errorf("attachment upload result = %#v", got)
@@ -428,7 +430,7 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 			responseBody: `{"name":"uploaded"}`,
 			checkResult: func(t *testing.T, client *Client, file io.Reader) (*APIResponse, error) {
 				got, metadata, err := client.UploadOrgBlueprintFile(context.Background(), UploadOrgBlueprintFileParams{
-					OrgID: "org team", BlueprintID: "blue/one", Name: "env file", FileName: `résumé "one".txt`, File: file,
+					OrgID: "org team", BlueprintID: "blue/one", Name: "env file", FileName: uploadFileName, File: file,
 				})
 				if err == nil && (got == nil || got.Name != "uploaded") {
 					t.Errorf("organization blueprint upload result = %#v", got)
@@ -465,6 +467,7 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 					} else {
 						observation.formName = part.FormName()
 						observation.fileName = part.FileName()
+						observation.disposition = part.Header.Get("Content-Disposition")
 						observation.partType = part.Header.Get("Content-Type")
 						contents, err := io.ReadAll(part)
 						if err != nil {
@@ -504,8 +507,11 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 			if observation.authorization != "Bearer upload-key" {
 				t.Errorf("upload Authorization = %q", observation.authorization)
 			}
-			if observation.formName != "file" || observation.fileName != `résumé "one".txt` || observation.partType != "application/octet-stream" {
+			if observation.formName != "file" || observation.fileName != uploadFileName || observation.partType != "application/octet-stream" {
 				t.Errorf("file part name=%q filename=%q content-type=%q", observation.formName, observation.fileName, observation.partType)
+			}
+			if !strings.Contains(observation.disposition, `filename="résumé \"one\"\\draft.txt"`) || strings.Contains(strings.ToLower(observation.disposition), "filename*=") {
+				t.Errorf("Content-Disposition = %q, want RFC7578 quoted filename without filename*", observation.disposition)
 			}
 			if observation.fileContents != "file payload" || observation.additionalParts {
 				t.Errorf("file contents=%q additional parts=%v", observation.fileContents, observation.additionalParts)
@@ -517,6 +523,52 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 				t.Errorf("upload closed caller-owned reader %d times", got)
 			}
 		})
+	}
+}
+
+func TestMultipartStreamUsesRFC7578QuotedFilename(t *testing.T) {
+	const filename = `résumé "one"\draft.txt`
+	body, contentType, err := multipartStream(filename, strings.NewReader("payload"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	request := httptest.NewRequest(http.MethodPost, "http://example.test/upload", body)
+	request.Header.Set("Content-Type", contentType)
+	reader, err := request.MultipartReader()
+	if err != nil {
+		t.Fatal(err)
+	}
+	part, err := reader.NextPart()
+	if err != nil {
+		t.Fatal(err)
+	}
+	disposition := part.Header.Get("Content-Disposition")
+	if !strings.Contains(disposition, `filename="résumé \"one\"\\draft.txt"`) || strings.Contains(strings.ToLower(disposition), "filename*=") {
+		t.Fatalf("Content-Disposition = %q, want RFC7578 quoted filename without filename*", disposition)
+	}
+	if got := part.FileName(); got != filename {
+		t.Errorf("multipart filename = %q, want %q", got, filename)
+	}
+	contents, err := io.ReadAll(part)
+	if err != nil || string(contents) != "payload" {
+		t.Errorf("multipart file contents=%q err=%v", contents, err)
+	}
+}
+
+func TestUploadRejectsCRLFInFilenameBeforeRequest(t *testing.T) {
+	inner := &recordedTransport{}
+	client := newTestClient(t, "https://upload.example.test", inner)
+	metadata, err := func() (*APIResponse, error) {
+		_, metadata, err := client.UploadAttachment(context.Background(), UploadAttachmentParams{
+			OrgID: "org-1", FileName: "safe\r\nX-Injected: yes", File: strings.NewReader("contents"),
+		})
+		return metadata, err
+	}()
+	if err == nil || metadata != nil {
+		t.Fatalf("unsafe filename returned metadata=%#v error=%v", metadata, err)
+	}
+	if inner.calls.Load() != 0 {
+		t.Fatalf("unsafe filename reached transport %d times", inner.calls.Load())
 	}
 }
 
