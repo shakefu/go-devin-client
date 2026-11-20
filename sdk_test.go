@@ -947,6 +947,40 @@ func TestOpenAPISpecReturnsFreshCopies(t *testing.T) {
 	}
 }
 
+type idleClosingTransport struct {
+	closed atomic.Int32
+}
+
+func (*idleClosingTransport) RoundTrip(request *http.Request) (*http.Response, error) {
+	return testResponse(request, http.StatusOK, `{}`), nil
+}
+
+func (t *idleClosingTransport) CloseIdleConnections() {
+	t.closed.Add(1)
+}
+
+func TestAuthenticatedClientForwardsCloseIdleConnections(t *testing.T) {
+	inner := &idleClosingTransport{}
+	client, err := New(Config{APIKey: "idle-key", HTTPClient: &http.Client{Transport: inner}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	client.HTTP.CloseIdleConnections()
+	if got := inner.closed.Load(); got != 1 {
+		t.Errorf("CloseIdleConnections forwarded %d times, want once", got)
+	}
+
+	unsupported := &recordedTransport{}
+	client, err = New(Config{APIKey: "idle-key", HTTPClient: &http.Client{Transport: unsupported}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	client.HTTP.CloseIdleConnections()
+	if got := unsupported.calls.Load(); got != 0 {
+		t.Errorf("closing idle connections unexpectedly made %d requests", got)
+	}
+}
+
 func TestEffectiveOriginComparisonRejectsPortAndSchemeChanges(t *testing.T) {
 	inner := &recordedTransport{}
 	client := newTestClient(t, "https://example.test", inner)
