@@ -492,6 +492,8 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
+			client.DefaultHeaders = make(http.Header)
+			client.DefaultHeaders.Set("Content-Type", "application/json")
 			file := &trackedReader{Reader: strings.NewReader("file payload")}
 			metadata, err := tc.checkResult(t, client, file)
 			if err != nil {
@@ -499,7 +501,7 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 			}
 			observation := <-observed
 			if observation.err != "" {
-				t.Fatalf("multipart observation error: %s", observation.err)
+				t.Fatalf("multipart observation error: %s (request Content-Type %q)", observation.err, observation.requestType)
 			}
 			if observation.method != tc.wantMethod || observation.path != tc.wantPath || observation.rawQuery != tc.wantQuery {
 				t.Errorf("request = %s %s?%s; want %s %s?%s", observation.method, observation.path, observation.rawQuery, tc.wantMethod, tc.wantPath, tc.wantQuery)
@@ -518,6 +520,9 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 			}
 			if metadata == nil || metadata.StatusCode != tc.wantStatus || metadata.Header.Get("X-Upload") != "received" {
 				t.Errorf("upload response metadata = %#v", metadata)
+			}
+			if got := client.DefaultHeaders.Get("Content-Type"); got != "application/json" {
+				t.Errorf("upload mutated client's default Content-Type to %q", got)
 			}
 			if got := file.closed.Load(); got != 0 {
 				t.Errorf("upload closed caller-owned reader %d times", got)
