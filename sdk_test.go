@@ -371,7 +371,6 @@ type uploadObservation struct {
 	disposition     string
 	partType        string
 	formName        string
-	fileName        string
 	fileContents    string
 	additionalParts bool
 	err             string
@@ -466,7 +465,6 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 						observation.err = err.Error()
 					} else {
 						observation.formName = part.FormName()
-						observation.fileName = part.FileName()
 						observation.disposition = part.Header.Get("Content-Disposition")
 						observation.partType = part.Header.Get("Content-Type")
 						contents, err := io.ReadAll(part)
@@ -509,8 +507,12 @@ func TestMultipartUploadsMatchContractsAndStreamReaders(t *testing.T) {
 			if observation.authorization != "Bearer upload-key" {
 				t.Errorf("upload Authorization = %q", observation.authorization)
 			}
-			if observation.formName != "file" || observation.fileName != uploadFileName || observation.partType != "application/octet-stream" {
-				t.Errorf("file part name=%q filename=%q content-type=%q", observation.formName, observation.fileName, observation.partType)
+			dispositionType, dispositionParams, err := mime.ParseMediaType(observation.disposition)
+			if err != nil {
+				t.Fatalf("parse Content-Disposition %q: %v", observation.disposition, err)
+			}
+			if observation.formName != "file" || dispositionType != "form-data" || dispositionParams["name"] != "file" || dispositionParams["filename"] != uploadFileName || observation.partType != "application/octet-stream" {
+				t.Errorf("file part name=%q Content-Disposition=%q content-type=%q", observation.formName, observation.disposition, observation.partType)
 			}
 			if !strings.Contains(observation.disposition, `filename="résumé \"one\"\\draft.txt"`) || strings.Contains(strings.ToLower(observation.disposition), "filename*=") {
 				t.Errorf("Content-Disposition = %q, want RFC7578 quoted filename without filename*", observation.disposition)
@@ -551,8 +553,12 @@ func TestMultipartStreamUsesRFC7578QuotedFilename(t *testing.T) {
 	if !strings.Contains(disposition, `filename="résumé \"one\"\\draft.txt"`) || strings.Contains(strings.ToLower(disposition), "filename*=") {
 		t.Fatalf("Content-Disposition = %q, want RFC7578 quoted filename without filename*", disposition)
 	}
-	if got := part.FileName(); got != filename {
-		t.Errorf("multipart filename = %q, want %q", got, filename)
+	dispositionType, dispositionParams, err := mime.ParseMediaType(disposition)
+	if err != nil {
+		t.Fatalf("parse Content-Disposition %q: %v", disposition, err)
+	}
+	if dispositionType != "form-data" || dispositionParams["name"] != "file" || dispositionParams["filename"] != filename {
+		t.Errorf("parsed Content-Disposition type=%q params=%#v, want form-data filename %q", dispositionType, dispositionParams, filename)
 	}
 	contents, err := io.ReadAll(part)
 	if err != nil || string(contents) != "payload" {
